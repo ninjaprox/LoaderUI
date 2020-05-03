@@ -8,33 +8,33 @@
 
 import SwiftUI
 
-struct ProgressEffect: AnimatableModifier {
+struct KeyframeAnimation: AnimatableModifier {
     typealias OnCompleteHandler = (Int) -> Void
 
-    private let keyFrame: Int
-    private var animatableProgress: Double
+    private let keyframe: Int
+    private var progressiveKeyframe: Double
     private let onComplete: OnCompleteHandler
 
-    init(progress: Double, onComplete: @escaping OnCompleteHandler) {
-        self.keyFrame = Int(progress)
-        self.animatableProgress = progress
+    init(keyframe: Double, onComplete: @escaping OnCompleteHandler) {
+        self.keyframe = Int(keyframe)
+        self.progressiveKeyframe = keyframe
         self.onComplete = onComplete
-        print("init \(progress)")
+        print("init \(keyframe)")
     }
 
     var animatableData: Double {
         get {
-            print("get \(animatableProgress)")
+            print("get \(progressiveKeyframe)")
 
-            return animatableProgress
+            return progressiveKeyframe
         }
         set {
-            print("before set \(animatableProgress) \(newValue)")
-            animatableProgress = newValue
-            print("set \(animatableProgress)")
+            print("before set \(progressiveKeyframe) \(newValue)")
+            progressiveKeyframe = newValue
+            print("set \(progressiveKeyframe)")
 
-            if Int(animatableProgress) == keyFrame {
-                onComplete(keyFrame)
+            if Int(progressiveKeyframe) == keyframe {
+                onComplete(keyframe)
             }
         }
     }
@@ -55,9 +55,9 @@ enum TimingFunction {
     }
 }
 
-typealias ProgressUpdater = (Bool) -> Void
+typealias KeyframeUpdater = (Bool) -> Void
 typealias AnimationUpdater = (Double) -> Void
-typealias Updater = (Bool, @escaping ProgressUpdater, @escaping AnimationUpdater) -> Void
+typealias Updater = (Bool, @escaping KeyframeUpdater, @escaping AnimationUpdater) -> Void
 
 
 func withChainedAnimation(beginTime: Double,
@@ -78,12 +78,12 @@ func withChainedAnimation(beginTime: Double,
     return (0..<keyTimes.count).map { keyFrameIndex in
         let isFirstKeyFrame = keyFrameIndex == 0
         let isLastKeyFrame = keyFrameIndex == keyTimes.count - 1
-        let updater: Updater = { skipBeginTime, progressUpdater, animationUpdater in
+        let updater: Updater = { skipBeginTime, keyframeUpdater, animationUpdater in
             DispatchQueue.main.async {
                 let delay = isFirstKeyFrame && !skipBeginTime ? beginTime : 0
 
                 withAnimation(Animation.linear(duration: durations[keyFrameIndex]).delay(delay)) {
-                    progressUpdater(isLastKeyFrame)
+                    keyframeUpdater(isLastKeyFrame)
                 }
 
                 let value = isLastKeyFrame ? values[0] : values[keyFrameIndex + 1]

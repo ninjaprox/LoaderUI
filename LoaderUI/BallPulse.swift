@@ -10,7 +10,7 @@ import SwiftUI
 
 fileprivate struct MyCircle: View {
     @State private var scale: CGFloat = 1
-    @State private var progress: Double = 0
+    @State private var keyframe: Double = 0
     @State private var isRepeating = false
     let beginTime: Double
     let duration: Double
@@ -41,8 +41,8 @@ fileprivate struct MyCircle: View {
     }
 
     var body: some View {
-        let progressUpdater: ProgressUpdater = { isLastKeyFrame in
-            self.progress = isLastKeyFrame ? 0 : self.progress + 1
+        let keyframeUpdater: KeyframeUpdater = { isLastKeyFrame in
+            self.keyframe = isLastKeyFrame ? 0 : self.keyframe + 1
             if isLastKeyFrame {
                 self.isRepeating = true
             }
@@ -53,18 +53,18 @@ fileprivate struct MyCircle: View {
 
 
         return Circle()
-            .modifier(ProgressEffect(progress: progress) { keyFrame in
+            .modifier(KeyframeAnimation(keyframe: keyframe) { keyFrame in
                 print("onComplete")
-                let updater = self.updaters[Int(self.progress)]
+                let updater = self.updaters[Int(self.keyframe)]
 
-                updater(self.isRepeating, progressUpdater, animationUpdater)
+                updater(self.isRepeating, keyframeUpdater, animationUpdater)
             })
             .scaleEffect(scale)
             //            .modifier(progressEffect)
             .onAppear {
-                let updater = self.updaters[Int(self.progress)]
+                let updater = self.updaters[Int(self.keyframe)]
 
-                updater(self.isRepeating, progressUpdater, animationUpdater)
+                updater(self.isRepeating, keyframeUpdater, animationUpdater)
         }
     }
 }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F15977F245EE79A0094005C /* BallPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F15977E245EE79A0094005C /* BallPulse.swift */; };
-		1F159781245EE8300094005C /* KeyFrameAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F159780245EE8300094005C /* KeyFrameAnimation.swift */; };
+		1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F159780245EE8300094005C /* KeyframeAnimation.swift */; };
 		1FBFB72B244C68F000B6C7BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */; };
 		1FBFB72D244C68F000B6C7BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */; };
 		1FBFB72F244C68F000B6C7BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72E244C68F000B6C7BD /* ContentView.swift */; };
@@ -19,7 +19,7 @@
 
 /* Begin PBXFileReference section */
 		1F15977E245EE79A0094005C /* BallPulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallPulse.swift; sourceTree = "<group>"; };
-		1F159780245EE8300094005C /* KeyFrameAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyFrameAnimation.swift; sourceTree = "<group>"; };
+		1F159780245EE8300094005C /* KeyframeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeAnimation.swift; sourceTree = "<group>"; };
 		1FBFB727244C68F000B6C7BD /* LoaderUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoaderUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 				1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */,
 				1FBFB738244C68F200B6C7BD /* Info.plist */,
 				1FBFB732244C68F200B6C7BD /* Preview Content */,
-				1F159780245EE8300094005C /* KeyFrameAnimation.swift */,
+				1F159780245EE8300094005C /* KeyframeAnimation.swift */,
 			);
 			path = LoaderUI;
 			sourceTree = "<group>";
@@ -153,7 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FBFB72B244C68F000B6C7BD /* AppDelegate.swift in Sources */,
-				1F159781245EE8300094005C /* KeyFrameAnimation.swift in Sources */,
+				1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */,
 				1FBFB72D244C68F000B6C7BD /* SceneDelegate.swift in Sources */,
 				1F15977F245EE79A0094005C /* BallPulse.swift in Sources */,
 				1FBFB72F244C68F000B6C7BD /* ContentView.swift in Sources */,
