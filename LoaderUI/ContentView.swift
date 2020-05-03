@@ -113,7 +113,7 @@ enum TimingFunction {
 
 typealias ProgressUpdater = (Bool) -> Void
 typealias AnimationUpdater = (Double) -> Void
-typealias Updater = (@escaping ProgressUpdater, @escaping AnimationUpdater) -> Void
+typealias Updater = (Bool, @escaping ProgressUpdater, @escaping AnimationUpdater) -> Void
 
 
 func withChainedAnimation(beginTime: Double,
@@ -134,9 +134,11 @@ func withChainedAnimation(beginTime: Double,
     return (0..<keyTimes.count).map { keyFrameIndex in
         let isFirstKeyFrame = keyFrameIndex == 0
         let isLastKeyFrame = keyFrameIndex == keyTimes.count - 1
-        let updater: Updater = { progressUpdater, animationUpdater in
+        let updater: Updater = { skipBeginTime, progressUpdater, animationUpdater in
             DispatchQueue.main.async {
-                withAnimation(Animation.linear(duration: durations[keyFrameIndex]).delay(isFirstKeyFrame ? beginTime : 0)) {
+                let delay = isFirstKeyFrame && !skipBeginTime ? beginTime : 0
+
+                withAnimation(Animation.linear(duration: durations[keyFrameIndex]).delay(delay)) {
                     progressUpdater(isLastKeyFrame)
                 }
 
@@ -145,7 +147,7 @@ func withChainedAnimation(beginTime: Double,
                 if isLastKeyFrame {
                     animationUpdater(value)
                 } else {
-                    withAnimation(animations[keyFrameIndex].delay(isFirstKeyFrame ? beginTime : 0)) {
+                    withAnimation(animations[keyFrameIndex].delay(delay)) {
                         animationUpdater(value)
                     }
                 }
@@ -160,6 +162,7 @@ func withChainedAnimation(beginTime: Double,
 struct MyCircle: View {
     @State private var scale: CGFloat = 1
     @State private var progress: Double = 0
+    @State private var isRepeating = false
     let beginTime: Double
     let duration: Double
     let timingFunctions: [TimingFunction]
@@ -189,29 +192,30 @@ struct MyCircle: View {
     }
 
     var body: some View {
+        let progressUpdater: ProgressUpdater = { isLastKeyFrame in
+            self.progress = isLastKeyFrame ? 0 : self.progress + 1
+            if isLastKeyFrame {
+                self.isRepeating = true
+            }
+        }
+        let animationUpdater: AnimationUpdater = { value in
+            self.scale = CGFloat(value)
+        }
+
+
         return Circle()
             .modifier(ProgressEffect(progress: progress) { keyFrame in
                 print("onComplete")
                 let updater = self.updaters[Int(self.progress)]
 
-                updater({ isLastKeyFrame in
-                    self.progress = isLastKeyFrame ? 0 : self.progress + 1
-                }) { value in
-                    print("value: \(value)")
-                    self.scale = CGFloat(value)
-                }
+                updater(self.isRepeating, progressUpdater, animationUpdater)
             })
             .scaleEffect(scale)
             //            .modifier(progressEffect)
             .onAppear {
                 let updater = self.updaters[Int(self.progress)]
 
-                updater({ _ in
-                    self.progress += 1
-                }) { value in
-                    print("value: \(value)")
-                    self.scale = CGFloat(value)
-                }
+                updater(self.isRepeating, progressUpdater, animationUpdater)
         }
     }
 }
