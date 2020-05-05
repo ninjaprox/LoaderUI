@@ -10,35 +10,35 @@ import SwiftUI
 
 struct KeyframeAnimation: AnimatableModifier {
     typealias OnCompleteHandler = (Int) -> Void
-
+    
     private let keyframe: Int
     private var progressiveKeyframe: Double
     private let onComplete: OnCompleteHandler
-
+    
     init(keyframe: Double, onComplete: @escaping OnCompleteHandler) {
         self.keyframe = Int(keyframe)
         self.progressiveKeyframe = keyframe
         self.onComplete = onComplete
         print("init \(keyframe)")
     }
-
+    
     var animatableData: Double {
         get {
-//            print("get \(progressiveKeyframe)")
-
+            //            print("get \(progressiveKeyframe)")
+            
             return progressiveKeyframe
         }
         set {
-//            print("before set \(progressiveKeyframe) \(newValue)")
+            //            print("before set \(progressiveKeyframe) \(newValue)")
             progressiveKeyframe = newValue
-//            print("set \(progressiveKeyframe)")
-
+            //            print("set \(progressiveKeyframe)")
+            
             if Int(progressiveKeyframe) == keyframe {
                 onComplete(keyframe)
             }
         }
     }
-
+    
     func body(content: Content) -> some View {
         content
     }
@@ -46,7 +46,7 @@ struct KeyframeAnimation: AnimatableModifier {
 
 enum TimingFunction {
     case timingCurve(c0x: Double, c0y: Double, c1x: Double, c1y: Double)
-
+    
     func animation(duration: Double) -> Animation {
         switch self {
         case let .timingCurve(c0x, c0y, c1x, c1y):
@@ -65,29 +65,29 @@ func withChainedAnimation(beginTime: Double,
                           timingFunctions: [TimingFunction],
                           keyTimes: [Double],
                           values: [Double]) -> [Updater] {
-
+    
     assert(keyTimes.count - timingFunctions.count == 1)
-
+    
     let keyPercents = zip(keyTimes[0..<keyTimes.count - 1], keyTimes[1...])
         .map { $1 - $0 }
     let durations = keyPercents.map { duration * $0 } + [0]
     let animations = timingFunctions.enumerated().map { index, timingFunction in
         timingFunction.animation(duration: durations[index])
     }
-
+    
     return (0..<keyTimes.count).map { keyFrameIndex in
         let isFirstKeyFrame = keyFrameIndex == 0
         let isLastKeyFrame = keyFrameIndex == keyTimes.count - 1
         let updater: Updater = { skipBeginTime, keyframeUpdater, animationUpdater in
             DispatchQueue.main.async {
                 let delay = isFirstKeyFrame && !skipBeginTime ? beginTime : 0
-
+                
                 withAnimation(Animation.linear(duration: durations[keyFrameIndex]).delay(delay)) {
                     keyframeUpdater(isLastKeyFrame)
                 }
-
+                
                 let value = isLastKeyFrame ? values[0] : values[keyFrameIndex + 1]
-
+                
                 if isLastKeyFrame {
                     animationUpdater(value)
                 } else {
@@ -97,14 +97,14 @@ func withChainedAnimation(beginTime: Double,
                 }
             }
         }
-
+        
         return updater
     }
 }
 
 class KeyframeIterator: IteratorProtocol {
     typealias Element = (Int, Animation, Animation?, Bool)
-
+    
     private let beginTime: Double
     private let duration: Double
     private let timingFunctions: [TimingFunction]
@@ -113,7 +113,7 @@ class KeyframeIterator: IteratorProtocol {
     private let animations: [Animation]
     private var keyframe: Int = 0
     private var isRepeating = false
-
+    
     init(beginTime: Double,
          duration: Double,
          timingFunctions: [TimingFunction],
@@ -123,19 +123,19 @@ class KeyframeIterator: IteratorProtocol {
         self.duration = duration
         self.timingFunctions = timingFunctions
         self.keyTimes = keyTimes
-
+        
         assert(keyTimes.count - timingFunctions.count == 1)
-
+        
         let keyPercents = zip(keyTimes[0..<keyTimes.count - 1], keyTimes[1...])
             .map { $1 - $0 }
         let durations = keyPercents.map { duration * $0 }
-
+        
         self.durations = durations + [0]
         animations = zip(durations, timingFunctions).map { duration, timingFunction in
             timingFunction.animation(duration: duration)
         }
     }
-
+    
     func next() -> Element? {
         let isFirst = keyframe == 0
         let isLast = keyframe == keyTimes.count - 1
@@ -144,12 +144,12 @@ class KeyframeIterator: IteratorProtocol {
         let animation = isLast ? nil : animations[keyframe].delay(delay)
         let nextKeyframe = isLast ? 0 : keyframe + 1
         let element: Element = (nextKeyframe, keyframeTracker, animation, isLast)
-
+        
         if isLast {
             isRepeating = true
         }
         keyframe = nextKeyframe
-
+        
         return element
     }
 }
@@ -157,25 +157,26 @@ class KeyframeIterator: IteratorProtocol {
 struct KeyframeAnimationController<T: View>: View {
     typealias Animator = (Int, Bool) -> Void
     typealias NextKeyframe = (Animator?) -> Void
-
+    typealias Content = (@escaping NextKeyframe) -> T
+    
     @State private var keyframe: Double = 0
+    @State private var animator: Animator?
     private let beginTime: Double
     private let duration: Double
     private let timingFunctions: [TimingFunction]
     private let keyTimes: [Double]
-    private var animator: Animator?
     private let keyframeIterator: KeyframeIterator
-    private var content: (@escaping NextKeyframe) -> T
-
+    private var content: Content
+    
     var body: some View {
         content(nextKeyframe).modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
     }
-
+    
     init(beginTime: Double,
          duration: Double,
          timingFunctions: [TimingFunction],
          keyTimes: [Double],
-         @ViewBuilder _ content: @escaping (@escaping NextKeyframe) -> T) {
+         @ViewBuilder _ content: @escaping Content) {
         self.beginTime = beginTime
         self.duration = duration
         self.timingFunctions = timingFunctions
@@ -185,35 +186,35 @@ struct KeyframeAnimationController<T: View>: View {
                                             timingFunctions: timingFunctions,
                                             keyTimes: keyTimes)
         self.content = content
-
+        
         print("Init KeyframeAnimationController")
-//        self.content = content().modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
+        //        self.content = content().modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
     }
-
+    
     private func handleComplete(_ keyframe: Int) {
         print("handleComplete \(keyframe)")
         nextKeyframe()
     }
-
+    
     private func nextKeyframe(_ animator: Animator? = nil) {
-//        if let animator = animator {
-//            self.animator = animator
-//        }
-
+        if let animator = animator {
+            self.animator = animator
+        }
+        
         DispatchQueue.main.async {
             guard let data = self.keyframeIterator.next() else {
                 return
             }
-
+            
             let (keyframe, keyframeTracker, animation, isLast) = data
-
+            
             print("keyFrame: \(keyframe)")
-
+            
             withAnimation(keyframeTracker) {
                 self.keyframe = Double(keyframe)
             }
             withAnimation(animation) {
-                animator?(keyframe, isLast)
+                self.animator?(keyframe, isLast)
             }
         }
     }

@@ -22,17 +22,13 @@ fileprivate struct MyCircle: View {
     }
 
     var body: some View {
-        let circle = Circle()
+        Circle()
             .scaleEffect(scale)
             .onAppear() {
                 self.nextKeyFrame { keyframe, _ in
                     self.scale = CGFloat(self.values[keyframe])
                 }
         }
-
-        //            .modifier(progressEffect)
-
-        return circle
     }
 }
 
@@ -53,17 +49,15 @@ struct BallPulse: View {
         let timingFunctions = [timingFunction, timingFunction]
 
         return HStack(spacing: spacing) {
-            KeyframeAnimationController<MyCircle>(beginTime: beginTimes[0],
-                                                  duration: duration,
-                                                  timingFunctions: timingFunctions,
-                                                  keyTimes: keyTimes) { nextKeyframe in
-                                                    MyCircle(values: self.values,
-                                                             nextKeyframe: nextKeyframe)
+            ForEach(0..<3, id: \.self) {
+                KeyframeAnimationController<MyCircle>(beginTime: self.beginTimes[$0],
+                                                      duration: self.duration,
+                                                      timingFunctions: timingFunctions,
+                                                      keyTimes: self.keyTimes) { nextKeyframe in
+                                                        MyCircle(values: self.values,
+                                                                 nextKeyframe: nextKeyframe)
+                }
             }
-
-
-            //            MyCircle(beginTime: beginTimes[1], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
-            //            MyCircle(beginTime: beginTimes[2], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
         }
     }
 }
