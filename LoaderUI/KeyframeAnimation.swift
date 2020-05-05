@@ -103,13 +103,24 @@ func withChainedAnimation(beginTime: Double,
 }
 
 struct KeyframeAnimationController<T: View>: View {
-    private let content: T
+    @State private var keyframe: Int = 0
+    private var content: T
+    private var beginTime: Double = 0
+    private var duration: Double = 0
+    private var timingFunctions: [TimingFunction] = []
+    private var keyTimes: [Double] = []
+
     var body: some View {
         content
     }
 
     init(@ViewBuilder _ content: () -> T) {
         self.content = content()
+        self.content = self.content.modifier(KeyframeAnimation(keyframe: 0, onComplete: handleComplete)) as! T // A trick to be able to use `handleComplete`
+    }
+
+    func handleComplete(_ keyframe: Int) {
+        print("handleComplete \(keyframe)")
     }
 }
 
@@ -119,7 +130,7 @@ protocol KeyframeAnimatable {
 
 extension KeyframeAnimatable where Self: View {
 
-    func keyframeAnimation() -> some View {
+    func keyframeAnimation() -> KeyframeAnimationController<Self> {
         KeyframeAnimationController {
             self
         }
