@@ -24,14 +24,14 @@ struct KeyframeAnimation: AnimatableModifier {
 
     var animatableData: Double {
         get {
-            print("get \(progressiveKeyframe)")
+//            print("get \(progressiveKeyframe)")
 
             return progressiveKeyframe
         }
         set {
-            print("before set \(progressiveKeyframe) \(newValue)")
+//            print("before set \(progressiveKeyframe) \(newValue)")
             progressiveKeyframe = newValue
-            print("set \(progressiveKeyframe)")
+//            print("set \(progressiveKeyframe)")
 
             if Int(progressiveKeyframe) == keyframe {
                 onComplete(keyframe)
@@ -112,7 +112,7 @@ class KeyframeIterator: IteratorProtocol {
     private let durations: [Double]
     private let animations: [Animation]
     private var keyframe: Int = 0
-    private var skipBeginTime = false
+    private var isRepeating = false
 
     init(beginTime: Double,
          duration: Double,
@@ -128,9 +128,9 @@ class KeyframeIterator: IteratorProtocol {
 
         let keyPercents = zip(keyTimes[0..<keyTimes.count - 1], keyTimes[1...])
             .map { $1 - $0 }
-        let durations = keyPercents.map { duration * $0 } + [0]
+        let durations = keyPercents.map { duration * $0 }
 
-        self.durations = durations
+        self.durations = durations + [0]
         animations = zip(durations, timingFunctions).map { duration, timingFunction in
             timingFunction.animation(duration: duration)
         }
@@ -139,15 +139,16 @@ class KeyframeIterator: IteratorProtocol {
     func next() -> Element? {
         let isFirst = keyframe == 0
         let isLast = keyframe == keyTimes.count - 1
-        let delay = isFirst && !skipBeginTime ? beginTime : 0
+        let delay = isFirst && !isRepeating ? beginTime : 0
         let keyframeTracker = Animation.linear(duration: durations[keyframe]).delay(delay)
         let animation = isLast ? nil : animations[keyframe].delay(delay)
-        let element: Element = (keyframe + 1, keyframeTracker, animation, isLast)
+        let nextKeyframe = isLast ? 0 : keyframe + 1
+        let element: Element = (nextKeyframe, keyframeTracker, animation, isLast)
 
         if isLast {
-            skipBeginTime = true
+            isRepeating = true
         }
-        keyframe = keyframe + 1
+        keyframe = nextKeyframe
 
         return element
     }
@@ -155,31 +156,30 @@ class KeyframeIterator: IteratorProtocol {
 
 struct KeyframeAnimationController<T: View>: View {
     typealias Animator = (Int, Bool) -> Void
+    typealias NextKeyframe = (Animator?) -> Void
 
     @State private var keyframe: Double = 0
     private let beginTime: Double
     private let duration: Double
     private let timingFunctions: [TimingFunction]
     private let keyTimes: [Double]
-    private let animator: Animator?
+    private var animator: Animator?
     private let keyframeIterator: KeyframeIterator
-    private var content: () -> T
+    private var content: (@escaping NextKeyframe) -> T
 
     var body: some View {
-        content().modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
+        content(nextKeyframe).modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
     }
 
     init(beginTime: Double,
          duration: Double,
          timingFunctions: [TimingFunction],
          keyTimes: [Double],
-         animator: Animator?,
-         @ViewBuilder _ content: @escaping () -> T) {
+         @ViewBuilder _ content: @escaping (@escaping NextKeyframe) -> T) {
         self.beginTime = beginTime
         self.duration = duration
         self.timingFunctions = timingFunctions
         self.keyTimes = keyTimes
-        self.animator = animator
         keyframeIterator = KeyframeIterator(beginTime: beginTime,
                                             duration: duration,
                                             timingFunctions: timingFunctions,
@@ -190,21 +190,16 @@ struct KeyframeAnimationController<T: View>: View {
 //        self.content = content().modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
     }
 
-    func onAppear(perform action: (() -> Void)? = nil) -> some View {
-        print("onAppear")
-
-        nextKeyframe()
-        action?()
-
-        return self
-    }
-
     private func handleComplete(_ keyframe: Int) {
         print("handleComplete \(keyframe)")
         nextKeyframe()
     }
 
-    private func nextKeyframe() {
+    private func nextKeyframe(_ animator: Animator? = nil) {
+//        if let animator = animator {
+//            self.animator = animator
+//        }
+
         DispatchQueue.main.async {
             guard let data = self.keyframeIterator.next() else {
                 return
@@ -214,35 +209,37 @@ struct KeyframeAnimationController<T: View>: View {
 
             print("keyFrame: \(keyframe)")
 
-            withAnimation(keyframeTracker) { }
+            withAnimation(keyframeTracker) {
+                self.keyframe = Double(keyframe)
+            }
             withAnimation(animation) {
-                self.animator?(keyframe, isLast)
+                animator?(keyframe, isLast)
             }
         }
     }
 }
 
-protocol KeyframeAnimatable {
-
-}
+//protocol KeyframeAnimatable {
+//
+//}
 
 //extension KeyframeAnimatable where Self: View {
-extension View {
-
-    func keyframeAnimation(beginTime: Double,
-                           duration: Double,
-                           timingFunctions: [TimingFunction],
-                           keyTimes: [Double],
-                           animator: KeyframeAnimationController<Self>.Animator?) -> KeyframeAnimationController<Self> {
-        KeyframeAnimationController(beginTime: beginTime,
-                                    duration: duration,
-                                    timingFunctions: timingFunctions,
-                                    keyTimes: keyTimes,
-                                    animator: animator) {
-                                        self
-        }
-    }
-}
+//extension View {
+//
+//    func keyframeAnimation(beginTime: Double,
+//                           duration: Double,
+//                           timingFunctions: [TimingFunction],
+//                           keyTimes: [Double],
+//                           animator: KeyframeAnimationController<Self>.Animator?) -> KeyframeAnimationController<Self> {
+//        KeyframeAnimationController(beginTime: beginTime,
+//                                    duration: duration,
+//                                    timingFunctions: timingFunctions,
+//                                    keyTimes: keyTimes,
+//                                    animator: animator) {
+//                                        self
+//        }
+//    }
+//}
 
 //extension View: KeyframeAnimatable {
 //

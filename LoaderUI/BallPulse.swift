@@ -10,23 +10,13 @@ import SwiftUI
 
 fileprivate struct MyCircle: View {
     @State private var scale: CGFloat = 1
-    let beginTime: Double
-    let duration: Double
-    let timingFunctions: [TimingFunction]
-    let keyTimes: [Double]
-    let values: [Double]
+    private let values: [Double]
+    private let nextKeyFrame: (KeyframeAnimationController<Self>.Animator?) -> Void
 
-    init(
-        beginTime: Double,
-        duration: Double,
-        timingFunctions: [TimingFunction],
-        keyTimes: [Double],
-        values: [Double]) {
-        self.beginTime = beginTime
-        self.duration = duration
-        self.timingFunctions = timingFunctions
-        self.keyTimes = keyTimes
+    init(values: [Double],
+         nextKeyframe: @escaping (KeyframeAnimationController<Self>.Animator?) -> Void) {
         self.values = values
+        self.nextKeyFrame = nextKeyframe
 
         print("Init MyCircle")
     }
@@ -34,16 +24,11 @@ fileprivate struct MyCircle: View {
     var body: some View {
         let circle = Circle()
             .scaleEffect(scale)
-            .keyframeAnimation(
-                beginTime: beginTime,
-                duration: duration,
-                timingFunctions: timingFunctions,
-                keyTimes: keyTimes,
-                animator: { keyframe, isLast in
+            .onAppear() {
+                self.nextKeyFrame { keyframe, _ in
                     self.scale = CGFloat(self.values[keyframe])
-            }
-        )
-            .onAppear()
+                }
+        }
 
         //            .modifier(progressEffect)
 
@@ -68,7 +53,15 @@ struct BallPulse: View {
         let timingFunctions = [timingFunction, timingFunction]
 
         return HStack(spacing: spacing) {
-            MyCircle(beginTime: beginTimes[0], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
+            KeyframeAnimationController<MyCircle>(beginTime: beginTimes[0],
+                                                  duration: duration,
+                                                  timingFunctions: timingFunctions,
+                                                  keyTimes: keyTimes) { nextKeyframe in
+                                                    MyCircle(values: self.values,
+                                                             nextKeyframe: nextKeyframe)
+            }
+
+
             //            MyCircle(beginTime: beginTimes[1], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
             //            MyCircle(beginTime: beginTimes[2], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
         }
