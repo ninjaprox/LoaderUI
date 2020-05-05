@@ -92,7 +92,7 @@ fileprivate struct MyCircle: View {
 }
 
 struct BallGridPulse: View {
-    private let beginTimes = [0.11, 0.42, 0.0, 0.65, 0.48, 0.2, 0.63, 0.95, 0.62] // [-0.06, 0.25, -0.17, 0.48, 0.31, 0.03, 0.46, 0.78, 0.45]
+    private let beginTimes = [0.11, 0.42, 0.0, 0.65, 0.48, 0.2, 0.63, 0.95, 0.62] // Normalized from [-0.06, 0.25, -0.17, 0.48, 0.31, 0.03, 0.46, 0.78, 0.45]
     private let durations = [0.72, 1.02, 1.28, 1.42, 1.45, 1.18, 0.87, 1.45, 1.06]
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.25, c0y: 0.1, c1x: 0.25, c1y: 1)
     private let keyTimes = [0, 0.5, 1]
@@ -109,20 +109,17 @@ struct BallGridPulse: View {
         let timingFunctions = [timingFunction, timingFunction]
 
         return VStack(spacing: spacing) {
-            HStack(spacing: spacing) {
-                MyCircle(beginTime: beginTimes[0], duration: durations[0], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-                MyCircle(beginTime: beginTimes[1], duration: durations[1], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-                MyCircle(beginTime: beginTimes[2], duration: durations[2], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-            }
-            HStack(spacing: spacing) {
-                MyCircle(beginTime: beginTimes[3], duration: durations[3], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-                MyCircle(beginTime: beginTimes[4], duration: durations[4], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-                MyCircle(beginTime: beginTimes[5], duration: durations[5], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-            }
-            HStack(spacing: spacing) {
-                MyCircle(beginTime: beginTimes[6], duration: durations[6], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-                MyCircle(beginTime: beginTimes[7], duration: durations[7], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
-                MyCircle(beginTime: beginTimes[8], duration: durations[8], timingFunctions: timingFunctions, keyTimes: keyTimes, scaleValues: scaleValues, opacityValues: opacityValues)
+            ForEach(0..<3, id: \.self) { row in
+                HStack(spacing: spacing) {
+                    ForEach(0..<3, id: \.self) { col in
+                        MyCircle(beginTime: self.beginTimes[3 * row + col],
+                                 duration: self.durations[3 * row + col],
+                                 timingFunctions: timingFunctions,
+                                 keyTimes: self.keyTimes,
+                                 scaleValues: self.scaleValues,
+                                 opacityValues: self.opacityValues)
+                    }
+                }
             }
         }
     }
