@@ -9,84 +9,21 @@
 import SwiftUI
 
 fileprivate struct MyCircle: View {
-    @State private var keyframe: Double = 0
-    @State private var isRepeating = false
     @State private var scale: CGFloat = 1
     @State private var opacity: Double = 1
-    let beginTime: Double
-    let duration: Double
-    let timingFunctions: [TimingFunction]
-    let keyTimes: [Double]
     let scaleValues: [Double]
     let opacityValues: [Double]
-    let scaleUpdaters: [Updater]
-    let opacityUpdaters: [Updater]
-
-    init(
-        beginTime: Double,
-        duration: Double,
-        timingFunctions: [TimingFunction],
-        keyTimes: [Double],
-        scaleValues: [Double],
-        opacityValues: [Double]) {
-        self.beginTime = beginTime
-        self.duration = duration
-        self.timingFunctions = timingFunctions
-        self.keyTimes = keyTimes
-        self.scaleValues = scaleValues
-        self.opacityValues = opacityValues
-
-        scaleUpdaters = withChainedAnimation(beginTime: beginTime,
-                                             duration: duration,
-                                             timingFunctions: timingFunctions,
-                                             keyTimes: keyTimes,
-                                             values: scaleValues)
-        opacityUpdaters = withChainedAnimation(beginTime: beginTime,
-                                               duration: duration,
-                                               timingFunctions: timingFunctions,
-                                               keyTimes: keyTimes,
-                                               values: opacityValues)
-    }
-
+    let nextKeyFrame: (KeyframeAnimationController<Self>.Animator?) -> Void
+    
     var body: some View {
-        let keyframeUpdater: KeyframeUpdater = { isLastKeyFrame in
-            self.keyframe = isLastKeyFrame ? 0 : self.keyframe + 1
-            if isLastKeyFrame {
-                self.isRepeating = true
-            }
-        }
-        let emptyKeyframeUpdater: KeyframeUpdater = { _ in
-            // Does nothing
-        }
-        let scaleAnimationUpdater: AnimationUpdater = { value in
-            self.scale = CGFloat(value)
-        }
-        let opacityAnimationUpdater: AnimationUpdater = { value in
-            self.opacity = value
-        }
-
-        return Circle()
-            .modifier(KeyframeAnimation(keyframe: keyframe) { keyFrame in
-                print("onComplete")
-                let updater = self.scaleUpdaters[Int(self.keyframe)]
-
-                updater(self.isRepeating, keyframeUpdater, scaleAnimationUpdater)
-            })
-            .modifier(KeyframeAnimation(keyframe: keyframe) { keyFrame in
-                print("onComplete")
-                let updater = self.scaleUpdaters[Int(self.keyframe)]
-
-                updater(self.isRepeating, emptyKeyframeUpdater, opacityAnimationUpdater)
-            })
+        Circle()
             .scaleEffect(scale)
             .opacity(opacity)
-            //            .modifier(progressEffect)
-            .onAppear {
-                let scaleUpdater = self.scaleUpdaters[Int(self.keyframe)]
-                let opacityUpdater = self.opacityUpdaters[Int(self.keyframe)]
-
-                scaleUpdater(self.isRepeating, keyframeUpdater, scaleAnimationUpdater)
-                opacityUpdater(self.isRepeating, emptyKeyframeUpdater, opacityAnimationUpdater)
+            .onAppear() {
+                self.nextKeyFrame { keyframe, _ in
+                    self.scale = CGFloat(self.scaleValues[keyframe])
+                    self.opacity = self.opacityValues[keyframe]
+                }
         }
     }
 }
@@ -98,26 +35,28 @@ struct BallGridPulse: View {
     private let keyTimes = [0, 0.5, 1]
     private let scaleValues = [1, 0.5, 1]
     private let opacityValues = [1, 0.7, 1]
-
+    
     var body: some View {
         GeometryReader(content: self.render)
     }
-
+    
     func render(geometry: GeometryProxy) -> some View {
         let width = geometry.size.width
         let spacing = width / 32
         let timingFunctions = [timingFunction, timingFunction]
-
+        
         return VStack(spacing: spacing) {
             ForEach(0..<3, id: \.self) { row in
                 HStack(spacing: spacing) {
                     ForEach(0..<3, id: \.self) { col in
-                        MyCircle(beginTime: self.beginTimes[3 * row + col],
-                                 duration: self.durations[3 * row + col],
-                                 timingFunctions: timingFunctions,
-                                 keyTimes: self.keyTimes,
-                                 scaleValues: self.scaleValues,
-                                 opacityValues: self.opacityValues)
+                        KeyframeAnimationController<MyCircle>(beginTime: self.beginTimes[3 * row + col],
+                                                              duration: self.durations[3 * row + col],
+                                                              timingFunctions: timingFunctions,
+                                                              keyTimes: self.keyTimes) {
+                                                                MyCircle(scaleValues: self.scaleValues,
+                                                                         opacityValues: self.opacityValues,
+                                                                         nextKeyFrame: $0)
+                        }
                     }
                 }
             }
