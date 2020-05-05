@@ -10,14 +10,11 @@ import SwiftUI
 
 fileprivate struct MyCircle: View {
     @State private var scale: CGFloat = 1
-    @State private var keyframe: Double = 0
-    @State private var isRepeating = false
     let beginTime: Double
     let duration: Double
     let timingFunctions: [TimingFunction]
     let keyTimes: [Double]
     let values: [Double]
-    let updaters: [Updater]
 
     init(
         beginTime: Double,
@@ -31,41 +28,26 @@ fileprivate struct MyCircle: View {
         self.keyTimes = keyTimes
         self.values = values
 
-        updaters = withChainedAnimation(beginTime: beginTime,
-                                        duration: duration,
-                                        timingFunctions: timingFunctions,
-                                        keyTimes: keyTimes,
-                                        values: values)
-
         print("Init MyCircle")
     }
 
     var body: some View {
-        let keyframeUpdater: KeyframeUpdater = { isLastKeyFrame in
-            self.keyframe = isLastKeyFrame ? 0 : self.keyframe + 1
-            if isLastKeyFrame {
-                self.isRepeating = true
-            }
-        }
-        let animationUpdater: AnimationUpdater = { value in
-            self.scale = CGFloat(value)
-        }
-
-
-        return Circle()
-            .modifier(KeyframeAnimation(keyframe: keyframe) { keyFrame in
-                print("onComplete")
-                let updater = self.updaters[Int(self.keyframe)]
-
-                updater(self.isRepeating, keyframeUpdater, animationUpdater)
-            })
+        let circle = Circle()
             .scaleEffect(scale)
-            //            .modifier(progressEffect)
-            .onAppear {
-                let updater = self.updaters[Int(self.keyframe)]
+            .keyframeAnimation(
+                beginTime: beginTime,
+                duration: duration,
+                timingFunctions: timingFunctions,
+                keyTimes: keyTimes,
+                animator: { keyframe, isLast in
+                    self.scale = CGFloat(self.values[keyframe])
+            }
+        )
+            .onAppear()
 
-                updater(self.isRepeating, keyframeUpdater, animationUpdater)
-        }
+        //            .modifier(progressEffect)
+
+        return circle
     }
 }
 
@@ -87,8 +69,8 @@ struct BallPulse: View {
 
         return HStack(spacing: spacing) {
             MyCircle(beginTime: beginTimes[0], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
-            MyCircle(beginTime: beginTimes[1], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
-            MyCircle(beginTime: beginTimes[2], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
+            //            MyCircle(beginTime: beginTimes[1], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
+            //            MyCircle(beginTime: beginTimes[2], duration: duration, timingFunctions: timingFunctions, keyTimes: keyTimes, values: values)
         }
     }
 }
