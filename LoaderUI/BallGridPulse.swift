@@ -8,19 +8,19 @@
 
 import SwiftUI
 
-fileprivate struct MyCircle: View {
+fileprivate struct MyCircle: View, KeyframeAnimatable {
     @State private var scale: CGFloat = 1
     @State private var opacity: Double = 1
     let scaleValues: [Double]
     let opacityValues: [Double]
-    let nextKeyFrame: (KeyframeAnimationController<Self>.Animator?) -> Void
+    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
     
     var body: some View {
         Circle()
             .scaleEffect(scale)
             .opacity(opacity)
             .onAppear() {
-                self.nextKeyFrame { keyframe, _ in
+                self.nextKeyframe { keyframe, _ in
                     self.scale = CGFloat(self.scaleValues[keyframe])
                     self.opacity = self.opacityValues[keyframe]
                 }
@@ -55,7 +55,7 @@ struct BallGridPulse: View {
                                                               keyTimes: self.keyTimes) {
                                                                 MyCircle(scaleValues: self.scaleValues,
                                                                          opacityValues: self.opacityValues,
-                                                                         nextKeyFrame: $0)
+                                                                         nextKeyframe: $0)
                         }
                     }
                 }

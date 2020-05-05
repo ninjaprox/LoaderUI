@@ -220,9 +220,9 @@ struct KeyframeAnimationController<T: View>: View {
     }
 }
 
-//protocol KeyframeAnimatable {
-//
-//}
+protocol KeyframeAnimatable: View {
+    var nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void { get }
+}
 
 //extension KeyframeAnimatable where Self: View {
 //extension View {
