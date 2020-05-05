@@ -101,3 +101,31 @@ func withChainedAnimation(beginTime: Double,
         return updater
     }
 }
+
+struct KeyframeAnimationController<T: View>: View {
+    private let content: T
+    var body: some View {
+        content
+    }
+
+    init(@ViewBuilder _ content: () -> T) {
+        self.content = content()
+    }
+}
+
+protocol KeyframeAnimatable {
+
+}
+
+extension KeyframeAnimatable where Self: View {
+
+    func keyframeAnimation() -> some View {
+        KeyframeAnimationController {
+            self
+        }
+    }
+}
+
+extension Circle: KeyframeAnimatable {
+
+}
