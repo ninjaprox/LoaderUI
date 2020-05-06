@@ -30,8 +30,13 @@ struct ScaleEffect: GeometryEffect {
 
 struct ContentView: View {
     var body: some View {
-        BallPulse().frame(width: 100, height: 100, alignment: .center)
-//        BallGridPulse().frame(width: 100, height: 100, alignment: .center)
+        VStack {
+            HStack(spacing: 20) {
+                BallPulse().frame(width: 100, height: 100, alignment: .center)
+                BallGridPulse().frame(width: 100, height: 100, alignment: .center)
+                BallBeat().frame(width: 100, height: 100, alignment: .center)
+            }
+        }
     }
 }
 

@@ -38,11 +38,14 @@ struct KeyframeAnimation: AnimatableModifier {
 
 enum TimingFunction {
     case timingCurve(c0x: Double, c0y: Double, c1x: Double, c1y: Double)
+    case linear
     
     func animation(duration: Double) -> Animation {
         switch self {
         case let .timingCurve(c0x, c0y, c1x, c1y):
             return .timingCurve(c0x, c0y, c1x, c1y, duration: duration)
+        case .linear:
+            return .linear(duration: duration)
         }
     }
 }
