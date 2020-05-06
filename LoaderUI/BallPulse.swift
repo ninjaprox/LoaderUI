@@ -36,8 +36,8 @@ struct BallPulse: View {
     }
 
     func render(geometry: GeometryProxy) -> some View {
-        let width = geometry.size.width
-        let spacing = width / 32
+        let dimension = min(geometry.size.width, geometry.size.height)
+        let spacing = dimension / 32
         let timingFunctions = [timingFunction, timingFunction]
 
         return HStack(spacing: spacing) {
@@ -51,6 +51,7 @@ struct BallPulse: View {
                 }
             }
         }
+        .frame(width: dimension, height: dimension, alignment: .center)
     }
 }
 
