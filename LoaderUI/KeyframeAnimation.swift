@@ -39,6 +39,7 @@ struct KeyframeAnimation: AnimatableModifier {
 enum TimingFunction {
     case timingCurve(c0x: Double, c0y: Double, c1x: Double, c1y: Double)
     case linear
+    case easeInOut
     
     func animation(duration: Double) -> Animation {
         switch self {
@@ -46,6 +47,8 @@ enum TimingFunction {
             return .timingCurve(c0x, c0y, c1x, c1y, duration: duration)
         case .linear:
             return .linear(duration: duration)
+        case .easeInOut:
+            return .easeInOut(duration: duration)
         }
     }
 }

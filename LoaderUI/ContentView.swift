@@ -40,6 +40,7 @@ struct ContentView: View {
             HStack(spacing: 20) {
                 SquareSpin()
                 BallClipRotatePulse()
+                BallClipRotateMultiple()
             }
         }
         .padding(20)
