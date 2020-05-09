@@ -53,6 +53,23 @@ struct MyRing: View, KeyframeAnimatable {
     }
 }
 
+fileprivate struct MyCircle: View, KeyframeAnimatable {
+    @State private var scale: CGFloat = 1
+    let values: [Double]
+    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
+
+    var body: some View {
+        Circle()
+            .scale(0.5)
+            .scaleEffect(scale)
+            .onAppear() {
+                self.nextKeyframe { keyframe, _ in
+                    self.scale = CGFloat(self.values[keyframe])
+                }
+        }
+    }
+}
+
 struct BallClipRotatePulse: View {
     var body: some View {
         GeometryReader(content: self.render)
@@ -61,7 +78,10 @@ struct BallClipRotatePulse: View {
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
 
-        return renderMyRing().frame(width: dimension, height: dimension, alignment: .center)
+        return ZStack {
+            renderMyRing()
+            renderMyCircle()
+        }.frame(width: dimension, height: dimension, alignment: .center)
     }
 
     func renderMyRing() -> some View {
@@ -79,6 +99,22 @@ struct BallClipRotatePulse: View {
                                                     MyRing(scaleValues: scaleValues,
                                                            rotationValues: rotationValues,
                                                            nextKeyframe: $0)
+        }
+    }
+
+    func renderMyCircle() -> some View {
+        let duration = 1.0
+        let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
+        let timingFunctions = [timingFunction, timingFunction]
+        let keyTimes = [0, 0.3, 1]
+        let values = [1, 0.3, 1]
+
+        return KeyframeAnimationController<MyCircle>(beginTime: 0,
+                                                     duration: duration,
+                                                     timingFunctions: timingFunctions,
+                                                     keyTimes: keyTimes) {
+                                                        MyCircle(values: values,
+                                                                 nextKeyframe: $0)
         }
     }
 }
