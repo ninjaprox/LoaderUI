@@ -33,7 +33,7 @@ struct VerticalRing: Shape {
     }
 }
 
-struct MyRing: View, KeyframeAnimatable {
+fileprivate struct MyRing: View, KeyframeAnimatable {
     @State private var scale: CGFloat = 1
     @State private var rotation = 0.0
     let scaleValues: [Double]
