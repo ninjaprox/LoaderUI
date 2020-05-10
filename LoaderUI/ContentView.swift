@@ -45,6 +45,7 @@ struct ContentView: View {
             }
             HStack(spacing: 20) {
                 CubeTransition()
+                BallZigZag()
                 BallBeat()
                 BallGridBeat()
             }
