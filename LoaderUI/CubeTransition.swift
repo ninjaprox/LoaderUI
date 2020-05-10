@@ -13,27 +13,27 @@ fileprivate struct MyRectangle: View, KeyframeAnimatable {
         case topLeft
         case bottomRight
     }
-    
+
     @State private var scale: CGFloat = 1
     @State private var rotation = 0.0
     @State private var translation: UnitPoint = .zero
+    let dimension: CGFloat
     let position: Position
     let scaleValues: [Double]
     let rotationValues: [Double]
     let translationValues: [UnitPoint]
     let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
-    
+
     var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let geometryDimension = min(geometry.size.width, geometry.size.height)
-        let dimension = geometryDimension / 3
         let position = self.position == .topLeft ?
             CGPoint(x: dimension / 2, y: dimension / 2) :
             CGPoint(x: geometryDimension - dimension / 2, y: geometryDimension - dimension / 2)
-        
+
         return Rectangle()
             .scaleEffect(scale)
             .rotationEffect(Angle(radians: rotation))
@@ -48,7 +48,7 @@ fileprivate struct MyRectangle: View, KeyframeAnimatable {
                     self.translation = self.translationValues[keyframe]
                 }
         }
-        
+
     }
 }
 
@@ -61,15 +61,16 @@ struct CubeTransition: View {
     private let translationValues: [[UnitPoint]] = [[.zero, .init(x: 1, y: 0), .init(x: 1, y: 1), .init(x: 0, y: 1), .zero],
                                                     [.zero, .init(x: -1, y: 0), .init(x: -1, y: -1), .init(x: 0, y: -1), .zero]]
     private let positions: [MyRectangle.Position] = [.topLeft, .bottomRight]
-    
+
     var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
+        let rectangleDimension = dimension / 3
         let timingFunctions = [timingFunction, timingFunction, timingFunction, timingFunction]
-        
+
         return
             ZStack {
                 ForEach(0..<2, id: \.self) { index in
@@ -77,7 +78,8 @@ struct CubeTransition: View {
                                                              duration: self.duration,
                                                              timingFunctions: timingFunctions,
                                                              keyTimes: self.keyTimes) {
-                                                                MyRectangle(position: self.positions[index],
+                                                                MyRectangle(dimension: rectangleDimension,
+                                                                            position: self.positions[index],
                                                                             scaleValues: self.scaleValues,
                                                                             rotationValues: self.rotationValues,
                                                                             translationValues: self.translationValues[index],

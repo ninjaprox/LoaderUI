@@ -10,6 +10,7 @@ import SwiftUI
 
 fileprivate struct MyCircle: View, KeyframeAnimatable {
     @State private var translation: UnitPoint = .zero
+    let dimension: CGFloat
     let values: [UnitPoint]
     let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
 
@@ -19,7 +20,6 @@ fileprivate struct MyCircle: View, KeyframeAnimatable {
 
     func render(geometry: GeometryProxy) -> some View {
         let geometryDimension = min(geometry.size.width, geometry.size.height)
-        let dimension = geometryDimension / 3
 
         return Circle()
             .frame(width: dimension, height: dimension)
@@ -46,6 +46,7 @@ struct BallZigZag: View {
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
+        let circleDimension: CGFloat = dimension / 3
         let timingFunctions = [timingFunction, timingFunction, timingFunction]
 
         return
@@ -55,7 +56,8 @@ struct BallZigZag: View {
                                                           duration: self.duration,
                                                           timingFunctions: timingFunctions,
                                                           keyTimes: self.keyTimes) {
-                                                            MyCircle(values: self.values[index],
+                                                            MyCircle(dimension: circleDimension,
+                                                                     values: self.values[index],
                                                                      nextKeyframe: $0)
                     }
                 }
