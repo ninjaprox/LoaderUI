@@ -41,9 +41,10 @@ struct ContentView: View {
                 BallClipRotatePulse()
                 BallClipRotateMultiple()
                 BallPulseRise()
-                BallBeat()
+                BallRotate()
             }
             HStack(spacing: 20) {
+                BallBeat()
                 BallGridBeat()
             }
         }

@@ -23,6 +23,7 @@
 		1FC61CFB246727DC0068EF4A /* BallClipRotateMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61CFA246727DC0068EF4A /* BallClipRotateMultiple.swift */; };
 		1FC61CFD24672BB50068EF4A /* BallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61CFC24672BB50068EF4A /* BallClipRotate.swift */; };
 		1FC61CFF2467D0B70068EF4A /* BallPulseRise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61CFE2467D0B70068EF4A /* BallPulseRise.swift */; };
+		1FC61D012467E4ED0068EF4A /* BallRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61D002467E4ED0068EF4A /* BallRotate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		1FC61CFA246727DC0068EF4A /* BallClipRotateMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallClipRotateMultiple.swift; sourceTree = "<group>"; };
 		1FC61CFC24672BB50068EF4A /* BallClipRotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallClipRotate.swift; sourceTree = "<group>"; };
 		1FC61CFE2467D0B70068EF4A /* BallPulseRise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallPulseRise.swift; sourceTree = "<group>"; };
+		1FC61D002467E4ED0068EF4A /* BallRotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallRotate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */,
 				1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */,
 				1FBFB72E244C68F000B6C7BD /* ContentView.swift */,
+				1FC61D002467E4ED0068EF4A /* BallRotate.swift */,
 				1F6C84F1246302E600305A1E /* BallGridBeat.swift */,
 				1F6C84EF2463014000305A1E /* BallBeat.swift */,
 				1F15977E245EE79A0094005C /* BallPulse.swift */,
@@ -185,6 +188,7 @@
 				1FC61CFB246727DC0068EF4A /* BallClipRotateMultiple.swift in Sources */,
 				1F15977F245EE79A0094005C /* BallPulse.swift in Sources */,
 				1F159783245F23F80094005C /* BallGridPulse.swift in Sources */,
+				1FC61D012467E4ED0068EF4A /* BallRotate.swift in Sources */,
 				1FBFB72F244C68F000B6C7BD /* ContentView.swift in Sources */,
 				1FC61CFF2467D0B70068EF4A /* BallPulseRise.swift in Sources */,
 				1F6C84F4246307AF00305A1E /* SquareSpin.swift in Sources */,
