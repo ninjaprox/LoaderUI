@@ -16,6 +16,7 @@
 		1F765CC8246AE1A300B40BAD /* BallTrianglePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CC7246AE1A300B40BAD /* BallTrianglePath.swift */; };
 		1F765CCA246AE84300B40BAD /* BallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CC9246AE84300B40BAD /* BallScale.swift */; };
 		1F765CCC246AE9DD00B40BAD /* LineScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CCB246AE9DD00B40BAD /* LineScale.swift */; };
+		1F765CD0246AEE2D00B40BAD /* LineScaleParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CCF246AEE2D00B40BAD /* LineScaleParty.swift */; };
 		1FBFB72B244C68F000B6C7BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */; };
 		1FBFB72D244C68F000B6C7BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */; };
 		1FBFB72F244C68F000B6C7BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72E244C68F000B6C7BD /* ContentView.swift */; };
@@ -42,6 +43,7 @@
 		1F765CC7246AE1A300B40BAD /* BallTrianglePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallTrianglePath.swift; sourceTree = "<group>"; };
 		1F765CC9246AE84300B40BAD /* BallScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScale.swift; sourceTree = "<group>"; };
 		1F765CCB246AE9DD00B40BAD /* LineScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineScale.swift; sourceTree = "<group>"; };
+		1F765CCF246AEE2D00B40BAD /* LineScaleParty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineScaleParty.swift; sourceTree = "<group>"; };
 		1FBFB727244C68F000B6C7BD /* LoaderUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoaderUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				1FBFB738244C68F200B6C7BD /* Info.plist */,
 				1FBFB732244C68F200B6C7BD /* Preview Content */,
 				1F159780245EE8300094005C /* KeyframeAnimation.swift */,
+				1F765CCF246AEE2D00B40BAD /* LineScaleParty.swift */,
 			);
 			path = LoaderUI;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				1FBFB72B244C68F000B6C7BD /* AppDelegate.swift in Sources */,
 				1FC61CFD24672BB50068EF4A /* BallClipRotate.swift in Sources */,
 				1FC61D052467FF940068EF4A /* BallZigZag.swift in Sources */,
+				1F765CD0246AEE2D00B40BAD /* LineScaleParty.swift in Sources */,
 				1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */,
 				1F765CCA246AE84300B40BAD /* BallScale.swift in Sources */,
 				1F6C84F2246302E600305A1E /* BallGridBeat.swift in Sources */,
