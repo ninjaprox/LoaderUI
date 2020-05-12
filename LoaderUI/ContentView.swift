@@ -50,6 +50,7 @@ struct ContentView: View {
                 BallTrianglePath()
             }
             HStack(spacing: 20) {
+                BallScale()
                 BallBeat()
                 BallGridBeat()
             }
