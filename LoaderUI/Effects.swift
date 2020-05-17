@@ -58,3 +58,21 @@ struct RotationEffect: AnimatableModifier {
         content.rotationEffect(Angle(radians: rotation))
     }
 }
+
+struct TranslationEffect: AnimatableModifier {
+    var translation: UnitPoint
+
+    init(values: [UnitPoint], keyframe: Int) {
+        self.translation = values[keyframe]
+    }
+
+    var animatableData: UnitPoint {
+        get { translation }
+        set { translation = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content.offset(x: translation.x,
+                       y: translation.y)
+    }
+}

@@ -8,82 +8,44 @@
 
 import SwiftUI
 
-fileprivate struct MyRectangle: View, KeyframeAnimatable {
-    enum Position {
-        case topLeft
-        case bottomRight
-    }
-
-    @State private var scale: CGFloat = 1
-    @State private var rotation = 0.0
-    @State private var translation: UnitPoint = .zero
-    let dimension: CGFloat
-    let position: Position
-    let scaleValues: [Double]
-    let rotationValues: [Double]
-    let translationValues: [UnitPoint]
-    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
-
-    var body: some View {
-        GeometryReader(content: self.render)
-    }
-
-    func render(geometry: GeometryProxy) -> some View {
-        let geometryDimension = min(geometry.size.width, geometry.size.height)
-        let position = self.position == .topLeft ?
-            CGPoint(x: dimension / 2, y: dimension / 2) :
-            CGPoint(x: geometryDimension - dimension / 2, y: geometryDimension - dimension / 2)
-
-        return Rectangle()
-            .scaleEffect(scale)
-            .rotationEffect(Angle(radians: rotation))
-            .frame(width: dimension, height: dimension)
-            .position(position)
-            .offset(x: translation.x * (geometryDimension - dimension),
-                    y: translation.y * (geometryDimension - dimension))
-            .onAppear() {
-                self.nextKeyframe { keyframe, _ in
-                    self.scale = CGFloat(self.scaleValues[keyframe])
-                    self.rotation = self.rotationValues[keyframe]
-                    self.translation = self.translationValues[keyframe]
-                }
-        }
-
-    }
-}
-
 struct CubeTransition: View {
     private let duration = 1.6
     private let timingFunction = TimingFunction.easeInOut
     private let keyTimes = [0, 0.25, 0.5, 0.75, 1]
-    private let scaleValues = [1, 0.5, 1, 0.5, 1]
+    private let scaleValues: [CGFloat] = [1, 0.5, 1, 0.5, 1]
     private let rotationValues = [0.0, -.pi / 2, -.pi, -1.5 * .pi, -2 * .pi]
-    private let translationValues: [[UnitPoint]] = [[.zero, .init(x: 1, y: 0), .init(x: 1, y: 1), .init(x: 0, y: 1), .zero],
-                                                    [.zero, .init(x: -1, y: 0), .init(x: -1, y: -1), .init(x: 0, y: -1), .zero]]
-    private let positions: [MyRectangle.Position] = [.topLeft, .bottomRight]
-
+    private let translationDirectionValues: [[UnitPoint]] = [[.zero, .init(x: 1, y: 0), .init(x: 1, y: 1), .init(x: 0, y: 1), .zero],
+                                                             [.zero, .init(x: -1, y: 0), .init(x: -1, y: -1), .init(x: 0, y: -1), .zero]]
+    
     var body: some View {
         GeometryReader(content: self.render)
     }
-
+    
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let rectangleDimension = dimension / 3
         let timingFunctions = [timingFunction, timingFunction, timingFunction, timingFunction]
-
+        let positions = [CGPoint(x: rectangleDimension / 2, y: rectangleDimension / 2),
+                         CGPoint(x: dimension - rectangleDimension / 2, y: dimension - rectangleDimension / 2)]
+        let translationValues = translationDirectionValues.map {
+            $0.map {
+                UnitPoint(x: $0.x * (dimension - rectangleDimension), y: $0.y * (dimension - rectangleDimension))
+            }
+        }
+        
         return
             ZStack {
                 ForEach(0..<2, id: \.self) { index in
-                    KeyframeAnimationController<MyRectangle>(beginTime: 0,
-                                                             duration: self.duration,
-                                                             timingFunctions: timingFunctions,
-                                                             keyTimes: self.keyTimes) {
-                                                                MyRectangle(dimension: rectangleDimension,
-                                                                            position: self.positions[index],
-                                                                            scaleValues: self.scaleValues,
-                                                                            rotationValues: self.rotationValues,
-                                                                            translationValues: self.translationValues[index],
-                                                                            nextKeyframe: $0)
+                    KeyframeAnimationController(beginTime: 0,
+                                                duration: self.duration,
+                                                timingFunctions: timingFunctions,
+                                                keyTimes: self.keyTimes) {
+                                                    Rectangle()
+                                                        .modifier(ScaleEffect(values: self.scaleValues, keyframe: $0))
+                                                        .modifier(RotationEffect(values: self.rotationValues, keyframe: $0))
+                                                        .frame(width: rectangleDimension, height: rectangleDimension)
+                                                        .position(positions[index])
+                                                        .modifier(TranslationEffect(values: translationValues[index], keyframe: $0))
                     }
                 }
             }

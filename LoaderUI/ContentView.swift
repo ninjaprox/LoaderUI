@@ -25,8 +25,7 @@ struct ContentView: View {
                 BallRotate()
             }
             HStack(spacing: 20) {
-                EmptyView()
-                //                CubeTransition()
+                CubeTransition()
                 //                BallZigZag()
                 //                BallZigZagDeflect()
                 //                BallTrianglePath()
