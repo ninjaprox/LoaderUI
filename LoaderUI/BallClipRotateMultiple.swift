@@ -33,47 +33,6 @@ struct HorizontalRing: Shape {
     }
 }
 
-fileprivate struct MyBigRing: View, KeyframeAnimatable {
-    @State private var scale: CGFloat = 1
-    @State private var rotation = 0.0
-    let scaleValues: [Double]
-    let rotationValues: [Double]
-    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
-
-    var body: some View {
-        VerticalRing()
-            .scaleEffect(scale)
-            .rotationEffect(Angle(radians: rotation))
-            .onAppear() {
-                self.nextKeyframe { keyframe, _ in
-                    self.scale = CGFloat(self.scaleValues[keyframe])
-                    self.rotation = self.rotationValues[keyframe]
-                }
-        }
-    }
-}
-
-fileprivate struct MySmallRing: View, KeyframeAnimatable {
-    @State private var scale: CGFloat = 1
-    @State private var rotation = 0.0
-    let scaleValues: [Double]
-    let rotationValues: [Double]
-    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
-
-    var body: some View {
-        HorizontalRing()
-            .scale(0.5)
-            .scaleEffect(scale)
-            .rotationEffect(Angle(radians: rotation))
-            .onAppear() {
-                self.nextKeyframe { keyframe, _ in
-                    self.scale = CGFloat(self.scaleValues[keyframe])
-                    self.rotation = self.rotationValues[keyframe]
-                }
-        }
-    }
-}
-
 struct BallClipRotateMultiple: View {
     var body: some View {
         GeometryReader(content: self.render)
@@ -93,16 +52,16 @@ struct BallClipRotateMultiple: View {
         let timingFunction = TimingFunction.easeInOut
         let timingFunctions = [timingFunction, timingFunction]
         let keyTimes = [0, 0.5, 1]
-        let scaleValues = [1, 0.6, 1]
+        let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, .pi, 2 * .pi]
 
-        return KeyframeAnimationController<MyBigRing>(beginTime: 0,
-                                                      duration: duration,
-                                                      timingFunctions: timingFunctions,
-                                                      keyTimes: keyTimes) {
-                                                        MyBigRing(scaleValues: scaleValues,
-                                                                  rotationValues: rotationValues,
-                                                                  nextKeyframe: $0)
+        return KeyframeAnimationController(beginTime: 0,
+                                           duration: duration,
+                                           timingFunctions: timingFunctions,
+                                           keyTimes: keyTimes) {
+                                            VerticalRing()
+                                                .modifier(ScaleEffect(values: scaleValues, keyframe: $0))
+                                                .modifier(RotationEffect(values: rotationValues, keyframe: $0))
         }
     }
 
@@ -111,16 +70,17 @@ struct BallClipRotateMultiple: View {
         let timingFunction = TimingFunction.easeInOut
         let timingFunctions = [timingFunction, timingFunction]
         let keyTimes = [0, 0.5, 1]
-        let scaleValues = [1, 0.6, 1]
+        let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, -.pi, -2 * .pi]
 
-        return KeyframeAnimationController<MySmallRing>(beginTime: 0,
-                                                        duration: duration,
-                                                        timingFunctions: timingFunctions,
-                                                        keyTimes: keyTimes) {
-                                                            MySmallRing(scaleValues: scaleValues,
-                                                                        rotationValues: rotationValues,
-                                                                        nextKeyframe: $0)
+        return KeyframeAnimationController(beginTime: 0,
+                                           duration: duration,
+                                           timingFunctions: timingFunctions,
+                                           keyTimes: keyTimes) {
+                                            HorizontalRing()
+                                                .scale(0.5)
+                                                .modifier(ScaleEffect(values: scaleValues, keyframe: $0))
+                                                .modifier(RotationEffect(values: rotationValues, keyframe: $0))
         }
     }
 }
