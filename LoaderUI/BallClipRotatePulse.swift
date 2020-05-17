@@ -60,8 +60,8 @@ struct BallClipRotatePulse: View {
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes) {
                                             VerticalRing()
-                                                .modifier(ScaleEffect(values: scaleValues, keyframe: $0))
-                                                .modifier(RotationEffect(values: rotationValues, keyframe: $0))
+                                                .scaleEffect(scaleValues[$0])
+                                                .rotationEffect(Angle(radians: rotationValues[$0]))
         }
     }
     
@@ -78,7 +78,7 @@ struct BallClipRotatePulse: View {
                                            keyTimes: keyTimes) {
                                             Circle()
                                                 .scale(0.5)
-                                                .modifier(ScaleEffect(values: values, keyframe: $0))
+                                                .scaleEffect(values[$0])
         }
     }
 }

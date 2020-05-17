@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F02AFA32471339A00F4A575 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F02AFA22471339A00F4A575 /* Effects.swift */; };
 		1F02AFA5247136B200F4A575 /* BallGridPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F02AFA4247136B200F4A575 /* BallGridPulse.swift */; };
 		1F1457BF247139EF002A480B /* BallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1457BE247139EF002A480B /* BallClipRotate.swift */; };
 		1F1457C124713B6C002A480B /* SquareSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1457C024713B6C002A480B /* SquareSpin.swift */; };
@@ -34,7 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F02AFA22471339A00F4A575 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		1F02AFA4247136B200F4A575 /* BallGridPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallGridPulse.swift; sourceTree = "<group>"; };
 		1F1457BE247139EF002A480B /* BallClipRotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallClipRotate.swift; sourceTree = "<group>"; };
 		1F1457C024713B6C002A480B /* SquareSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareSpin.swift; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 				1FBFB738244C68F200B6C7BD /* Info.plist */,
 				1FBFB732244C68F200B6C7BD /* Preview Content */,
 				1F159780245EE8300094005C /* KeyframeAnimation.swift */,
-				1F02AFA22471339A00F4A575 /* Effects.swift */,
 			);
 			path = LoaderUI;
 			sourceTree = "<group>";
@@ -215,7 +212,6 @@
 				1F02AFA5247136B200F4A575 /* BallGridPulse.swift in Sources */,
 				1F15977F245EE79A0094005C /* BallPulse.swift in Sources */,
 				1F1457D924719BC4002A480B /* BallGridBeat.swift in Sources */,
-				1F02AFA32471339A00F4A575 /* Effects.swift in Sources */,
 				1F1457C124713B6C002A480B /* SquareSpin.swift in Sources */,
 				1F1457D324719A02002A480B /* LineScale.swift in Sources */,
 				1F1457CB247142D8002A480B /* BallZigZag.swift in Sources */,

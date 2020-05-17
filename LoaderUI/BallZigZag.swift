@@ -38,7 +38,7 @@ struct BallZigZag: View {
                                                 keyTimes: self.keyTimes) {
                                                     Circle()
                                                         .frame(width: circleDimension, height: circleDimension)
-                                                        .modifier(TranslationEffect(values: values[index], keyframe: $0))
+                                                        .offset(x: values[index][$0].x, y: values[index][$0].y)
                     }
                 }
             }

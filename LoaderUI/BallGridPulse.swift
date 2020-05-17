@@ -29,15 +29,13 @@ struct BallGridPulse: View {
             ForEach(0..<3, id: \.self) { row in
                 HStack(spacing: spacing) {
                     ForEach(0..<3, id: \.self) { col in
-                        KeyframeAnimationController<ModifiedContent<ModifiedContent<Circle, ScaleEffect>, OpacityEffect>>(beginTime: self.beginTimes[3 * row + col],
-                                                                                                                         duration: self.durations[3 * row + col],
-                                                                                                                         timingFunctions: timingFunctions,
-                                                                                                                         keyTimes: self.keyTimes) {
-                                                                                                                            Circle()
-                                                                                                                                .modifier(ScaleEffect(values: self.scaleValues,
-                                                                                                                                                      keyframe: $0))
-                                                                                                                                .modifier(OpacityEffect(values: self.opacityValues,
-                                                                                                                                                        keyframe: $0))
+                        KeyframeAnimationController(beginTime: self.beginTimes[3 * row + col],
+                                                    duration: self.durations[3 * row + col],
+                                                    timingFunctions: timingFunctions,
+                                                    keyTimes: self.keyTimes) {
+                                                        Circle()
+                                                            .scaleEffect(self.scaleValues[$0])
+                                                            .opacity(self.opacityValues[$0])
                         }
                     }
                 }

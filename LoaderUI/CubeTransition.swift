@@ -41,11 +41,11 @@ struct CubeTransition: View {
                                                 timingFunctions: timingFunctions,
                                                 keyTimes: self.keyTimes) {
                                                     Rectangle()
-                                                        .modifier(ScaleEffect(values: self.scaleValues, keyframe: $0))
-                                                        .modifier(RotationEffect(values: self.rotationValues, keyframe: $0))
+                                                        .scaleEffect(self.scaleValues[$0])
+                                                        .rotationEffect(Angle(radians: self.rotationValues[$0]))
                                                         .frame(width: rectangleDimension, height: rectangleDimension)
                                                         .position(positions[index])
-                                                        .modifier(TranslationEffect(values: translationValues[index], keyframe: $0))
+                                                        .offset(x: translationValues[index][$0].x, y: translationValues[index][$0].y)
                     }
                 }
             }
