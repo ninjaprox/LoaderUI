@@ -37,8 +37,7 @@ struct ContentView: View {
                 BallBeat()
             }
             HStack(spacing: 20) {
-                EmptyView()
-                //                BallGridBeat()
+                BallGridBeat()
             }
         }
         .padding(20)
