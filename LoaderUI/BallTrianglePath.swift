@@ -18,57 +18,13 @@ fileprivate struct Ring: Shape {
     }
 }
 
-fileprivate struct MyRing: View, KeyframeAnimatable {
-    enum Position {
-        case top
-        case right
-        case left
-    }
-    
-    @State private var translation: UnitPoint = .zero
-    let dimension: CGFloat
-    let position: Position
-    let values: [UnitPoint]
-    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
-    
-    var body: some View {
-        GeometryReader(content: self.render)
-    }
-    
-    func render(geometry: GeometryProxy) -> some View {
-        let geometryDimension = min(geometry.size.width, geometry.size.height)
-        let position: CGPoint
-        
-        switch self.position {
-        case .top:
-            position = CGPoint(x: geometryDimension / 2, y: dimension / 2)
-        case .right:
-            position = CGPoint(x: geometryDimension - dimension / 2, y: geometryDimension - dimension / 2)
-        case .left:
-            position = CGPoint(x: dimension / 2, y: geometryDimension - dimension / 2)
-        }
-        
-        return Ring()
-            .frame(width: dimension, height: dimension)
-            .position(position)
-            .offset(x: translation.x * (geometryDimension - dimension),
-                    y: translation.y * (geometryDimension - dimension))
-            .onAppear() {
-                self.nextKeyframe { keyframe, _ in
-                    self.translation = self.values[keyframe]
-                }
-        }
-    }
-}
-
 struct BallTrianglePath: View {
     private let duration = 2.0
     private let timingFunction = TimingFunction.easeInOut
     private let keyTimes = [0, 0.33, 0.66, 1]
-    private let values: [[UnitPoint]] = [[.zero, .init(x: 0.5, y: 1), .init(x: -0.5, y: 1), .zero],
-                                         [.zero, .init(x: -1, y: 0), .init(x: -0.5, y: -1), .zero],
-                                         [.zero, .init(x: 0.5, y: -1), .init(x: 1, y: 0), .zero]]
-    private let positions: [MyRing.Position] = [.top, .right, .left]
+    private let directionValues: [[UnitPoint]] = [[.zero, .init(x: 0.5, y: 1), .init(x: -0.5, y: 1), .zero],
+                                                  [.zero, .init(x: -1, y: 0), .init(x: -0.5, y: -1), .zero],
+                                                  [.zero, .init(x: 0.5, y: -1), .init(x: 1, y: 0), .zero]]
     
     var body: some View {
         GeometryReader(content: self.render)
@@ -78,18 +34,26 @@ struct BallTrianglePath: View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let ringDimension = dimension / 3
         let timingFunctions = [timingFunction, timingFunction, timingFunction]
+        let positions = [CGPoint(x: dimension / 2, y: ringDimension / 2),
+                         CGPoint(x: dimension - ringDimension / 2, y: dimension - ringDimension / 2),
+                         CGPoint(x: ringDimension / 2, y: dimension - ringDimension / 2)]
+        let values = directionValues.map {
+            $0.map {
+                UnitPoint(x: $0.x * (dimension - ringDimension), y: $0.y * (dimension - ringDimension))
+            }
+        }
         
         return
             ZStack {
                 ForEach(0..<3, id: \.self) { index in
-                    KeyframeAnimationController<MyRing>(beginTime: 0,
-                                                        duration: self.duration,
-                                                        timingFunctions: timingFunctions,
-                                                        keyTimes: self.keyTimes) {
-                                                            MyRing(dimension: ringDimension,
-                                                                   position: self.positions[index],
-                                                                   values: self.values[index],
-                                                                   nextKeyframe: $0)
+                    KeyframeAnimationController(beginTime: 0,
+                                                duration: self.duration,
+                                                timingFunctions: timingFunctions,
+                                                keyTimes: self.keyTimes) {
+                                                    Ring()
+                                                        .frame(width: ringDimension, height: ringDimension)
+                                                        .position(x: positions[index].x, y: positions[index].y)
+                                                        .offset(x: values[index][$0].x, y: values[index][$0].y)
                     }
                 }
             }
