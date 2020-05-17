@@ -31,8 +31,7 @@ struct ContentView: View {
                 BallTrianglePath()
             }
             HStack(spacing: 20) {
-                EmptyView()
-                //                BallScale()
+                BallScale()
                 //                LineScale()
                 //                LineScaleParty()
                 //                BallBeat()
