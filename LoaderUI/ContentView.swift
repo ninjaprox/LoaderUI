@@ -32,7 +32,7 @@ struct ContentView: View {
             }
             HStack(spacing: 20) {
                 BallScale()
-                //                LineScale()
+                LineScale()
                 //                LineScaleParty()
                 //                BallBeat()
             }
