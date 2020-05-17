@@ -24,3 +24,20 @@ struct ScaleEffect: AnimatableModifier {
         content.scaleEffect(scale)
     }
 }
+
+struct OpacityEffect: AnimatableModifier {
+    var opacity: Double
+
+    init(values: [Double], keyframe: Int) {
+        self.opacity = values[keyframe]
+    }
+
+    var animatableData: Double {
+        get { opacity }
+        set { opacity = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content.opacity(opacity)
+    }
+}
