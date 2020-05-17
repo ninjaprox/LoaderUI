@@ -7,59 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F02AFA32471339A00F4A575 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F02AFA22471339A00F4A575 /* Effects.swift */; };
 		1F15977F245EE79A0094005C /* BallPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F15977E245EE79A0094005C /* BallPulse.swift */; };
 		1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F159780245EE8300094005C /* KeyframeAnimation.swift */; };
-		1F159783245F23F80094005C /* BallGridPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F159782245F23F80094005C /* BallGridPulse.swift */; };
-		1F6C84F02463014000305A1E /* BallBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C84EF2463014000305A1E /* BallBeat.swift */; };
-		1F6C84F2246302E600305A1E /* BallGridBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C84F1246302E600305A1E /* BallGridBeat.swift */; };
-		1F6C84F4246307AF00305A1E /* SquareSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C84F3246307AF00305A1E /* SquareSpin.swift */; };
-		1F765CC8246AE1A300B40BAD /* BallTrianglePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CC7246AE1A300B40BAD /* BallTrianglePath.swift */; };
-		1F765CCA246AE84300B40BAD /* BallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CC9246AE84300B40BAD /* BallScale.swift */; };
-		1F765CCC246AE9DD00B40BAD /* LineScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CCB246AE9DD00B40BAD /* LineScale.swift */; };
-		1F765CD0246AEE2D00B40BAD /* LineScaleParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F765CCF246AEE2D00B40BAD /* LineScaleParty.swift */; };
-		1FBFB72B244C68F000B6C7BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */; };
-		1FBFB72D244C68F000B6C7BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */; };
-		1FBFB72F244C68F000B6C7BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB72E244C68F000B6C7BD /* ContentView.swift */; };
+		1FA3A93C246D9E5C001A3098 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3A93B246D9E5C001A3098 /* ContentView.swift */; };
+		1FA3A93F246D9EEB001A3098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3A93D246D9EEB001A3098 /* AppDelegate.swift */; };
+		1FA3A940246D9EEB001A3098 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3A93E246D9EEB001A3098 /* SceneDelegate.swift */; };
 		1FBFB731244C68F200B6C7BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB730244C68F200B6C7BD /* Assets.xcassets */; };
 		1FBFB734244C68F200B6C7BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB733244C68F200B6C7BD /* Preview Assets.xcassets */; };
 		1FBFB737244C68F200B6C7BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */; };
-		1FC61CF9246711990068EF4A /* BallClipRotatePulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61CF8246711990068EF4A /* BallClipRotatePulse.swift */; };
-		1FC61CFB246727DC0068EF4A /* BallClipRotateMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61CFA246727DC0068EF4A /* BallClipRotateMultiple.swift */; };
-		1FC61CFD24672BB50068EF4A /* BallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61CFC24672BB50068EF4A /* BallClipRotate.swift */; };
-		1FC61CFF2467D0B70068EF4A /* BallPulseRise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61CFE2467D0B70068EF4A /* BallPulseRise.swift */; };
-		1FC61D012467E4ED0068EF4A /* BallRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61D002467E4ED0068EF4A /* BallRotate.swift */; };
-		1FC61D032467E9300068EF4A /* CubeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61D022467E9300068EF4A /* CubeTransition.swift */; };
-		1FC61D052467FF940068EF4A /* BallZigZag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61D042467FF940068EF4A /* BallZigZag.swift */; };
-		1FC61D07246803570068EF4A /* BallZigZagDeflect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC61D06246803570068EF4A /* BallZigZagDeflect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F02AFA22471339A00F4A575 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		1F15977E245EE79A0094005C /* BallPulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallPulse.swift; sourceTree = "<group>"; };
 		1F159780245EE8300094005C /* KeyframeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeAnimation.swift; sourceTree = "<group>"; };
-		1F159782245F23F80094005C /* BallGridPulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallGridPulse.swift; sourceTree = "<group>"; };
-		1F6C84EF2463014000305A1E /* BallBeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallBeat.swift; sourceTree = "<group>"; };
-		1F6C84F1246302E600305A1E /* BallGridBeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallGridBeat.swift; sourceTree = "<group>"; };
-		1F6C84F3246307AF00305A1E /* SquareSpin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareSpin.swift; sourceTree = "<group>"; };
-		1F765CC7246AE1A300B40BAD /* BallTrianglePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallTrianglePath.swift; sourceTree = "<group>"; };
-		1F765CC9246AE84300B40BAD /* BallScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScale.swift; sourceTree = "<group>"; };
-		1F765CCB246AE9DD00B40BAD /* LineScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineScale.swift; sourceTree = "<group>"; };
-		1F765CCF246AEE2D00B40BAD /* LineScaleParty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineScaleParty.swift; sourceTree = "<group>"; };
+		1FA3A93B246D9E5C001A3098 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1FA3A93D246D9EEB001A3098 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1FA3A93E246D9EEB001A3098 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1FBFB727244C68F000B6C7BD /* LoaderUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoaderUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1FBFB72E244C68F000B6C7BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1FBFB730244C68F200B6C7BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FBFB733244C68F200B6C7BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1FBFB736244C68F200B6C7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FBFB738244C68F200B6C7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FC61CF8246711990068EF4A /* BallClipRotatePulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallClipRotatePulse.swift; sourceTree = "<group>"; };
-		1FC61CFA246727DC0068EF4A /* BallClipRotateMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallClipRotateMultiple.swift; sourceTree = "<group>"; };
-		1FC61CFC24672BB50068EF4A /* BallClipRotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallClipRotate.swift; sourceTree = "<group>"; };
-		1FC61CFE2467D0B70068EF4A /* BallPulseRise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallPulseRise.swift; sourceTree = "<group>"; };
-		1FC61D002467E4ED0068EF4A /* BallRotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallRotate.swift; sourceTree = "<group>"; };
-		1FC61D022467E9300068EF4A /* CubeTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeTransition.swift; sourceTree = "<group>"; };
-		1FC61D042467FF940068EF4A /* BallZigZag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallZigZag.swift; sourceTree = "<group>"; };
-		1FC61D06246803570068EF4A /* BallZigZagDeflect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallZigZagDeflect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,31 +62,16 @@
 		1FBFB729244C68F000B6C7BD /* LoaderUI */ = {
 			isa = PBXGroup;
 			children = (
-				1F765CCB246AE9DD00B40BAD /* LineScale.swift */,
-				1F765CC9246AE84300B40BAD /* BallScale.swift */,
-				1FC61D042467FF940068EF4A /* BallZigZag.swift */,
-				1FC61D06246803570068EF4A /* BallZigZagDeflect.swift */,
-				1F765CC7246AE1A300B40BAD /* BallTrianglePath.swift */,
-				1FBFB72A244C68F000B6C7BD /* AppDelegate.swift */,
-				1FBFB72C244C68F000B6C7BD /* SceneDelegate.swift */,
-				1FBFB72E244C68F000B6C7BD /* ContentView.swift */,
-				1FC61D022467E9300068EF4A /* CubeTransition.swift */,
-				1FC61D002467E4ED0068EF4A /* BallRotate.swift */,
-				1F6C84F1246302E600305A1E /* BallGridBeat.swift */,
-				1F6C84EF2463014000305A1E /* BallBeat.swift */,
+				1FA3A93D246D9EEB001A3098 /* AppDelegate.swift */,
+				1FA3A93E246D9EEB001A3098 /* SceneDelegate.swift */,
+				1FA3A93B246D9E5C001A3098 /* ContentView.swift */,
 				1F15977E245EE79A0094005C /* BallPulse.swift */,
-				1FC61CFE2467D0B70068EF4A /* BallPulseRise.swift */,
-				1F159782245F23F80094005C /* BallGridPulse.swift */,
-				1F6C84F3246307AF00305A1E /* SquareSpin.swift */,
-				1FC61CF8246711990068EF4A /* BallClipRotatePulse.swift */,
-				1FC61CFA246727DC0068EF4A /* BallClipRotateMultiple.swift */,
-				1FC61CFC24672BB50068EF4A /* BallClipRotate.swift */,
 				1FBFB730244C68F200B6C7BD /* Assets.xcassets */,
 				1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */,
 				1FBFB738244C68F200B6C7BD /* Info.plist */,
 				1FBFB732244C68F200B6C7BD /* Preview Content */,
 				1F159780245EE8300094005C /* KeyframeAnimation.swift */,
-				1F765CCF246AEE2D00B40BAD /* LineScaleParty.swift */,
+				1F02AFA22471339A00F4A575 /* Effects.swift */,
 			);
 			path = LoaderUI;
 			sourceTree = "<group>";
@@ -200,27 +155,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FBFB72B244C68F000B6C7BD /* AppDelegate.swift in Sources */,
-				1FC61CFD24672BB50068EF4A /* BallClipRotate.swift in Sources */,
-				1FC61D052467FF940068EF4A /* BallZigZag.swift in Sources */,
-				1F765CD0246AEE2D00B40BAD /* LineScaleParty.swift in Sources */,
+				1FA3A940246D9EEB001A3098 /* SceneDelegate.swift in Sources */,
+				1FA3A93F246D9EEB001A3098 /* AppDelegate.swift in Sources */,
 				1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */,
-				1F765CCA246AE84300B40BAD /* BallScale.swift in Sources */,
-				1F6C84F2246302E600305A1E /* BallGridBeat.swift in Sources */,
-				1FC61CF9246711990068EF4A /* BallClipRotatePulse.swift in Sources */,
-				1FBFB72D244C68F000B6C7BD /* SceneDelegate.swift in Sources */,
-				1FC61D07246803570068EF4A /* BallZigZagDeflect.swift in Sources */,
-				1FC61D032467E9300068EF4A /* CubeTransition.swift in Sources */,
-				1F765CCC246AE9DD00B40BAD /* LineScale.swift in Sources */,
-				1FC61CFB246727DC0068EF4A /* BallClipRotateMultiple.swift in Sources */,
 				1F15977F245EE79A0094005C /* BallPulse.swift in Sources */,
-				1F159783245F23F80094005C /* BallGridPulse.swift in Sources */,
-				1FC61D012467E4ED0068EF4A /* BallRotate.swift in Sources */,
-				1F765CC8246AE1A300B40BAD /* BallTrianglePath.swift in Sources */,
-				1FBFB72F244C68F000B6C7BD /* ContentView.swift in Sources */,
-				1FC61CFF2467D0B70068EF4A /* BallPulseRise.swift in Sources */,
-				1F6C84F4246307AF00305A1E /* SquareSpin.swift in Sources */,
-				1F6C84F02463014000305A1E /* BallBeat.swift in Sources */,
+				1F02AFA32471339A00F4A575 /* Effects.swift in Sources */,
+				1FA3A93C246D9E5C001A3098 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

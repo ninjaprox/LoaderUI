@@ -8,55 +8,39 @@
 
 import SwiftUI
 
-struct ScaleEffect: GeometryEffect {
-    var scale: CGFloat
-
-    var animatableData: CGFloat {
-        get { scale }
-        set {
-            scale = newValue
-            print("ScaleEffect: \(scale)")
-        }
-    }
-
-    func effectValue(size: CGSize) -> ProjectionTransform {
-        let transform = CGAffineTransform(translationX: -size.width / 2, y: -size.height / 2)
-            .concatenating(.init(scaleX: scale, y: scale))
-            .concatenating(.init(translationX: size.width / 2, y: size.height / 2))
-
-        return ProjectionTransform(transform)
-    }
-}
-
 struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack(spacing: 20) {
                 BallPulse()
-                BallGridPulse()
-                BallClipRotate()
-                SquareSpin()
+                //                BallGridPulse()
+                //                BallClipRotate()
+                //                SquareSpin()
             }
             HStack(spacing: 20) {
-                BallClipRotatePulse()
-                BallClipRotateMultiple()
-                BallPulseRise()
-                BallRotate()
+                EmptyView()
+                //                BallClipRotatePulse()
+                //                BallClipRotateMultiple()
+                //                BallPulseRise()
+                //                BallRotate()
             }
             HStack(spacing: 20) {
-                CubeTransition()
-                BallZigZag()
-                BallZigZagDeflect()
-                BallTrianglePath()
+                EmptyView()
+                //                CubeTransition()
+                //                BallZigZag()
+                //                BallZigZagDeflect()
+                //                BallTrianglePath()
             }
             HStack(spacing: 20) {
-                BallScale()
-                LineScale()
-                LineScaleParty()
-                BallBeat()
+                EmptyView()
+                //                BallScale()
+                //                LineScale()
+                //                LineScaleParty()
+                //                BallBeat()
             }
             HStack(spacing: 20) {
-                BallGridBeat()
+                EmptyView()
+                //                BallGridBeat()
             }
         }
         .padding(20)

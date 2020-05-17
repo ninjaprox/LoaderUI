@@ -106,12 +106,10 @@ class KeyframeIterator: IteratorProtocol {
 }
 
 struct KeyframeAnimationController<T: View>: View {
-    typealias Animator = (Int, Bool) -> Void
-    typealias NextKeyframe = (Animator?) -> Void
-    typealias Content = (@escaping NextKeyframe) -> T
+    typealias Content = (Int) -> T
     
     @State private var keyframe: Double = 0
-    @State private var animator: Animator?
+    @State private var animation: Animation?
     private let beginTime: Double
     private let duration: Double
     private let timingFunctions: [TimingFunction]
@@ -120,14 +118,19 @@ struct KeyframeAnimationController<T: View>: View {
     private var content: Content
     
     var body: some View {
-        content(nextKeyframe).modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
+        content(Int(keyframe))
+            .animation(animation)
+            .modifier(KeyframeAnimation(keyframe: self.keyframe, onComplete: handleComplete))
+            .onAppear {
+                self.nextKeyframe()
+        }
     }
     
     init(beginTime: Double,
          duration: Double,
          timingFunctions: [TimingFunction],
          keyTimes: [Double],
-         @ViewBuilder _ content: @escaping Content) {
+         content: @escaping Content) {
         self.beginTime = beginTime
         self.duration = duration
         self.timingFunctions = timingFunctions
@@ -143,28 +146,18 @@ struct KeyframeAnimationController<T: View>: View {
         nextKeyframe()
     }
     
-    private func nextKeyframe(_ animator: Animator? = nil) {
-        if let animator = animator {
-            self.animator = animator
-        }
-        
+    private func nextKeyframe() {
         DispatchQueue.main.async {
             guard let data = self.keyframeIterator.next() else {
                 return
             }
             
-            let (keyframe, keyframeTracker, animation, isLast) = data
-            
+            let (keyframe, keyframeTracker, animation, _) = data
+
+            self.animation = animation
             withAnimation(keyframeTracker) {
                 self.keyframe = Double(keyframe)
             }
-            withAnimation(animation) {
-                self.animator?(keyframe, isLast)
-            }
         }
     }
-}
-
-protocol KeyframeAnimatable: View {
-    var nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void { get }
 }
