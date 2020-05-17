@@ -32,14 +32,14 @@ struct BallTrianglePath: View {
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
-        let ringDimension = dimension / 3
+        let objectDimension = dimension / 3
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        let positions = [CGPoint(x: dimension / 2, y: ringDimension / 2),
-                         CGPoint(x: dimension - ringDimension / 2, y: dimension - ringDimension / 2),
-                         CGPoint(x: ringDimension / 2, y: dimension - ringDimension / 2)]
+        let positions = [CGPoint(x: dimension / 2, y: objectDimension / 2),
+                         CGPoint(x: dimension - objectDimension / 2, y: dimension - objectDimension / 2),
+                         CGPoint(x: objectDimension / 2, y: dimension - objectDimension / 2)]
         let values = directionValues.map {
             $0.map {
-                UnitPoint(x: $0.x * (dimension - ringDimension), y: $0.y * (dimension - ringDimension))
+                UnitPoint(x: $0.x * (dimension - objectDimension), y: $0.y * (dimension - objectDimension))
             }
         }
         
@@ -51,7 +51,7 @@ struct BallTrianglePath: View {
                                                 timingFunctions: timingFunctions,
                                                 keyTimes: self.keyTimes) {
                                                     Ring()
-                                                        .frame(width: ringDimension, height: ringDimension)
+                                                        .frame(width: objectDimension, height: objectDimension)
                                                         .position(x: positions[index].x, y: positions[index].y)
                                                         .offset(x: values[index][$0].x, y: values[index][$0].y)
                     }

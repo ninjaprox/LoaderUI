@@ -23,13 +23,13 @@ struct CubeTransition: View {
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
-        let rectangleDimension = dimension / 3
+        let objectDimension = dimension / 3
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        let positions = [CGPoint(x: rectangleDimension / 2, y: rectangleDimension / 2),
-                         CGPoint(x: dimension - rectangleDimension / 2, y: dimension - rectangleDimension / 2)]
+        let positions = [CGPoint(x: objectDimension / 2, y: objectDimension / 2),
+                         CGPoint(x: dimension - objectDimension / 2, y: dimension - objectDimension / 2)]
         let translationValues = translationDirectionValues.map {
             $0.map {
-                UnitPoint(x: $0.x * (dimension - rectangleDimension), y: $0.y * (dimension - rectangleDimension))
+                UnitPoint(x: $0.x * (dimension - objectDimension), y: $0.y * (dimension - objectDimension))
             }
         }
         
@@ -43,7 +43,7 @@ struct CubeTransition: View {
                                                     Rectangle()
                                                         .scaleEffect(self.scaleValues[$0])
                                                         .rotationEffect(Angle(radians: self.rotationValues[$0]))
-                                                        .frame(width: rectangleDimension, height: rectangleDimension)
+                                                        .frame(width: objectDimension, height: objectDimension)
                                                         .position(positions[index])
                                                         .offset(x: translationValues[index][$0].x, y: translationValues[index][$0].y)
                     }

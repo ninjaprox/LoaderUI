@@ -21,11 +21,11 @@ struct BallZigZagDeflect: View {
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
-        let circleDimension: CGFloat = dimension / 3
+        let objectDimension: CGFloat = dimension / 3
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         let values = directionValues.map {
             $0.map {
-                UnitPoint(x: $0.x * (dimension - circleDimension) / 2, y: $0.y * (dimension - circleDimension) / 2)
+                UnitPoint(x: $0.x * (dimension - objectDimension) / 2, y: $0.y * (dimension - objectDimension) / 2)
             }
         }
         
@@ -37,7 +37,7 @@ struct BallZigZagDeflect: View {
                                                 timingFunctions: timingFunctions,
                                                 keyTimes: self.keyTimes) {
                                                     Circle()
-                                                        .frame(width: circleDimension, height: circleDimension)
+                                                        .frame(width: objectDimension, height: objectDimension)
                                                         .offset(x: values[index][$0].x, y: values[index][$0].y)
                     }
                 }
