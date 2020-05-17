@@ -26,7 +26,7 @@ struct ContentView: View {
             }
             HStack(spacing: 20) {
                 CubeTransition()
-                //                BallZigZag()
+                BallZigZag()
                 //                BallZigZagDeflect()
                 //                BallTrianglePath()
             }
