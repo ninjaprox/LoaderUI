@@ -14,16 +14,16 @@ struct LineScaleParty: View {
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.25, c0y: 0.1, c1x: 0.25, c1y: 1)
     private let keyTimes = [0, 0.5, 1]
     private let values: [CGFloat] = [1, 0.5, 1]
-    
+
     var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let spacing = dimension / 7
         let timingFunctions = [timingFunction, timingFunction]
-        
+
         return HStack(spacing: spacing) {
             ForEach(0..<4, id: \.self) { index in
                 KeyframeAnimationController(beginTime: self.beginTimes[index],

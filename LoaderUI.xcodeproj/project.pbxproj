@@ -21,6 +21,7 @@
 		1F1457D12471998A002A480B /* BallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1457D02471998A002A480B /* BallScale.swift */; };
 		1F1457D324719A02002A480B /* LineScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1457D224719A02002A480B /* LineScale.swift */; };
 		1F1457D524719AE2002A480B /* LineScaleParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1457D424719AE2002A480B /* LineScaleParty.swift */; };
+		1F1457D724719B51002A480B /* BallBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1457D624719B51002A480B /* BallBeat.swift */; };
 		1F15977F245EE79A0094005C /* BallPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F15977E245EE79A0094005C /* BallPulse.swift */; };
 		1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F159780245EE8300094005C /* KeyframeAnimation.swift */; };
 		1FA3A93C246D9E5C001A3098 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3A93B246D9E5C001A3098 /* ContentView.swift */; };
@@ -46,6 +47,7 @@
 		1F1457D02471998A002A480B /* BallScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallScale.swift; sourceTree = "<group>"; };
 		1F1457D224719A02002A480B /* LineScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineScale.swift; sourceTree = "<group>"; };
 		1F1457D424719AE2002A480B /* LineScaleParty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineScaleParty.swift; sourceTree = "<group>"; };
+		1F1457D624719B51002A480B /* BallBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallBeat.swift; sourceTree = "<group>"; };
 		1F15977E245EE79A0094005C /* BallPulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallPulse.swift; sourceTree = "<group>"; };
 		1F159780245EE8300094005C /* KeyframeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeAnimation.swift; sourceTree = "<group>"; };
 		1FA3A93B246D9E5C001A3098 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				1FA3A93E246D9EEB001A3098 /* SceneDelegate.swift */,
 				1FA3A93B246D9E5C001A3098 /* ContentView.swift */,
 				1F02AFA4247136B200F4A575 /* BallGridPulse.swift */,
+				1F1457D624719B51002A480B /* BallBeat.swift */,
 				1F1457D424719AE2002A480B /* LineScaleParty.swift */,
 				1F1457D224719A02002A480B /* LineScale.swift */,
 				1F1457D02471998A002A480B /* BallScale.swift */,
@@ -202,6 +205,7 @@
 				1FA3A93F246D9EEB001A3098 /* AppDelegate.swift in Sources */,
 				1F1457C324713C73002A480B /* BallClipRotatePulse.swift in Sources */,
 				1F1457D524719AE2002A480B /* LineScaleParty.swift in Sources */,
+				1F1457D724719B51002A480B /* BallBeat.swift in Sources */,
 				1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */,
 				1F1457D12471998A002A480B /* BallScale.swift in Sources */,
 				1F1457C524713DD2002A480B /* BallClipRotateMultiple.swift in Sources */,
