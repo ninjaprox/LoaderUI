@@ -50,10 +50,10 @@ struct BallClipRotatePulse: View {
     func renderMyRing() -> some View {
         let duration = 1.0
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
-        let timingFunctions = [timingFunction, timingFunction]
         let keyTimes = [0, 0.5, 1]
         let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, .pi, 2 * .pi]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
@@ -68,9 +68,9 @@ struct BallClipRotatePulse: View {
     func renderBall() -> some View {
         let duration = 1.0
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
-        let timingFunctions = [timingFunction, timingFunction]
         let keyTimes = [0, 0.3, 1]
         let values: [CGFloat] = [1, 0.3, 1]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,

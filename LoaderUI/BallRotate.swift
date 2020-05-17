@@ -12,11 +12,11 @@ fileprivate struct MyCircles: View {
     var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let spacing = dimension / 8
-        
+
         return HStack(spacing: spacing) {
             Circle().opacity(0.8)
             Circle()
@@ -32,15 +32,15 @@ struct BallRotate: View {
     private let keyTimes = [0, 0.5, 1]
     private let scaleValues: [CGFloat] = [1, 0.6, 1]
     private let rotationValues = [0.0, .pi, 2 * .pi]
-    
+
     var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
-        let timingFunctions = [timingFunction, timingFunction]
-        
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
+
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,

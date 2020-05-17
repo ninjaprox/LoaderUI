@@ -22,7 +22,7 @@ struct LineScale: View {
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let spacing = dimension / 9
-        let timingFunctions = [timingFunction, timingFunction]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         
         return HStack(spacing: spacing) {
             ForEach(0..<5, id: \.self) { index in

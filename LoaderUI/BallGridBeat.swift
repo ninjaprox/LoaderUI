@@ -22,7 +22,7 @@ struct BallGridBeat: View {
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let spacing = dimension / 32
-        let timingFunctions = [timingFunction, timingFunction]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
         return VStack(spacing: spacing) {
             ForEach(0..<3, id: \.self) { row in

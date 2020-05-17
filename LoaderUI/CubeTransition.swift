@@ -24,7 +24,7 @@ struct CubeTransition: View {
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let rectangleDimension = dimension / 3
-        let timingFunctions = [timingFunction, timingFunction, timingFunction, timingFunction]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         let positions = [CGPoint(x: rectangleDimension / 2, y: rectangleDimension / 2),
                          CGPoint(x: dimension - rectangleDimension / 2, y: dimension - rectangleDimension / 2)]
         let translationValues = translationDirectionValues.map {

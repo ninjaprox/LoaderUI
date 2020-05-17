@@ -22,7 +22,7 @@ struct BallZigZag: View {
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let circleDimension: CGFloat = dimension / 3
-        let timingFunctions = [timingFunction, timingFunction, timingFunction]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         let values = directionValues.map {
             $0.map {
                 UnitPoint(x: $0.x * (dimension - circleDimension) / 2, y: $0.y * (dimension - circleDimension) / 2)

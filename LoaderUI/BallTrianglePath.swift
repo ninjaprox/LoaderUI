@@ -33,7 +33,7 @@ struct BallTrianglePath: View {
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let ringDimension = dimension / 3
-        let timingFunctions = [timingFunction, timingFunction, timingFunction]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         let positions = [CGPoint(x: dimension / 2, y: ringDimension / 2),
                          CGPoint(x: dimension - ringDimension / 2, y: dimension - ringDimension / 2),
                          CGPoint(x: ringDimension / 2, y: dimension - ringDimension / 2)]

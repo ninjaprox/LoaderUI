@@ -14,16 +14,16 @@ struct BallPulse: View {
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.2, c0y: 0.68, c1x: 0.18, c1y: 1.08)
     private let keyTimes = [0, 0.3, 1]
     private let values: [CGFloat] = [1, 0.3, 1]
-    
+
     var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let spacing = dimension / 32
-        let timingFunctions = [timingFunction, timingFunction]
-        
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
+
         return HStack(spacing: spacing) {
             ForEach(0..<3, id: \.self) {
                 KeyframeAnimationController(beginTime: self.beginTimes[$0],

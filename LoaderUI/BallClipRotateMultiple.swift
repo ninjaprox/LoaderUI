@@ -15,7 +15,7 @@ struct HorizontalRing: Shape {
         var leftHalf = Path()
         var rightHalf = Path()
         var path = Path()
-        
+
         leftHalf.addArc(center: CGPoint(x: dimension / 2, y: dimension / 2),
                         radius: dimension / 2,
                         startAngle: Angle(radians: 3 * .pi / 4),
@@ -28,7 +28,7 @@ struct HorizontalRing: Shape {
                          clockwise: true)
         path.addPath(leftHalf)
         path.addPath(rightHalf)
-        
+
         return path.strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
     }
 }
@@ -37,24 +37,24 @@ struct BallClipRotateMultiple: View {
     var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
-        
+
         return ZStack {
             renderMyBigRing()
             renderMySmallRing()
         }.frame(width: dimension, height: dimension, alignment: .center)
     }
-    
+
     func renderMyBigRing() -> some View {
         let duration = 1.0
         let timingFunction = TimingFunction.easeInOut
-        let timingFunctions = [timingFunction, timingFunction]
         let keyTimes = [0, 0.5, 1]
         let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, .pi, 2 * .pi]
-        
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
+
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
@@ -64,15 +64,15 @@ struct BallClipRotateMultiple: View {
                                                 .rotationEffect(Angle(radians: rotationValues[$0]))
         }
     }
-    
+
     func renderMySmallRing() -> some View {
         let duration = 1.0
         let timingFunction = TimingFunction.easeInOut
-        let timingFunctions = [timingFunction, timingFunction]
         let keyTimes = [0, 0.5, 1]
         let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, -.pi, -2 * .pi]
-        
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
+
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,

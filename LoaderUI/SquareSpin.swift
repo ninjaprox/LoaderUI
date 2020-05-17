@@ -39,7 +39,7 @@ struct SquareSpin: View {
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
-        let timingFunctions = [timingFunction, timingFunction, timingFunction, timingFunction]
+        let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
