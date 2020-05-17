@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F02AFA32471339A00F4A575 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F02AFA22471339A00F4A575 /* Effects.swift */; };
 		1F02AFA5247136B200F4A575 /* BallGridPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F02AFA4247136B200F4A575 /* BallGridPulse.swift */; };
+		1F1457BF247139EF002A480B /* BallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1457BE247139EF002A480B /* BallClipRotate.swift */; };
 		1F15977F245EE79A0094005C /* BallPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F15977E245EE79A0094005C /* BallPulse.swift */; };
 		1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F159780245EE8300094005C /* KeyframeAnimation.swift */; };
 		1FA3A93C246D9E5C001A3098 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3A93B246D9E5C001A3098 /* ContentView.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		1F02AFA22471339A00F4A575 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		1F02AFA4247136B200F4A575 /* BallGridPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallGridPulse.swift; sourceTree = "<group>"; };
+		1F1457BE247139EF002A480B /* BallClipRotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallClipRotate.swift; sourceTree = "<group>"; };
 		1F15977E245EE79A0094005C /* BallPulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallPulse.swift; sourceTree = "<group>"; };
 		1F159780245EE8300094005C /* KeyframeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeAnimation.swift; sourceTree = "<group>"; };
 		1FA3A93B246D9E5C001A3098 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				1FA3A93E246D9EEB001A3098 /* SceneDelegate.swift */,
 				1FA3A93B246D9E5C001A3098 /* ContentView.swift */,
 				1F02AFA4247136B200F4A575 /* BallGridPulse.swift */,
+				1F1457BE247139EF002A480B /* BallClipRotate.swift */,
 				1F15977E245EE79A0094005C /* BallPulse.swift */,
 				1FBFB730244C68F200B6C7BD /* Assets.xcassets */,
 				1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA3A940246D9EEB001A3098 /* SceneDelegate.swift in Sources */,
+				1F1457BF247139EF002A480B /* BallClipRotate.swift in Sources */,
 				1FA3A93F246D9EEB001A3098 /* AppDelegate.swift in Sources */,
 				1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */,
 				1F02AFA5247136B200F4A575 /* BallGridPulse.swift in Sources */,

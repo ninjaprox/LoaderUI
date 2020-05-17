@@ -41,3 +41,20 @@ struct OpacityEffect: AnimatableModifier {
         content.opacity(opacity)
     }
 }
+
+struct RotationEffect: AnimatableModifier {
+    var rotation: Double
+
+    init(values: [Double], keyframe: Int) {
+        self.rotation = values[keyframe]
+    }
+
+    var animatableData: Double {
+        get { rotation }
+        set { rotation = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content.rotationEffect(Angle(radians: rotation))
+    }
+}
