@@ -34,9 +34,10 @@ struct ContentView: View {
                 BallScale()
                 LineScale()
                 LineScaleParty()
-                BallBeat()
+                BallPulseSync()
             }
             HStack(spacing: 20) {
+                BallBeat()
                 BallGridBeat()
             }
         }
