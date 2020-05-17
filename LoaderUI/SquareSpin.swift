@@ -8,20 +8,22 @@
 
 import SwiftUI
 
-fileprivate struct MySquare: View, KeyframeAnimatable {
-    @State private var value: (Double, Double, Double, Double) = (0, 0, 0, 0)
-    let values: [(Double, Double, Double, Double)]
-    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
+fileprivate struct FlipEffect: AnimatableModifier {
+    typealias Value = (Double, Double, Double, Double)
 
-    var body: some View {
-        Rectangle()
-            .rotation3DEffect(Angle(radians: value.0), axis: (x: CGFloat(value.1), y: CGFloat(value.2), z: CGFloat(value.3)))
-            .onAppear() {
-                self.nextKeyframe { keyframe, _ in
-                    self.value = self.values[keyframe]
-                }
+    var value:  Value
 
-        }
+    init(values: [Value], keyframe: Int) {
+        self.value = values[keyframe]
+    }
+
+    var animatableData: Value {
+        get { value }
+        set { value = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content.rotation3DEffect(Angle(radians: value.0), axis: (x: CGFloat(value.1), y: CGFloat(value.2), z: CGFloat(value.3)))
     }
 }
 
@@ -39,12 +41,11 @@ struct SquareSpin: View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let timingFunctions = [timingFunction, timingFunction, timingFunction, timingFunction]
 
-        return KeyframeAnimationController<MySquare>(beginTime: 0,
-                                                     duration: self.duration,
-                                                     timingFunctions: timingFunctions,
-                                                     keyTimes: self.keyTimes) {
-                                                        MySquare(values: self.values,
-                                                                 nextKeyframe: $0)
+        return KeyframeAnimationController(beginTime: 0,
+                                           duration: duration,
+                                           timingFunctions: timingFunctions,
+                                           keyTimes: keyTimes) {
+                                            Rectangle().modifier(FlipEffect(values: self.values, keyframe: $0))
         }
         .frame(width: dimension, height: dimension, alignment: .center)
     }

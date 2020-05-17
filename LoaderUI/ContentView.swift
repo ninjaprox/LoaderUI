@@ -15,7 +15,7 @@ struct ContentView: View {
                 BallPulse()
                 BallGridPulse()
                 BallClipRotate()
-                //                SquareSpin()
+                SquareSpin()
             }
             HStack(spacing: 20) {
                 EmptyView()
