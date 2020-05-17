@@ -8,37 +8,12 @@
 
 import SwiftUI
 
-fileprivate struct MyCircle: View, KeyframeAnimatable {
-    @State private var translation: UnitPoint = .zero
-    let dimension: CGFloat
-    let values: [UnitPoint]
-    let nextKeyframe: (KeyframeAnimationController<Self>.Animator?) -> Void
-    
-    var body: some View {
-        GeometryReader(content: self.render)
-    }
-    
-    func render(geometry: GeometryProxy) -> some View {
-        let geometryDimension = min(geometry.size.width, geometry.size.height)
-        
-        return Circle()
-            .frame(width: dimension, height: dimension)
-            .offset(x: translation.x * (geometryDimension - dimension) / 2,
-                    y: translation.y * (geometryDimension - dimension) / 2)
-            .onAppear() {
-                self.nextKeyframe { keyframe, _ in
-                    self.translation = self.values[keyframe]
-                }
-        }
-    }
-}
-
 struct BallZigZagDeflect: View {
     private let duration = 1.5
     private let timingFunction = TimingFunction.linear
     private let keyTimes = [0, 0.16, 0.33, 0.5, 0.66, 0.83, 1]
-    private let values: [[UnitPoint]] = [[.zero, .init(x: -1, y: -1), .init(x: 1, y: -1), .zero, .init(x: 1, y: -1), .init(x: -1, y: -1), .zero],
-                                         [.zero, .init(x: 1, y: 1), .init(x: -1, y: 1), .zero, .init(x: -1, y: 1), .init(x: 1, y: 1), .zero]]
+    private let directionValues: [[UnitPoint]] = [[.zero, .init(x: -1, y: -1), .init(x: 1, y: -1), .zero, .init(x: 1, y: -1), .init(x: -1, y: -1), .zero],
+                                                  [.zero, .init(x: 1, y: 1), .init(x: -1, y: 1), .zero, .init(x: -1, y: 1), .init(x: 1, y: 1), .zero]]
     
     var body: some View {
         GeometryReader(content: self.render)
@@ -48,17 +23,22 @@ struct BallZigZagDeflect: View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let circleDimension: CGFloat = dimension / 3
         let timingFunctions = [timingFunction, timingFunction, timingFunction, timingFunction, timingFunction, timingFunction]
+        let values = directionValues.map {
+            $0.map {
+                UnitPoint(x: $0.x * (dimension - circleDimension) / 2, y: $0.y * (dimension - circleDimension) / 2)
+            }
+        }
         
         return
             ZStack {
                 ForEach(0..<2, id: \.self) { index in
-                    KeyframeAnimationController<MyCircle>(beginTime: 0,
-                                                          duration: self.duration,
-                                                          timingFunctions: timingFunctions,
-                                                          keyTimes: self.keyTimes) {
-                                                            MyCircle(dimension: circleDimension,
-                                                                     values: self.values[index],
-                                                                     nextKeyframe: $0)
+                    KeyframeAnimationController(beginTime: 0,
+                                                duration: self.duration,
+                                                timingFunctions: timingFunctions,
+                                                keyTimes: self.keyTimes) {
+                                                    Circle()
+                                                        .frame(width: circleDimension, height: circleDimension)
+                                                        .offset(x: values[index][$0].x, y: values[index][$0].y)
                     }
                 }
             }
