@@ -35,6 +35,7 @@
 		1FBFB737244C68F200B6C7BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */; };
 		1FE5C3B62472D8AB0028EB21 /* BallScaleRipple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */; };
 		1FE5C3B82472DB7F0028EB21 /* BallScaleRippleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */; };
+		1FE5C3BA2472DE220028EB21 /* TriangleSkewSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B92472DE220028EB21 /* TriangleSkewSpin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		1FBFB738244C68F200B6C7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScaleRipple.swift; sourceTree = "<group>"; };
 		1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScaleRippleMultiple.swift; sourceTree = "<group>"; };
+		1FE5C3B92472DE220028EB21 /* TriangleSkewSpin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleSkewSpin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				1F1457C024713B6C002A480B /* SquareSpin.swift */,
 				1F1457BE247139EF002A480B /* BallClipRotate.swift */,
 				1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */,
+				1FE5C3B92472DE220028EB21 /* TriangleSkewSpin.swift */,
 				1F15977E245EE79A0094005C /* BallPulse.swift */,
 				1FBFB730244C68F200B6C7BD /* Assets.xcassets */,
 				1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */,
@@ -223,6 +226,7 @@
 				1F1457C324713C73002A480B /* BallClipRotatePulse.swift in Sources */,
 				1F1457D524719AE2002A480B /* LineScaleParty.swift in Sources */,
 				1F1457D724719B51002A480B /* BallBeat.swift in Sources */,
+				1FE5C3BA2472DE220028EB21 /* TriangleSkewSpin.swift in Sources */,
 				1F1457DF2471A5D9002A480B /* LineScalePulseOutRapid.swift in Sources */,
 				1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */,
 				1F1457D12471998A002A480B /* BallScale.swift in Sources */,
