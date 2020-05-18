@@ -43,6 +43,7 @@ struct ContentView: View {
                 BallScaleRipple()
             }
             HStack(spacing: 20) {
+                BallScaleRippleMultiple()
                 BallGridBeat()
             }
         }

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-fileprivate struct Ring: Shape {
+fileprivate struct SmallRing: Shape {
     func path(in rect: CGRect) -> Path {
         let dimension = min(rect.size.width, rect.size.height)
         let lineWidth = dimension / 32 * 3
@@ -50,7 +50,7 @@ struct BallTrianglePath: View {
                                                 duration: self.duration,
                                                 timingFunctions: timingFunctions,
                                                 keyTimes: self.keyTimes) {
-                                                    Ring()
+                                                    SmallRing()
                                                         .frame(width: objectDimension, height: objectDimension)
                                                         .position(x: positions[index].x, y: positions[index].y)
                                                         .offset(x: values[index][$0].x, y: values[index][$0].y)

@@ -34,6 +34,7 @@
 		1FBFB734244C68F200B6C7BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB733244C68F200B6C7BD /* Preview Assets.xcassets */; };
 		1FBFB737244C68F200B6C7BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */; };
 		1FE5C3B62472D8AB0028EB21 /* BallScaleRipple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */; };
+		1FE5C3B82472DB7F0028EB21 /* BallScaleRippleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		1FBFB736244C68F200B6C7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FBFB738244C68F200B6C7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScaleRipple.swift; sourceTree = "<group>"; };
+		1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScaleRippleMultiple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				1F1457C224713C73002A480B /* BallClipRotatePulse.swift */,
 				1F1457C024713B6C002A480B /* SquareSpin.swift */,
 				1F1457BE247139EF002A480B /* BallClipRotate.swift */,
+				1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */,
 				1F15977E245EE79A0094005C /* BallPulse.swift */,
 				1FBFB730244C68F200B6C7BD /* Assets.xcassets */,
 				1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */,
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA3A940246D9EEB001A3098 /* SceneDelegate.swift in Sources */,
+				1FE5C3B82472DB7F0028EB21 /* BallScaleRippleMultiple.swift in Sources */,
 				1F1457C724713E94002A480B /* BallRotate.swift in Sources */,
 				1F1457BF247139EF002A480B /* BallClipRotate.swift in Sources */,
 				1F1457C924713F36002A480B /* CubeTransition.swift in Sources */,
