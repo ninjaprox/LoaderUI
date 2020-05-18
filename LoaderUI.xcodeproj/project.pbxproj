@@ -33,6 +33,7 @@
 		1FBFB731244C68F200B6C7BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB730244C68F200B6C7BD /* Assets.xcassets */; };
 		1FBFB734244C68F200B6C7BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB733244C68F200B6C7BD /* Preview Assets.xcassets */; };
 		1FBFB737244C68F200B6C7BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */; };
+		1FE5C3B62472D8AB0028EB21 /* BallScaleRipple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		1FBFB733244C68F200B6C7BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1FBFB736244C68F200B6C7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FBFB738244C68F200B6C7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScaleRipple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				1FA3A93D246D9EEB001A3098 /* AppDelegate.swift */,
 				1FA3A93E246D9EEB001A3098 /* SceneDelegate.swift */,
 				1FA3A93B246D9E5C001A3098 /* ContentView.swift */,
+				1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */,
 				1F1457DA2471A20C002A480B /* BallPulseSync.swift */,
 				1F1457DC2471A530002A480B /* LineScalePulseOut.swift */,
 				1F1457DE2471A5D9002A480B /* LineScalePulseOutRapid.swift */,
@@ -229,6 +232,7 @@
 				1F1457DB2471A20C002A480B /* BallPulseSync.swift in Sources */,
 				1FA3A93C246D9E5C001A3098 /* ContentView.swift in Sources */,
 				1F1457CF24719852002A480B /* BallTrianglePath.swift in Sources */,
+				1FE5C3B62472D8AB0028EB21 /* BallScaleRipple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
