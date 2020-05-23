@@ -48,6 +48,9 @@ struct ContentView: View {
                 BallGridBeat()
                 SemiCircleSpin()
             }
+            HStack(spacing: 20) {
+                AudioEqualizer()
+            }
         }
         .padding(20)
     }
