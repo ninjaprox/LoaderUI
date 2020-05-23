@@ -33,6 +33,7 @@
 		1FBFB731244C68F200B6C7BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB730244C68F200B6C7BD /* Assets.xcassets */; };
 		1FBFB734244C68F200B6C7BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB733244C68F200B6C7BD /* Preview Assets.xcassets */; };
 		1FBFB737244C68F200B6C7BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFB735244C68F200B6C7BD /* LaunchScreen.storyboard */; };
+		1FC916962478F91700DFD219 /* SemiCircleSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC916952478F91700DFD219 /* SemiCircleSpin.swift */; };
 		1FE5C3B62472D8AB0028EB21 /* BallScaleRipple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */; };
 		1FE5C3B82472DB7F0028EB21 /* BallScaleRippleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */; };
 		1FE5C3BA2472DE220028EB21 /* TriangleSkewSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5C3B92472DE220028EB21 /* TriangleSkewSpin.swift */; };
@@ -67,6 +68,7 @@
 		1FBFB733244C68F200B6C7BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1FBFB736244C68F200B6C7BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FBFB738244C68F200B6C7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FC916952478F91700DFD219 /* SemiCircleSpin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiCircleSpin.swift; sourceTree = "<group>"; };
 		1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScaleRipple.swift; sourceTree = "<group>"; };
 		1FE5C3B72472DB7F0028EB21 /* BallScaleRippleMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallScaleRippleMultiple.swift; sourceTree = "<group>"; };
 		1FE5C3B92472DE220028EB21 /* TriangleSkewSpin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleSkewSpin.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				1FA3A93D246D9EEB001A3098 /* AppDelegate.swift */,
 				1FA3A93E246D9EEB001A3098 /* SceneDelegate.swift */,
 				1FA3A93B246D9E5C001A3098 /* ContentView.swift */,
+				1FC916952478F91700DFD219 /* SemiCircleSpin.swift */,
 				1FE5C3B52472D8AB0028EB21 /* BallScaleRipple.swift */,
 				1F1457DA2471A20C002A480B /* BallPulseSync.swift */,
 				1F1457DC2471A530002A480B /* LineScalePulseOut.swift */,
@@ -229,6 +232,7 @@
 				1FE5C3BA2472DE220028EB21 /* TriangleSkewSpin.swift in Sources */,
 				1F1457DF2471A5D9002A480B /* LineScalePulseOutRapid.swift in Sources */,
 				1F159781245EE8300094005C /* KeyframeAnimation.swift in Sources */,
+				1FC916962478F91700DFD219 /* SemiCircleSpin.swift in Sources */,
 				1F1457D12471998A002A480B /* BallScale.swift in Sources */,
 				1F1457C524713DD2002A480B /* BallClipRotateMultiple.swift in Sources */,
 				1F02AFA5247136B200F4A575 /* BallGridPulse.swift in Sources */,

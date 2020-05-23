@@ -46,6 +46,7 @@ struct ContentView: View {
                 BallScaleRippleMultiple()
                 TriangleSkewSpin()
                 BallGridBeat()
+                SemiCircleSpin()
             }
         }
         .padding(20)
