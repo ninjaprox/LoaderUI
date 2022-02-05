@@ -25,8 +25,9 @@ fileprivate struct SemiCircle: Shape {
 
 public struct SemiCircleSpin: View {
     private let duration: Double
+    private let defaultDuration = 0.6
     private let timingFunction = TimingFunction.linear
-    private let keyTimes = [0, 1.0]
+    private var keyTimes = [0, 1.0]
     private let value = [0, 2 * Double.pi]
 
     public var body: some View {
@@ -35,9 +36,12 @@ public struct SemiCircleSpin: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 0.6
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, duration]
         }
     }
 

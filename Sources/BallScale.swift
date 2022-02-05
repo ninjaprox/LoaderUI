@@ -10,8 +10,9 @@ import SwiftUI
 
 public struct BallScale: View {
     private let duration: Double
+    private let defaultDuration = 1.0
     private let timingFunction = TimingFunction.easeInOut
-    private let keyTimes = [0.0, 1.0]
+    private var keyTimes = [0.0, 1.0]
     private let scaleValues: [CGFloat] = [0.0, 1.0]
     private let opacityValues = [1.0, 0.0]
     
@@ -21,9 +22,12 @@ public struct BallScale: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 1.0
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, duration]
         }
     }
     

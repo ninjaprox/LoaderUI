@@ -35,15 +35,20 @@ struct HorizontalRing: Shape {
 
 public struct BallClipRotateMultiple: View {
     private var duration: Double
+    private var defaultDuration = 1.0
+    private var keyTimes = [0, 0.5, 1]
     public var body: some View {
         GeometryReader(content: self.render)
     }
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 1.0
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.5*duration, duration]
         }
     }
 
@@ -59,7 +64,7 @@ public struct BallClipRotateMultiple: View {
     func renderMyBigRing() -> some View {
         let duration = duration
         let timingFunction = TimingFunction.easeInOut
-        let keyTimes = [0, 0.5, 1]
+        let keyTimes = keyTimes
         let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, .pi, 2 * .pi]
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
@@ -77,7 +82,7 @@ public struct BallClipRotateMultiple: View {
     func renderMySmallRing() -> some View {
         let duration = duration
         let timingFunction = TimingFunction.easeInOut
-        let keyTimes = [0, 0.5, 1]
+        let keyTimes = keyTimes
         let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, -.pi, -2 * .pi]
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)

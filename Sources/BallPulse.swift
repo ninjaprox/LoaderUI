@@ -11,8 +11,9 @@ import SwiftUI
 public struct BallPulse: View {
     private let beginTimes = [0.12, 0.24, 0.36]
     private let duration: Double
+    private let defaultDuration = 0.75
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.2, c0y: 0.68, c1x: 0.18, c1y: 1.08)
-    private let keyTimes = [0, 0.3, 1]
+    private var keyTimes = [0, 0.3, 1]
     private let values: [CGFloat] = [1, 0.3, 1]
 
     public var body: some View {
@@ -21,9 +22,12 @@ public struct BallPulse: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 0.75
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.3*duration, duration]
         }
     }
 

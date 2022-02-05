@@ -11,8 +11,9 @@ import SwiftUI
 public struct BallBeat: View {
     private let beginTimes = [0.35, 0, 0.35]
     private let duration: Double
+    private let defaultDuration = 0.7
     private let timingFunction = TimingFunction.linear
-    private let keyTimes = [0, 0.5, 1]
+    private var keyTimes = [0, 0.5, 1]
     private let scaleValues: [CGFloat] = [1, 0.75, 1]
     private let opacityValues = [1, 0.2, 1]
     
@@ -22,9 +23,12 @@ public struct BallBeat: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 0.7
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.5*duration, duration]
         }
     }
     

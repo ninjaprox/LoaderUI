@@ -20,8 +20,9 @@ fileprivate struct SmallRing: Shape {
 
 public struct BallTrianglePath: View {
     private let duration:Double
+    private let defaultDuration = 2.0
     private let timingFunction = TimingFunction.easeInOut
-    private let keyTimes = [0, 0.33, 0.66, 1]
+    private var keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: 0.5, y: 1), .init(x: -0.5, y: 1), .zero],
                                                   [.zero, .init(x: -1, y: 0), .init(x: -0.5, y: -1), .zero],
                                                   [.zero, .init(x: 0.5, y: -1), .init(x: 1, y: 0), .zero]]
@@ -32,9 +33,12 @@ public struct BallTrianglePath: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 2.0
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.33*duration, 0.66*duration, duration]
         }
     }
     

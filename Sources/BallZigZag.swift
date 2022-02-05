@@ -10,8 +10,9 @@ import SwiftUI
 
 public struct BallZigZag: View {
     private let duration:Double
+    private let defaultDuration = 0.7
     private let timingFunction = TimingFunction.linear
-    private let keyTimes = [0, 0.33, 0.66, 1]
+    private var keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: -1, y: -1), .init(x: 1, y: -1), .zero],
                                                   [.zero, .init(x: 1, y: 1), .init(x: -1, y: 1), .zero]]
     
@@ -21,9 +22,12 @@ public struct BallZigZag: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 0.7
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.33*duration, 0.66*duration, duration]
         }
     }
     

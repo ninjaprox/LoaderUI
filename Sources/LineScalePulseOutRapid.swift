@@ -11,8 +11,9 @@ import SwiftUI
 public struct LineScalePulseOutRapid: View {
     private let beginTimes = [0.5, 0.25, 0, 0.25, 0.5]
     private let duration: Double
+    private let defaultDuration = 0.9
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.11, c0y: 0.49, c1x: 0.38, c1y: 0.78)
-    private let keyTimes = [0, 0.8, 0.9]
+    private var keyTimes = [0, 0.8, 0.9]
     private let values: [CGFloat] = [1, 0.3, 1]
 
     public var body: some View {
@@ -21,9 +22,12 @@ public struct LineScalePulseOutRapid: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 0.9
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.8*duration, 0.9*duration]
         }
     }
     

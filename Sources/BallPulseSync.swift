@@ -11,8 +11,9 @@ import SwiftUI
 public struct BallPulseSync: View {
     private let beginTimes = [0.07, 0.14, 0.21]
     private let duration: Double
+    private let defaultDuration = 0.6
     private let timingFunction = TimingFunction.easeInOut
-    private let keyTimes = [0, 0.33, 0.66, 1]
+    private var keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [CGFloat] = [0, 1, -1, 0]
 
     public var body: some View {
@@ -21,9 +22,12 @@ public struct BallPulseSync: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 0.6
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.33*duration, 0.66*duration, duration]
         }
     }
 

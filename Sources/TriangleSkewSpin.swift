@@ -25,8 +25,9 @@ fileprivate struct Triangle: Shape {
 
 public struct TriangleSkewSpin: View {
     private let duration: Double
+    private let defaultDuration = 3.0
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
-    private let keyTimes = [0, 0.25, 0.5, 0.75, 1]
+    private var keyTimes = [0, 0.25, 0.5, 0.75, 1]
     private let values = [(0.0, 0.0, 0.0, 0.0), (Double.pi, 1.0, 0.0, 0.0), (Double.pi, 0.0, 0.0, 1.0), (Double.pi, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 0.0)] // The last one should rotate to left on y axis
     
     public var body: some View {
@@ -35,9 +36,12 @@ public struct TriangleSkewSpin: View {
 
     public init(duration: Double) {
         if duration == 0.0 {
-            self.duration = 3.0
+            self.duration = defaultDuration
         }else {
             self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.25*duration, 0.5*duration, 0.75*duration, duration]
         }
     }
     
