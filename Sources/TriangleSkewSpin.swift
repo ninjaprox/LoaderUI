@@ -24,7 +24,7 @@ fileprivate struct Triangle: Shape {
 }
 
 public struct TriangleSkewSpin: View {
-    private let duration = 3.0
+    private let duration: Double
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
     private let keyTimes = [0, 0.25, 0.5, 0.75, 1]
     private let values = [(0.0, 0.0, 0.0, 0.0), (Double.pi, 1.0, 0.0, 0.0), (Double.pi, 0.0, 0.0, 1.0), (Double.pi, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 0.0)] // The last one should rotate to left on y axis
@@ -33,7 +33,13 @@ public struct TriangleSkewSpin: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 3.0
+        }else {
+            self.duration = duration
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -54,6 +60,6 @@ public struct TriangleSkewSpin: View {
 
 struct TriangleSkewSpin_Previews: PreviewProvider {
     static var previews: some View {
-        TriangleSkewSpin()
+        TriangleSkewSpin(duration: 3.0)
     }
 }

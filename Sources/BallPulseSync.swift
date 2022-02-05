@@ -10,7 +10,7 @@ import SwiftUI
 
 public struct BallPulseSync: View {
     private let beginTimes = [0.07, 0.14, 0.21]
-    private let duration = 0.6
+    private let duration: Double
     private let timingFunction = TimingFunction.easeInOut
     private let keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [CGFloat] = [0, 1, -1, 0]
@@ -19,7 +19,13 @@ public struct BallPulseSync: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 0.6
+        }else {
+            self.duration = duration
+        }
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -46,6 +52,6 @@ public struct BallPulseSync: View {
 
 struct BallPulseSync_Previews: PreviewProvider {
     static var previews: some View {
-        BallPulseSync()
+        BallPulseSync(duration: 0.6)
     }
 }

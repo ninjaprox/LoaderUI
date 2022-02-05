@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct BallScale: View {
-    private let duration = 1.0
+    private let duration: Double
     private let timingFunction = TimingFunction.easeInOut
     private let keyTimes = [0.0, 1.0]
     private let scaleValues: [CGFloat] = [0.0, 1.0]
@@ -19,7 +19,13 @@ public struct BallScale: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 1.0
+        }else {
+            self.duration = duration
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -39,6 +45,6 @@ public struct BallScale: View {
 
 struct BallScale_Previews: PreviewProvider {
     static var previews: some View {
-        BallScale()
+        BallScale(duration: 1.0)
     }
 }

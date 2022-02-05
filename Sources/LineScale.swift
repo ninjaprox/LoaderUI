@@ -10,7 +10,7 @@ import SwiftUI
 
 public struct LineScale: View {
     private let beginTimes = [0.1, 0.2, 0.3, 0.4, 0.5]
-    private let duration = 1.0
+    private let duration: Double
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.2, c0y: 0.68, c1x: 0.18, c1y: 1.08)
     private let keyTimes = [0, 0.5, 1]
     private let values: [CGFloat] = [1, 0.4, 1]
@@ -19,7 +19,13 @@ public struct LineScale: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 1.0
+        }else {
+            self.duration = duration
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -43,6 +49,6 @@ public struct LineScale: View {
 
 struct LineScale_Previews: PreviewProvider {
     static var previews: some View {
-        LineScale()
+        LineScale(duration: 1.0)
     }
 }

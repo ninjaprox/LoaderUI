@@ -34,11 +34,18 @@ struct VerticalRing: Shape {
 }
 
 public struct BallClipRotatePulse: View {
+    private var duration: Double
     public var body: some View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 1.0
+        }else {
+            self.duration = duration
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -50,7 +57,7 @@ public struct BallClipRotatePulse: View {
     }
     
     func renderMyRing() -> some View {
-        let duration = 1.0
+        let duration = duration
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
         let keyTimes = [0, 0.5, 1]
         let scaleValues: [CGFloat] = [1, 0.6, 1]
@@ -68,7 +75,7 @@ public struct BallClipRotatePulse: View {
     }
     
     func renderBall() -> some View {
-        let duration = 1.0
+        let duration = duration
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
         let keyTimes = [0, 0.3, 1]
         let values: [CGFloat] = [1, 0.3, 1]
@@ -87,6 +94,6 @@ public struct BallClipRotatePulse: View {
 
 struct BallClipRotatePulse_Previews: PreviewProvider {
     static var previews: some View {
-        BallClipRotatePulse()
+        BallClipRotatePulse(duration: 1.0)
     }
 }

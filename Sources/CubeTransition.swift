@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct CubeTransition: View {
-    private let duration = 1.6
+    private let duration: Double
     private let timingFunction = TimingFunction.easeInOut
     private let keyTimes = [0, 0.25, 0.5, 0.75, 1]
     private let scaleValues: [CGFloat] = [1, 0.5, 1, 0.5, 1]
@@ -21,7 +21,13 @@ public struct CubeTransition: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 1.6
+        }else {
+            self.duration = duration
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -57,6 +63,6 @@ public struct CubeTransition: View {
 
 struct CubeTransition_Previews: PreviewProvider {
     static var previews: some View {
-        CubeTransition()
+        CubeTransition(duration: 1.6)
     }
 }

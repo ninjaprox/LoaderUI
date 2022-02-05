@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct BallZigZag: View {
-    private let duration = 0.7
+    private let duration:Double
     private let timingFunction = TimingFunction.linear
     private let keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: -1, y: -1), .init(x: 1, y: -1), .zero],
@@ -19,7 +19,13 @@ public struct BallZigZag: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 0.7
+        }else {
+            self.duration = duration
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -50,6 +56,6 @@ public struct BallZigZag: View {
 
 struct BallZigZag_Previews: PreviewProvider {
     static var previews: some View {
-        BallZigZag()
+        BallZigZag(duration: 0.7)
     }
 }

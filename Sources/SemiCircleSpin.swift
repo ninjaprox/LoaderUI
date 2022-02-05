@@ -24,7 +24,7 @@ fileprivate struct SemiCircle: Shape {
 }
 
 public struct SemiCircleSpin: View {
-    private let duration = 0.6
+    private let duration: Double
     private let timingFunction = TimingFunction.linear
     private let keyTimes = [0, 1.0]
     private let value = [0, 2 * Double.pi]
@@ -33,7 +33,13 @@ public struct SemiCircleSpin: View {
         GeometryReader(content: render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration == 0.0 {
+            self.duration = 0.6
+        }else {
+            self.duration = duration
+        }
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -52,6 +58,6 @@ public struct SemiCircleSpin: View {
 
 struct SemiCircleSpin_Previews: PreviewProvider {
     static var previews: some View {
-        SemiCircleSpin()
+        SemiCircleSpin(duration: 0.6)
     }
 }
