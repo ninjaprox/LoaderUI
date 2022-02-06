@@ -36,20 +36,49 @@ struct HorizontalRing: Shape {
 public struct BallClipRotateMultiple: View {
     private var duration: Double
     private var defaultDuration = 1.0
-    private var keyTimes = [0, 0.5, 1]
+    private var keyTimes: Array<Double> = []
+    private var rotationValues: Array<Double> = []
+    private var scaleValues: Array<CGFloat> = [1, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1]
     public var body: some View {
         GeometryReader(content: self.render)
     }
 
     public init(duration: Double) {
+        rotationValues.append(-2 * -.pi)
         if duration == 0.0 {
             self.duration = defaultDuration
+            scaleValues = [1, 0.6, 1]
+            keyTimes.append(contentsOf: [1, 0.5])
+            
         }else {
             self.duration = duration
         }
         if duration > defaultDuration {
-            keyTimes = [0, 0.5*duration, duration]
+            let topNum = Int(duration.rounded() + 1)
+            for num in 1...topNum {
+//                if num <= (topNum-1)/2 || num >= ((topNum-1)/2)+2 {
+//                    scaleValues.append((0.4/CGFloat(num))+0.6)
+//                }else if num > (topNum-1)/2 && num < ((topNum-1)/2)+2 {
+//                    scaleValues.append(0.65)
+//                }else {
+//                    scaleValues.append(0.6)
+//                }
+                print("ballClipRotateMultiple.num = \(num)")
+                let finalValue = 1/Double(num)
+                keyTimes.append(finalValue)
+            }
+            for num in 1...topNum-1 {
+                let finalValue = 1/Double(num)
+                rotationValues.append(.pi * -finalValue)
+            }
         }
+        print("ballClipRotateMultiple.scaleValues = \(scaleValues)")
+        rotationValues.append(0)
+        rotationValues.reverse()
+        print("ballClipRotateMultiple.rotationValues = \(rotationValues)")
+        keyTimes.append(0)
+        keyTimes.reverse()
+        print("ballClipRotateMultiple.keyTimes = \(keyTimes)")
     }
 
     func render(geometry: GeometryProxy) -> some View {
@@ -65,8 +94,8 @@ public struct BallClipRotateMultiple: View {
         let duration = duration
         let timingFunction = TimingFunction.easeInOut
         let keyTimes = keyTimes
-        let scaleValues: [CGFloat] = [1, 0.6, 1]
-        let rotationValues = [0.0, .pi, 2 * .pi]
+        let scaleValues: [CGFloat] = scaleValues
+        let rotationValues = rotationValues
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
         return KeyframeAnimationController(beginTime: 0,
@@ -83,8 +112,8 @@ public struct BallClipRotateMultiple: View {
         let duration = duration
         let timingFunction = TimingFunction.easeInOut
         let keyTimes = keyTimes
-        let scaleValues: [CGFloat] = [1, 0.6, 1]
-        let rotationValues = [0.0, -.pi, -2 * .pi]
+        let scaleValues: [CGFloat] = scaleValues
+        let rotationValues = rotationValues
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
         return KeyframeAnimationController(beginTime: 0,
