@@ -48,7 +48,8 @@ public struct BallClipRotateMultiple: View {
         if duration == 0.0 {
             self.duration = defaultDuration
             scaleValues = [1, 0.6, 1]
-            keyTimes.append(contentsOf: [1, 0.5])
+            keyTimes.append(1)
+            keyTimes.append(0.5)
             
         }else {
             self.duration = duration
