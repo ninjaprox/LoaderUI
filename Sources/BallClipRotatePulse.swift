@@ -37,9 +37,10 @@ public struct BallClipRotatePulse: View {
     private var duration: Double
     private var defaultDuration = 1.0
     private var ringKeyTimes: Array<Double> = []
-    private var ringScaleValues: Array<CGFloat> = [1, 0.6, 1]
+    private var ringScaleValues: Array<CGFloat> = [1, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1]
     private var ringRotationValues: Array<Double> = []
     private var ballKeyTimes: Array<Double> = []
+    private var ballScaleValues: Array<CGFloat> = [1, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.55, 0.50, 0.45, 0.40, 0.35, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1]
     public var body: some View {
         GeometryReader(content: self.render)
     }
@@ -83,8 +84,8 @@ public struct BallClipRotatePulse: View {
         let duration = duration
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
         let keyTimes = ringKeyTimes
-        let scaleValues: [CGFloat] = [1, 0.6, 1]
-        let rotationValues = [0.0, .pi, 2 * .pi]
+        let scaleValues: [CGFloat] = ringScaleValues
+        let rotationValues = ringRotationValues
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         
         return KeyframeAnimationController(beginTime: 0,
@@ -101,7 +102,7 @@ public struct BallClipRotatePulse: View {
         let duration = duration
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
         let keyTimes = ballKeyTimes
-        let values: [CGFloat] = [1, 0.3, 1]
+        let values: [CGFloat] = ballScaleValues
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
         
         return KeyframeAnimationController(beginTime: 0,
