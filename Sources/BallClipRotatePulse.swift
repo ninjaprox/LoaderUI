@@ -47,7 +47,7 @@ public struct BallClipRotatePulse: View {
 
     public init(duration: Double) {
         ringRotationValues.append(-2 * -.pi)
-        if duration == 0.0 {
+        if duration <= defaultDuration {
             self.duration = defaultDuration
             ringRotationValues.append(-.pi)
             ringKeyTimes.append(contentsOf: [1, 0.5])
@@ -60,7 +60,7 @@ public struct BallClipRotatePulse: View {
 //            ballKeyTimes = [0, 0.3*duration, duration]
             let topNum = Int(duration.rounded() + 1)
             for num in 1...topNum {
-//                print("ballClipRotateMultiple.num = \(num)")
+                print("BallClipRotatePulse.num = \(num)")
                 ballKeyTimes.append(0.3 * Double(num))
                 ringKeyTimes.append(0.5 * Double(num))
             }
@@ -69,6 +69,15 @@ public struct BallClipRotatePulse: View {
                 ringRotationValues.append(.pi * -finalValue)
             }
         }
+        ringRotationValues.append(0)
+        ringRotationValues.reverse()
+        print("BallClipRotatePulse.ringRotationValues = \(ringRotationValues)")
+        ringKeyTimes.append(0)
+        ringKeyTimes.reverse()
+        print("BallClipRotatePulse.ringKeyTimes = \(ringKeyTimes)")
+        ballKeyTimes.append(0)
+        ballKeyTimes.reverse()
+        print("BallClipRotatePulse.ballKeyTimes = \(ballKeyTimes)")
     }
     
     func render(geometry: GeometryProxy) -> some View {

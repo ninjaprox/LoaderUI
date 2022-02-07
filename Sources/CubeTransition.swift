@@ -23,7 +23,7 @@ public struct CubeTransition: View {
     }
 
     public init(duration: Double) {
-        if duration == 0.0 {
+        if duration <= defaultDuration {
             self.duration = defaultDuration
         }else {
             self.duration = duration
