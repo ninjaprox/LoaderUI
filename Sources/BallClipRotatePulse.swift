@@ -36,21 +36,37 @@ struct VerticalRing: Shape {
 public struct BallClipRotatePulse: View {
     private var duration: Double
     private var defaultDuration = 1.0
-    private var ringKeyTimes = [0, 0.5, 1]
-    private var ballKeyTimes = [0, 0.3, 1]
+    private var ringKeyTimes: Array<Double> = []
+    private var ringScaleValues: Array<CGFloat> = [1, 0.6, 1]
+    private var ringRotationValues: Array<Double> = []
+    private var ballKeyTimes: Array<Double> = []
     public var body: some View {
         GeometryReader(content: self.render)
     }
 
     public init(duration: Double) {
+        ringRotationValues.append(-2 * -.pi)
         if duration == 0.0 {
             self.duration = defaultDuration
+            ringRotationValues.append(-.pi)
+            ringKeyTimes.append(contentsOf: [1, 0.5])
+            ballKeyTimes.append(contentsOf: [1, 0.5])
         }else {
             self.duration = duration
         }
         if duration > defaultDuration {
-            ringKeyTimes = [0, 0.5*duration, duration]
-            ballKeyTimes = [0, 0.3*duration, duration]
+//            ringKeyTimes = [0, 0.5*duration, duration]
+//            ballKeyTimes = [0, 0.3*duration, duration]
+            let topNum = Int(duration.rounded() + 1)
+            for num in 1...topNum {
+//                print("ballClipRotateMultiple.num = \(num)")
+                ballKeyTimes.append(0.3 * Double(num))
+                ringKeyTimes.append(0.5 * Double(num))
+            }
+            for num in 1...topNum-1 {
+                let finalValue = 1/Double(num)
+                ringRotationValues.append(.pi * -finalValue)
+            }
         }
     }
     
