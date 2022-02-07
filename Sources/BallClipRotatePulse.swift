@@ -71,13 +71,15 @@ public struct BallClipRotatePulse: View {
         }
         ringRotationValues.append(0)
         ringRotationValues.reverse()
-        print("BallClipRotatePulse.ringRotationValues = \(ringRotationValues)")
+//        print("BallClipRotatePulse.ringRotationValues = \(ringRotationValues)")
+        ringKeyTimes.reverse()
         ringKeyTimes.append(0)
         ringKeyTimes.reverse()
-        print("BallClipRotatePulse.ringKeyTimes = \(ringKeyTimes)")
+//        print("BallClipRotatePulse.ringKeyTimes = \(ringKeyTimes)")
+        ballKeyTimes.reverse()
         ballKeyTimes.append(0)
         ballKeyTimes.reverse()
-        print("BallClipRotatePulse.ballKeyTimes = \(ballKeyTimes)")
+//        print("BallClipRotatePulse.ballKeyTimes = \(ballKeyTimes)")
     }
     
     func render(geometry: GeometryProxy) -> some View {
