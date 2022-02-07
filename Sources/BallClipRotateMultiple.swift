@@ -56,14 +56,7 @@ public struct BallClipRotateMultiple: View {
         if duration > defaultDuration {
             let topNum = Int(duration.rounded() + 1)
             for num in 1...topNum {
-//                if num <= (topNum-1)/2 || num >= ((topNum-1)/2)+2 {
-//                    scaleValues.append((0.4/CGFloat(num))+0.6)
-//                }else if num > (topNum-1)/2 && num < ((topNum-1)/2)+2 {
-//                    scaleValues.append(0.65)
-//                }else {
-//                    scaleValues.append(0.6)
-//                }
-                print("ballClipRotateMultiple.num = \(num)")
+//                print("ballClipRotateMultiple.num = \(num)")
                 let finalValue = 1/Double(num)
                 keyTimes.append(finalValue)
             }
@@ -72,13 +65,13 @@ public struct BallClipRotateMultiple: View {
                 rotationValues.append(.pi * -finalValue)
             }
         }
-        print("ballClipRotateMultiple.scaleValues = \(scaleValues)")
+//        print("ballClipRotateMultiple.scaleValues = \(scaleValues)")
         rotationValues.append(0)
         rotationValues.reverse()
-        print("ballClipRotateMultiple.rotationValues = \(rotationValues)")
+//        print("ballClipRotateMultiple.rotationValues = \(rotationValues)")
         keyTimes.append(0)
         keyTimes.reverse()
-        print("ballClipRotateMultiple.keyTimes = \(keyTimes)")
+//        print("ballClipRotateMultiple.keyTimes = \(keyTimes)")
     }
 
     func render(geometry: GeometryProxy) -> some View {

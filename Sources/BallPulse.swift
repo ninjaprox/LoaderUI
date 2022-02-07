@@ -13,7 +13,7 @@ public struct BallPulse: View {
     private let duration: Double
     private let defaultDuration = 0.75
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.2, c0y: 0.68, c1x: 0.18, c1y: 1.08)
-    private var keyTimes = [0, 0.3, 1]
+    private var keyTimes: Array<Double> = [0, 0.3, 1]
     private let values: [CGFloat] = [1, 0.3, 1]
 
     public var body: some View {
@@ -27,7 +27,7 @@ public struct BallPulse: View {
             self.duration = duration
         }
         if duration > defaultDuration {
-            keyTimes = [0, 0.3*duration, duration]
+            keyTimes = [0, (0.3*duration), duration]
         }
     }
 
