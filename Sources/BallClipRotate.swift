@@ -40,7 +40,7 @@ public struct BallClipRotate: View {
     public init(duration: Double) {
         if duration <= defaultDuration {
             self.duration = defaultDuration
-        }else {
+        } else {
             self.duration = duration
         }
         if duration > defaultDuration {

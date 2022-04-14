@@ -37,7 +37,7 @@ public struct TriangleSkewSpin: View {
     public init(duration: Double) {
         if duration == 0.0 {
             self.duration = defaultDuration
-        }else {
+        } else {
             self.duration = duration
         }
         if duration > defaultDuration {

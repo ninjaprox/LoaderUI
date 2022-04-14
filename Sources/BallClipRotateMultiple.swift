@@ -50,7 +50,7 @@ public struct BallClipRotateMultiple: View {
             rotationValues.append(-.pi)
             keyTimes.append(contentsOf: [1, 0.5])
             
-        }else {
+        } else {
             self.duration = duration
         }
         if duration > defaultDuration {

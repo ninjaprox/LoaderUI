@@ -52,7 +52,7 @@ public struct BallClipRotatePulse: View {
             ringRotationValues.append(-.pi)
             ringKeyTimes.append(contentsOf: [1, 0.5])
             ballKeyTimes.append(contentsOf: [1, 0.5])
-        }else {
+        } else {
             self.duration = duration
         }
         if duration > defaultDuration {
