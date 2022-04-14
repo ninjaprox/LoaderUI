@@ -10,9 +10,10 @@ import SwiftUI
 
 public struct BallScaleRippleMultiple: View {
     private let beginTimes = [0, 0.2, 0.4]
-    private let duration = 1.25
+    private let duration: Double
+    private let defaultDuration = 1.25
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.21, c0y: 0.53, c1x: 0.56, c1y: 0.8)
-    private let keyTimes = [0, 0.7, 1]
+    private var keyTimes = [0, 0.7, 1]
     private let scaleValues: [CGFloat] = [0.1, 1, 1]
     private let opacityValues = [1, 0.7, 0]
     
@@ -20,7 +21,16 @@ public struct BallScaleRippleMultiple: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration <= defaultDuration {
+            self.duration = defaultDuration
+        } else {
+            self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.7*duration, duration]
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -46,6 +56,6 @@ public struct BallScaleRippleMultiple: View {
 
 struct BallScaleRippleMultiple_Previews: PreviewProvider {
     static var previews: some View {
-        BallScaleRippleMultiple()
+        BallScaleRippleMultiple(duration: 1.25)
     }
 }

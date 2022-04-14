@@ -24,16 +24,26 @@ fileprivate struct SemiCircle: Shape {
 }
 
 public struct SemiCircleSpin: View {
-    private let duration = 0.6
+    private let duration: Double
+    private let defaultDuration = 0.6
     private let timingFunction = TimingFunction.linear
-    private let keyTimes = [0, 1.0]
+    private var keyTimes = [0, 1.0]
     private let value = [0, 2 * Double.pi]
 
     public var body: some View {
         GeometryReader(content: render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration <= defaultDuration {
+            self.duration = defaultDuration
+        } else {
+            self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, duration]
+        }
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -52,6 +62,6 @@ public struct SemiCircleSpin: View {
 
 struct SemiCircleSpin_Previews: PreviewProvider {
     static var previews: some View {
-        SemiCircleSpin()
+        SemiCircleSpin(duration: 0.6)
     }
 }

@@ -26,9 +26,10 @@ fileprivate struct BallClip: Shape {
 }
 
 public struct BallClipRotate: View {
-    private let duration = 0.75
+    private let duration: Double
+    private let defaultDuration = 0.75
     private let timingFunction = TimingFunction.linear
-    private let keyTimes = [0, 0.5, 1]
+    private var keyTimes = [0, 0.5, 1]
     private let scaleValues: [CGFloat] = [1, 0.6, 1]
     private let rotationValues = [0.0, .pi, 2 * .pi]
     
@@ -36,7 +37,16 @@ public struct BallClipRotate: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration <= defaultDuration {
+            self.duration = defaultDuration
+        } else {
+            self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.5*duration, duration]
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -55,7 +65,7 @@ public struct BallClipRotate: View {
     
     struct BallClipRotate_Previews: PreviewProvider {
         static var previews: some View {
-            BallClipRotate()
+            BallClipRotate(duration: 0.75)
         }
     }
 }

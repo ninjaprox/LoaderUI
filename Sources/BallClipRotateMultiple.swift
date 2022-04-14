@@ -34,11 +34,45 @@ struct HorizontalRing: Shape {
 }
 
 public struct BallClipRotateMultiple: View {
+    private var duration: Double
+    private var defaultDuration = 1.0
+    private var keyTimes: Array<Double> = []
+    private var rotationValues: Array<Double> = []
+    private var scaleValues: Array<CGFloat> = [1, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1]
     public var body: some View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        rotationValues.append(-2 * -.pi)
+        if duration <= defaultDuration {
+            self.duration = defaultDuration
+            rotationValues.append(-.pi)
+            keyTimes.append(contentsOf: [1, 0.5])
+            
+        } else {
+            self.duration = duration
+        }
+        if duration > defaultDuration {
+            let topNum = Int(duration.rounded() + 1)
+            for num in 1...topNum {
+//                print("ballClipRotateMultiple.num = \(num)")
+                let finalValue = 1/Double(num)
+                keyTimes.append(finalValue)
+            }
+            for num in 1...topNum-1 {
+                let finalValue = 1/Double(num)
+                rotationValues.append(.pi * -finalValue)
+            }
+        }
+//        print("ballClipRotateMultiple.scaleValues = \(scaleValues)")
+        rotationValues.append(0)
+        rotationValues.reverse()
+//        print("ballClipRotateMultiple.rotationValues = \(rotationValues)")
+        keyTimes.append(0)
+        keyTimes.reverse()
+//        print("ballClipRotateMultiple.keyTimes = \(keyTimes)")
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -50,11 +84,11 @@ public struct BallClipRotateMultiple: View {
     }
 
     func renderMyBigRing() -> some View {
-        let duration = 1.0
+        let duration = duration
         let timingFunction = TimingFunction.easeInOut
-        let keyTimes = [0, 0.5, 1]
-        let scaleValues: [CGFloat] = [1, 0.6, 1]
-        let rotationValues = [0.0, .pi, 2 * .pi]
+        let keyTimes = keyTimes
+        let scaleValues: [CGFloat] = scaleValues
+        let rotationValues = rotationValues
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
         return KeyframeAnimationController(beginTime: 0,
@@ -68,11 +102,11 @@ public struct BallClipRotateMultiple: View {
     }
 
     func renderMySmallRing() -> some View {
-        let duration = 1.0
+        let duration = duration
         let timingFunction = TimingFunction.easeInOut
-        let keyTimes = [0, 0.5, 1]
-        let scaleValues: [CGFloat] = [1, 0.6, 1]
-        let rotationValues = [0.0, -.pi, -2 * .pi]
+        let keyTimes = keyTimes
+        let scaleValues: [CGFloat] = scaleValues
+        let rotationValues = rotationValues
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
         return KeyframeAnimationController(beginTime: 0,
@@ -89,6 +123,6 @@ public struct BallClipRotateMultiple: View {
 
 struct BallClipRotateMultiple_Previews: PreviewProvider {
     static var previews: some View {
-        BallClipRotateMultiple()
+        BallClipRotateMultiple(duration: 1.0)
     }
 }

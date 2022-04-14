@@ -10,16 +10,26 @@ import SwiftUI
 
 public struct BallPulse: View {
     private let beginTimes = [0.12, 0.24, 0.36]
-    private let duration = 0.75
+    private let duration: Double
+    private let defaultDuration = 0.75
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.2, c0y: 0.68, c1x: 0.18, c1y: 1.08)
-    private let keyTimes = [0, 0.3, 1]
+    private var keyTimes: Array<Double> = [0, 0.3, 1]
     private let values: [CGFloat] = [1, 0.3, 1]
 
     public var body: some View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration <= defaultDuration {
+            self.duration = defaultDuration
+        } else {
+            self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, (0.3*duration), duration]
+        }
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -42,6 +52,6 @@ public struct BallPulse: View {
 
 struct BallPulse_Previews: PreviewProvider {
     static var previews: some View {
-        BallPulse()
+        BallPulse(duration: 0.75)
     }
 }

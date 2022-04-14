@@ -16,7 +16,7 @@ let package = Package(
     targets: [
         .target(
             name: "LoaderUI",
-            path: "Sources",
-            exclude: ["Exclude"]),
+            path: "Sources"
+        ),
     ]
 )

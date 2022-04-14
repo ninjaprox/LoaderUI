@@ -19,9 +19,10 @@ fileprivate struct SmallRing: Shape {
 }
 
 public struct BallTrianglePath: View {
-    private let duration = 2.0
+    private let duration:Double
+    private let defaultDuration = 2.0
     private let timingFunction = TimingFunction.easeInOut
-    private let keyTimes = [0, 0.33, 0.66, 1]
+    private var keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: 0.5, y: 1), .init(x: -0.5, y: 1), .zero],
                                                   [.zero, .init(x: -1, y: 0), .init(x: -0.5, y: -1), .zero],
                                                   [.zero, .init(x: 0.5, y: -1), .init(x: 1, y: 0), .zero]]
@@ -30,7 +31,16 @@ public struct BallTrianglePath: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration <= defaultDuration {
+            self.duration = defaultDuration
+        } else {
+            self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.33*duration, 0.66*duration, duration]
+        }
+    }
     
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -65,6 +75,6 @@ public struct BallTrianglePath: View {
 
 struct BallTrianglePath_Previews: PreviewProvider {
     static var previews: some View {
-        BallTrianglePath()
+        BallTrianglePath(duration: 2.0)
     }
 }

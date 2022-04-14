@@ -27,9 +27,10 @@ fileprivate struct MyCircles: View {
 
 
 public struct BallRotate: View {
-    private let duration = 1.0
+    private let duration: Double
+    private let defaultDuration = 1.0
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.7, c0y: -0.13, c1x: 0.22, c1y: 0.86)
-    private let keyTimes = [0, 0.5, 1]
+    private var keyTimes = [0, 0.5, 1]
     private let scaleValues: [CGFloat] = [1, 0.6, 1]
     private let rotationValues = [0.0, .pi, 2 * .pi]
 
@@ -37,7 +38,16 @@ public struct BallRotate: View {
         GeometryReader(content: self.render)
     }
 
-    public init() { }
+    public init(duration: Double) {
+        if duration <= defaultDuration {
+            self.duration = defaultDuration
+        } else {
+            self.duration = duration
+        }
+        if duration > defaultDuration {
+            keyTimes = [0, 0.5*duration, duration]
+        }
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -57,6 +67,6 @@ public struct BallRotate: View {
 
 struct BallRotate_Previews: PreviewProvider {
     static var previews: some View {
-        BallRotate()
+        BallRotate(duration: 1.0)
     }
 }
