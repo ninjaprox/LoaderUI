@@ -114,7 +114,7 @@ struct KeyframeAnimationController<T: View>: View {
     private let duration: Double
     private let timingFunctions: [TimingFunction]
     private let keyTimes: [Double]
-    private let keyframeIterator: KeyframeIterator
+    @State private var keyframeIterator: KeyframeIterator
     private var content: Content
     
     var body: some View {
