@@ -11,25 +11,24 @@ import SwiftUI
 struct HorizontalRing: Shape {
     func path(in rect: CGRect) -> Path {
         let dimension = min(rect.size.width, rect.size.height)
+        let radius = dimension / 2
         let lineWidth = dimension / 16
-        var leftHalf = Path()
-        var rightHalf = Path()
         var path = Path()
 
-        leftHalf.addArc(center: CGPoint(x: dimension / 2, y: dimension / 2),
-                        radius: dimension / 2,
-                        startAngle: Angle(radians: 3 * .pi / 4),
-                        endAngle: Angle(radians: 5 * .pi / 4),
-                        clockwise: false)
-        rightHalf.addArc(center: CGPoint(x: dimension / 2, y: dimension / 2),
-                         radius: dimension / 2,
-                         startAngle: Angle(radians: .pi / 4),
-                         endAngle: Angle(radians: 7 * .pi / 4),
-                         clockwise: true)
-        path.addPath(leftHalf)
-        path.addPath(rightHalf)
+        path.addArc(center: .zero,
+                    radius: radius,
+                    startAngle: Angle(radians: .pi / -4),
+                    endAngle: Angle(radians: .pi / 4),
+                    clockwise: false)
+        path.move(to: CGPoint(x: -radius * cos(.pi / 4), y: radius * sin(.pi / 4)))
+        path.addArc(center: .zero,
+                    radius: radius,
+                    startAngle: Angle(radians: 3 * .pi / 4),
+                    endAngle: Angle(radians: 5 * .pi / 4),
+                    clockwise: false)
 
-        return path.strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+        return path.offsetBy(dx: radius, dy: radius)
+            .strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
     }
 }
 
@@ -61,9 +60,9 @@ public struct BallClipRotateMultiple: View {
                                            duration: duration,
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes) {
-                                            VerticalRing()
-                                                .scaleEffect(scaleValues[$0])
-                                                .rotationEffect(Angle(radians: rotationValues[$0]))
+            VerticalRing()
+                .scaleEffect(scaleValues[$0])
+                .rotationEffect(Angle(radians: rotationValues[$0]))
         }
     }
 
@@ -79,10 +78,10 @@ public struct BallClipRotateMultiple: View {
                                            duration: duration,
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes) {
-                                            HorizontalRing()
-                                                .scale(0.5)
-                                                .scaleEffect(scaleValues[$0])
-                                                .rotationEffect(Angle(radians: rotationValues[$0]))
+            HorizontalRing()
+                .scale(0.5)
+                .scaleEffect(scaleValues[$0])
+                .rotationEffect(Angle(radians: rotationValues[$0]))
         }
     }
 }
