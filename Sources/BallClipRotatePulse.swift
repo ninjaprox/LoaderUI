@@ -11,25 +11,24 @@ import SwiftUI
 struct VerticalRing: Shape {
     func path(in rect: CGRect) -> Path {
         let dimension = min(rect.size.width, rect.size.height)
+        let radius = dimension / 2
         let lineWidth = dimension / 32
-        var topHalf = Path()
-        var bottomHalf = Path()
         var path = Path()
         
-        topHalf.addArc(center: CGPoint(x: dimension / 2, y: dimension / 2),
-                       radius: dimension / 2,
-                       startAngle: Angle(radians: 5 * .pi / 4),
-                       endAngle: Angle(radians: 7 * .pi / 4),
-                       clockwise: false)
-        bottomHalf.addArc(center: CGPoint(x: dimension / 2, y: dimension / 2),
-                          radius: dimension / 2,
-                          startAngle: Angle(radians: 3 * .pi / 4),
-                          endAngle: Angle(radians: .pi / 4),
-                          clockwise: true)
-        path.addPath(topHalf)
-        path.addPath(bottomHalf)
+        path.addArc(center: .zero,
+                    radius: radius,
+                    startAngle: Angle(radians: .pi / 4),
+                    endAngle: Angle(radians: 3 * .pi / 4),
+                    clockwise: false)
+        path.move(to: CGPoint(x: -radius * cos(.pi / 4), y: -radius * cos(.pi / 4)))
+        path.addArc(center: .zero,
+                    radius: radius,
+                    startAngle: Angle(radians: 5 * .pi / 4),
+                    endAngle: Angle(radians: 7 * .pi / 4),
+                    clockwise: false)
         
-        return path.strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+        return path.offsetBy(dx: radius, dy: radius)
+            .strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
     }
 }
 
@@ -37,7 +36,7 @@ public struct BallClipRotatePulse: View {
     public var body: some View {
         GeometryReader(content: self.render)
     }
-
+    
     public init() { }
     
     func render(geometry: GeometryProxy) -> some View {
@@ -61,9 +60,9 @@ public struct BallClipRotatePulse: View {
                                            duration: duration,
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes) {
-                                            VerticalRing()
-                                                .scaleEffect(scaleValues[$0])
-                                                .rotationEffect(Angle(radians: rotationValues[$0]))
+            VerticalRing()
+                .scaleEffect(scaleValues[$0])
+                .rotationEffect(Angle(radians: rotationValues[$0]))
         }
     }
     
@@ -78,9 +77,9 @@ public struct BallClipRotatePulse: View {
                                            duration: duration,
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes) {
-                                            Circle()
-                                                .scale(0.5)
-                                                .scaleEffect(values[$0])
+            Circle()
+                .scale(0.5)
+                .scaleEffect(values[$0])
         }
     }
 }
