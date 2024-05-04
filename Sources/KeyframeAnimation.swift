@@ -69,11 +69,11 @@ class KeyframeIterator: IteratorProtocol {
     private var isRepeating = false
 
     var keyframeTracker: Animation? {
-        let isFirst = keyframe == 0
-        let delay = isFirst ? beginTime : 0
+        let isFirst = keyframe == 1
+        let delay = isFirst && !isRepeating ? beginTime : 0
         let duration =  durations[keyframe]
 
-        return Animation.linear(duration: duration).delay(delay)
+        return delay == 0 ? Animation.linear(duration: duration) : Animation.linear(duration: duration).delay(delay)
     }
 
     init(beginTime: Double,
@@ -99,11 +99,11 @@ class KeyframeIterator: IteratorProtocol {
     }
 
     func next() -> Element? {
-        let isFirst = keyframe == 0
+        let isFirst = keyframe == 1
         let isLast = keyframe == (keyTimes.count - 1)
-        let delay = isFirst ? beginTime : 0
+        let delay = isFirst && !isRepeating ? beginTime : 0
         let nextKeyframe = isLast ? 0 : keyframe + 1
-        let animation = animations[nextKeyframe]?.delay(delay)
+        let animation = delay == 0 ? animations[nextKeyframe] : animations[nextKeyframe]?.delay(delay)
         let element: Element = (nextKeyframe, animation, isLast)
 
         if isLast {
