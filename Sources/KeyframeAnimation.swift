@@ -118,7 +118,7 @@ class KeyframeIterator: IteratorProtocol {
 struct KeyframeAnimationController<T: View>: View {
     typealias Content = (Int) -> T
 
-    @State private var keyframe: Int = 0 // -1 used to trigger the animation and start at keyframe 0
+    @State private var keyframe: Int = 0
     @State private var animation: Animation?
     private let beginTime: Double
     private let duration: Double
