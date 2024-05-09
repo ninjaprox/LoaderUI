@@ -59,7 +59,8 @@ public struct BallClipRotateMultiple: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: keyTimes) {
+                                           keyTimes: keyTimes,
+                                           closedLoop: false) {
             VerticalRing()
                 .scaleEffect(scaleValues[$0])
                 .rotationEffect(Angle(radians: rotationValues[$0]))
@@ -77,7 +78,8 @@ public struct BallClipRotateMultiple: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: keyTimes) {
+                                           keyTimes: keyTimes,
+                                           closedLoop: false) {
             HorizontalRing()
                 .scale(0.5)
                 .scaleEffect(scaleValues[$0])

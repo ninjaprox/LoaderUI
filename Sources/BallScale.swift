@@ -28,7 +28,8 @@ public struct BallScale: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: keyTimes) {
+                                           keyTimes: keyTimes,
+                                           closedLoop: false) {
                                             Circle()
                                                 .scaleEffect(self.scaleValues[$0])
                                                 .opacity(self.opacityValues[$0])

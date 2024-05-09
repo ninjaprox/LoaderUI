@@ -42,7 +42,8 @@ public struct SemiCircleSpin: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: keyTimes) {
+                                           keyTimes: keyTimes,
+                                           closedLoop: false) {
                                             SemiCircle()
                                                 .rotation(Angle(radians: self.value[$0]))
         }

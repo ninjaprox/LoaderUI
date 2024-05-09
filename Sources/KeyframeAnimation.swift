@@ -17,19 +17,21 @@ struct KeyframeAnimation: Shape {
     init(keyframe: Int, onComplete: @escaping OnCompleteHandler) {
         self.keyframe = keyframe
         self.onComplete = onComplete
-        animatableData = Double(keyframe)
+        animatableData = Double(keyframe) * 100
     }
 
     var animatableData: Double {
         didSet {
+            print("[\(Date().timeIntervalSinceReferenceDate)] animatableData: \(animatableData)")
             complete()
         }
     }
 
     func complete() {
-        guard Int(animatableData) == keyframe else { return }
+        guard Int(animatableData) == keyframe * 100 else { return }
 
         DispatchQueue.main.async {
+            print("[\(Date().timeIntervalSinceReferenceDate)] complete keyframe: \(keyframe)")
             self.onComplete(keyframe)
         }
     }
@@ -63,6 +65,7 @@ class KeyframeIterator: IteratorProtocol {
     private let duration: Double
     private let timingFunctions: [TimingFunction]
     private let keyTimes: [Double]
+    private let closedLoop: Bool
     private let durations: [Double]
     private let animations: [Animation?]
     private var keyframe: Int = 0
@@ -79,18 +82,24 @@ class KeyframeIterator: IteratorProtocol {
     init(beginTime: Double,
          duration: Double,
          timingFunctions: [TimingFunction],
-         keyTimes: [Double]
+         keyTimes: [Double],
+         closedLoop: Bool
     ) {
+        print("init KeyframeIterator")
+
         self.beginTime = beginTime
         self.duration = duration
         self.timingFunctions = timingFunctions
         self.keyTimes = keyTimes
+        self.closedLoop = closedLoop
 
         assert(keyTimes.count - timingFunctions.count == 1)
 
         let keyPercents = zip(keyTimes[0..<keyTimes.count - 1], keyTimes[1...])
             .map { $1 - $0 }
         let durations = keyPercents.map { duration * $0 }
+
+        print("durations: \(durations)")
 
         self.durations = [0] + durations
         animations = [nil] + zip(durations, timingFunctions).map { duration, timingFunction in
@@ -102,7 +111,7 @@ class KeyframeIterator: IteratorProtocol {
         let isFirst = keyframe == 1
         let isLast = keyframe == (keyTimes.count - 1)
         let delay = isFirst && !isRepeating ? beginTime : 0
-        let nextKeyframe = isLast ? 0 : keyframe + 1
+        let nextKeyframe = isLast ? (closedLoop ? 1 : 0) : keyframe + 1
         let animation = delay == 0 ? animations[nextKeyframe] : animations[nextKeyframe]?.delay(delay)
         let element: Element = (nextKeyframe, animation, isLast)
 
@@ -125,13 +134,13 @@ struct KeyframeAnimationController<T: View>: View {
     private let timingFunctions: [TimingFunction]
     private let keyTimes: [Double]
     private let keyframeIterator: KeyframeIterator
-    private var content: Content
+    private let content: Content
 
     var body: some View {
         ZStack {
             KeyframeAnimation(keyframe: keyframe, onComplete: handleComplete)
                 .animation(keyframeIterator.keyframeTracker, value: keyframe)
-            content(max(0, keyframe))
+            content(keyframe)
                 .animation(animation, value: keyframe)
         }
         .onAppear {
@@ -143,7 +152,9 @@ struct KeyframeAnimationController<T: View>: View {
          duration: Double,
          timingFunctions: [TimingFunction],
          keyTimes: [Double],
+         closedLoop: Bool = true,
          content: @escaping Content) {
+        print("init KeyframeAnimationController")
         self.beginTime = beginTime
         self.duration = duration
         self.timingFunctions = timingFunctions
@@ -152,7 +163,8 @@ struct KeyframeAnimationController<T: View>: View {
         keyframeIterator = KeyframeIterator(beginTime: beginTime,
                                             duration: duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: keyTimes)
+                                            keyTimes: keyTimes,
+                                            closedLoop: closedLoop)
 
     }
 
@@ -167,6 +179,7 @@ struct KeyframeAnimationController<T: View>: View {
 
         let (keyframe, animation, _) = data
 
+        print("[\(Date().timeIntervalSinceReferenceDate)] next keyframe: \(keyframe)")
         self.animation = animation
         self.keyframe = keyframe
     }

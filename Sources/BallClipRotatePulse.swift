@@ -59,7 +59,8 @@ public struct BallClipRotatePulse: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: keyTimes) {
+                                           keyTimes: keyTimes,
+                                           closedLoop: false) {
             VerticalRing()
                 .scaleEffect(scaleValues[$0])
                 .rotationEffect(Angle(radians: rotationValues[$0]))
