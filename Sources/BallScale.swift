@@ -14,27 +14,26 @@ public struct BallScale: View {
     private let keyTimes = [0.0, 1.0]
     private let scaleValues: [CGFloat] = [0.0, 1.0]
     private let opacityValues = [1.0, 0.0]
-    
+
     public var body: some View {
         GeometryReader(content: self.render)
     }
 
     public init() { }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        
+
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes,
                                            closedLoop: false) {
-                                            Circle()
-                                                .scaleEffect(self.scaleValues[$0])
-                                                .opacity(self.opacityValues[$0])
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+            Circle()
+                .scaleEffect(self.scaleValues[$0])
+                .opacity(self.opacityValues[$0])
+        }.frame(width: dimension, height: dimension, alignment: .center)
     }
 }
 

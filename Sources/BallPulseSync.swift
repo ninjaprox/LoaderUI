@@ -9,6 +9,7 @@
 import SwiftUI
 
 public struct BallPulseSync: View {
+    private let referenceTime = DispatchTime.now()
     private let beginTimes = [0.07, 0.14, 0.21]
     private let duration = 0.6
     private let timingFunction = TimingFunction.easeInOut
@@ -35,8 +36,9 @@ public struct BallPulseSync: View {
                 KeyframeAnimationController(beginTime: self.beginTimes[$0],
                                             duration: self.duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes) {
-                                                Circle().offset(x: 0, y: values[$0])
+                                            keyTimes: self.keyTimes,
+                                            referenceTime: referenceTime) {
+                    return Circle().offset(x: 0, y: values[$0])
                 }
             }
         }

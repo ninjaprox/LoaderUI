@@ -8,39 +8,6 @@
 
 import SwiftUI
 
-struct KeyframeAnimation: Shape {
-    typealias OnCompleteHandler = (Int) -> Void
-
-    private let keyframe: Int
-    private let onComplete: OnCompleteHandler
-
-    init(keyframe: Int, onComplete: @escaping OnCompleteHandler) {
-        self.keyframe = keyframe
-        self.onComplete = onComplete
-        animatableData = Double(keyframe) * 100
-    }
-
-    var animatableData: Double {
-        didSet {
-            print("[\(Date().timeIntervalSinceReferenceDate)] animatableData: \(animatableData)")
-            complete()
-        }
-    }
-
-    func complete() {
-        guard Int(animatableData) == keyframe * 100 else { return }
-
-        DispatchQueue.main.async {
-            print("[\(Date().timeIntervalSinceReferenceDate)] complete keyframe: \(keyframe)")
-            self.onComplete(keyframe)
-        }
-    }
-
-    func path(in rect: CGRect) -> Path {
-        Path()
-    }
-}
-
 enum TimingFunction {
     case timingCurve(c0x: Double, c0y: Double, c1x: Double, c1y: Double)
     case linear
@@ -59,7 +26,7 @@ enum TimingFunction {
 }
 
 class KeyframeIterator: IteratorProtocol {
-    typealias Element = (Int, Animation?, Bool)
+    typealias Element = (Int, Animation?, UInt)
 
     private let beginTime: Double
     private let duration: Double
@@ -67,23 +34,30 @@ class KeyframeIterator: IteratorProtocol {
     private let keyTimes: [Double]
     private let closedLoop: Bool
     private let durations: [Double]
+    private let referenceTime: DispatchTime
     private let animations: [Animation?]
     private var keyframe: Int = 0
     private var isRepeating = false
+    private var repeatCount: UInt = 0
 
-    var keyframeTracker: Animation? {
-        let isFirst = keyframe == 1
-        let delay = isFirst && !isRepeating ? beginTime : 0
-        let duration =  durations[keyframe]
+    var currentDeadline: DispatchTime {
+        var deadline = referenceTime
+            .advanced(by: .milliseconds(Int(beginTime * Double(MSEC_PER_SEC))))
+            .advanced(by: .milliseconds(Int(duration * Double(MSEC_PER_SEC)) * Int(repeatCount)))
 
-        return delay == 0 ? Animation.linear(duration: duration) : Animation.linear(duration: duration).delay(delay)
+        for i in 0...keyframe {
+            deadline = deadline.advanced(by: .milliseconds(Int(durations[i] * Double(MSEC_PER_SEC))))
+        }
+
+        return deadline
     }
 
     init(beginTime: Double,
          duration: Double,
          timingFunctions: [TimingFunction],
          keyTimes: [Double],
-         closedLoop: Bool
+         closedLoop: Bool,
+         referenceTime: DispatchTime
     ) {
         print("init KeyframeIterator")
 
@@ -92,6 +66,7 @@ class KeyframeIterator: IteratorProtocol {
         self.timingFunctions = timingFunctions
         self.keyTimes = keyTimes
         self.closedLoop = closedLoop
+        self.referenceTime = referenceTime
 
         assert(keyTimes.count - timingFunctions.count == 1)
 
@@ -113,14 +88,14 @@ class KeyframeIterator: IteratorProtocol {
         let delay = isFirst && !isRepeating ? beginTime : 0
         let nextKeyframe = isLast ? (closedLoop ? 1 : 0) : keyframe + 1
         let animation = delay == 0 ? animations[nextKeyframe] : animations[nextKeyframe]?.delay(delay)
-        let element: Element = (nextKeyframe, animation, isLast)
 
         if isLast {
             isRepeating = true
+            repeatCount += 1
         }
         keyframe = nextKeyframe
 
-        return element
+        return (nextKeyframe, animation, repeatCount)
     }
 }
 
@@ -129,6 +104,7 @@ struct KeyframeAnimationController<T: View>: View {
 
     @State private var keyframe: Int = 0
     @State private var animation: Animation?
+    private let referenceTime: DispatchTime
     private let beginTime: Double
     private let duration: Double
     private let timingFunctions: [TimingFunction]
@@ -137,15 +113,11 @@ struct KeyframeAnimationController<T: View>: View {
     private let content: Content
 
     var body: some View {
-        ZStack {
-            KeyframeAnimation(keyframe: keyframe, onComplete: handleComplete)
-                .animation(keyframeIterator.keyframeTracker, value: keyframe)
-            content(keyframe)
-                .animation(animation, value: keyframe)
-        }
-        .onAppear {
-            self.nextKeyframe()
-        }
+        content(keyframe)
+            .animation(animation, value: keyframe)
+            .onAppear {
+                self.nextKeyframe()
+            }
     }
 
     init(beginTime: Double,
@@ -153,6 +125,7 @@ struct KeyframeAnimationController<T: View>: View {
          timingFunctions: [TimingFunction],
          keyTimes: [Double],
          closedLoop: Bool = true,
+         referenceTime: DispatchTime = DispatchTime.now(),
          content: @escaping Content) {
         print("init KeyframeAnimationController")
         self.beginTime = beginTime
@@ -160,27 +133,35 @@ struct KeyframeAnimationController<T: View>: View {
         self.timingFunctions = timingFunctions
         self.keyTimes = keyTimes
         self.content = content
+        self.referenceTime = referenceTime
         keyframeIterator = KeyframeIterator(beginTime: beginTime,
                                             duration: duration,
                                             timingFunctions: timingFunctions,
                                             keyTimes: keyTimes,
-                                            closedLoop: closedLoop)
+                                            closedLoop: closedLoop,
+                                            referenceTime: referenceTime)
 
-    }
-
-    private func handleComplete(_ keyframe: Int) {
-        nextKeyframe()
     }
 
     private func nextKeyframe() {
-        guard let data = self.keyframeIterator.next() else {
-            return
+        let workItem = DispatchWorkItem {
+            let currentDeadline = keyframeIterator.currentDeadline
+
+            guard let data = self.keyframeIterator.next() else {
+                return
+            }
+
+            let (keyframe, animation, _) = data
+
+            print("[\(Date().timeIntervalSinceReferenceDate)] - late \(currentDeadline.distance(to: .now())) next keyframe: \(keyframe)")
+            self.animation = animation
+            self.keyframe = keyframe
+//            DispatchQueue.main.async {
+                self.nextKeyframe()
+//            }
         }
-
-        let (keyframe, animation, _) = data
-
-        print("[\(Date().timeIntervalSinceReferenceDate)] next keyframe: \(keyframe)")
-        self.animation = animation
-        self.keyframe = keyframe
+        print("[\(Date().timeIntervalSinceReferenceDate)] dispatch \(keyframeIterator.currentDeadline), diff \(referenceTime.distance(to: keyframeIterator.currentDeadline))")
+        DispatchQueue.main.asyncAfter(deadline: keyframeIterator.currentDeadline,
+                                      execute: workItem)
     }
 }
