@@ -39,7 +39,8 @@ public struct BallScaleRipple: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: self.duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: self.keyTimes) {
+                                           keyTimes: self.keyTimes,
+                                           closedLoop: false) {
                                             Ring()
                                                 .scaleEffect(self.scaleValues[$0])
                                                 .opacity(self.opacityValues[$0])

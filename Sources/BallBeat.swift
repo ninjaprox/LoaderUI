@@ -9,6 +9,7 @@
 import SwiftUI
 
 public struct BallBeat: View {
+    private let referenceTime = DispatchTime.now()
     private let beginTimes = [0.35, 0, 0.35]
     private let duration = 0.7
     private let timingFunction = TimingFunction.linear
@@ -19,7 +20,7 @@ public struct BallBeat: View {
     public var body: some View {
         GeometryReader(content: self.render)
     }
-
+    
     public init() { }
     
     func render(geometry: GeometryProxy) -> some View {
@@ -32,10 +33,11 @@ public struct BallBeat: View {
                 KeyframeAnimationController(beginTime: self.beginTimes[$0],
                                             duration: self.duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes) {
-                                                Circle()
-                                                    .scaleEffect(self.scaleValues[$0])
-                                                    .opacity(self.opacityValues[$0])
+                                            keyTimes: self.keyTimes,
+                                            referenceTime: referenceTime) {
+                    Circle()
+                        .scaleEffect(self.scaleValues[$0])
+                        .opacity(self.opacityValues[$0])
                 }
             }
         }

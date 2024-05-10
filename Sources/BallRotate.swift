@@ -46,7 +46,8 @@ public struct BallRotate: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: keyTimes) {
+                                           keyTimes: keyTimes,
+                                           closedLoop: false) {
             MyCircles()
                 .scaleEffect(self.scaleValues[$0])
                 .rotationEffect(Angle(radians: self.rotationValues[$0]))

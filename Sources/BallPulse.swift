@@ -9,6 +9,7 @@
 import SwiftUI
 
 public struct BallPulse: View {
+    private let referenceTime = DispatchTime.now()
     private let beginTimes = [0.12, 0.24, 0.36]
     private let duration = 0.75
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.2, c0y: 0.68, c1x: 0.18, c1y: 1.08)
@@ -31,8 +32,9 @@ public struct BallPulse: View {
                 KeyframeAnimationController(beginTime: self.beginTimes[$0],
                                             duration: self.duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes) {
-                                                Circle().scaleEffect(self.values[$0])
+                                            keyTimes: self.keyTimes,
+                                            referenceTime: referenceTime) {
+                    Circle().scaleEffect(self.values[$0])
                 }
             }
         }

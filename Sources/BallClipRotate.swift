@@ -45,7 +45,8 @@ public struct BallClipRotate: View {
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
-                                           keyTimes: keyTimes) {
+                                           keyTimes: keyTimes,
+                                           closedLoop: false) {
                                             BallClip()
                                                 .scaleEffect(self.scaleValues[$0])
                                                 .rotationEffect(Angle(radians: self.rotationValues[$0]))
