@@ -15,6 +15,7 @@
 		1F7985362479269C00090B07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7985342479269C00090B07 /* LaunchScreen.storyboard */; };
 		1F7CDE37247C0D3A0091945F /* LoaderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "LoaderUI::LoaderUI::Product" /* LoaderUI.framework */; };
 		1F7CDE38247C0D3A0091945F /* LoaderUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = "LoaderUI::LoaderUI::Product" /* LoaderUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F8A449D2BEF50C000A3FB9D /* CircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A449C2BEF50BF00A3FB9D /* CircleStrokeSpin.swift */; };
 		OBJ_42 /* BallBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* BallBeat.swift */; };
 		OBJ_43 /* BallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* BallClipRotate.swift */; };
 		OBJ_44 /* BallClipRotateMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* BallClipRotateMultiple.swift */; };
@@ -76,6 +77,7 @@
 		1F7985352479269C00090B07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F7985372479269C00090B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F7985412479279900090B07 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
+		1F8A449C2BEF50BF00A3FB9D /* CircleStrokeSpin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleStrokeSpin.swift; sourceTree = "<group>"; };
 		"LoaderUI::LoaderUI::Product" /* LoaderUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LoaderUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* BallClipRotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallClipRotate.swift; sourceTree = "<group>"; };
 		OBJ_11 /* BallClipRotateMultiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallClipRotateMultiple.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				OBJ_21 /* BallTrianglePath.swift */,
 				OBJ_22 /* BallZigZag.swift */,
 				OBJ_23 /* BallZigZagDeflect.swift */,
+				1F8A449C2BEF50BF00A3FB9D /* CircleStrokeSpin.swift */,
 				OBJ_24 /* CubeTransition.swift */,
 				OBJ_25 /* KeyframeAnimation.swift */,
 				OBJ_26 /* LineScale.swift */,
@@ -320,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				1F8A449D2BEF50C000A3FB9D /* CircleStrokeSpin.swift in Sources */,
 				OBJ_42 /* BallBeat.swift in Sources */,
 				OBJ_43 /* BallClipRotate.swift in Sources */,
 				OBJ_44 /* BallClipRotateMultiple.swift in Sources */,

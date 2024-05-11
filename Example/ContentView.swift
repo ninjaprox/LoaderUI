@@ -42,10 +42,10 @@ struct ContentView: View {
                 BallScaleRippleMultiple()
             }
             HStack(spacing: 20) {
-                BallScaleRippleMultiple()
                 TriangleSkewSpin()
                 BallGridBeat()
                 SemiCircleSpin()
+                CircleStrokeSpin()
             }
         }
         .padding(20)
