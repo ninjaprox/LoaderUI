@@ -40,9 +40,8 @@ public struct BallPulseSync: View {
                                             referenceTime: referenceTime) {
                     return Circle().offset(x: 0, y: values[$0])
                 }
-            }
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+            }.frame(width: objectDimension, height: objectDimension)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

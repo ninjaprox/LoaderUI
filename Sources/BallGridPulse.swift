@@ -44,8 +44,7 @@ public struct BallGridPulse: View {
                     }
                 }
             }
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

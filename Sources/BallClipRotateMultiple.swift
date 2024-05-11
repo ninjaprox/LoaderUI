@@ -27,25 +27,23 @@ struct HorizontalRing: Shape {
                     endAngle: Angle(radians: 5 * .pi / 4),
                     clockwise: false)
 
-        return path.offsetBy(dx: radius, dy: radius)
+        return path.offsetBy(dx: rect.size.width / 2, dy: rect.size.height / 2)
             .strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
     }
 }
 
 public struct BallClipRotateMultiple: View {
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
 
     func render(geometry: GeometryProxy) -> some View {
-        let dimension = min(geometry.size.width, geometry.size.height)
-
-        return ZStack {
+        ZStack {
             renderMyBigRing()
             renderMySmallRing()
-        }.frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 
     func renderMyBigRing() -> some View {

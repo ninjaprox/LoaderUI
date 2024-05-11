@@ -50,8 +50,7 @@ public struct CubeTransition: View {
                                                         .offset(x: translationValues[index][$0].x, y: translationValues[index][$0].y)
                     }
                 }
-            }
-            .frame(width: dimension, height: dimension, alignment: .center)
+            }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

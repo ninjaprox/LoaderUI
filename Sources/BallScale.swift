@@ -22,7 +22,6 @@ public struct BallScale: View {
     public init() { }
 
     func render(geometry: GeometryProxy) -> some View {
-        let dimension = min(geometry.size.width, geometry.size.height)
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
         return KeyframeAnimationController(beginTime: 0,
@@ -33,7 +32,7 @@ public struct BallScale: View {
             Circle()
                 .scaleEffect(self.scaleValues[$0])
                 .opacity(self.opacityValues[$0])
-        }.frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

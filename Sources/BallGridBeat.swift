@@ -15,35 +15,34 @@ public struct BallGridBeat: View {
     private let timingFunction = TimingFunction.timingCurve(c0x: 0.25, c0y: 0.1, c1x: 0.25, c1y: 1)
     private let keyTimes = [0, 0.5, 1]
     private let values = [1, 0.7, 1]
-    
+
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
-    
+
     public init() { }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let spacing = dimension / 32
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        
+
         return VStack(spacing: spacing) {
             ForEach(0..<3, id: \.self) { row in
                 HStack(spacing: spacing) {
                     ForEach(0..<3, id: \.self) { col in
-                        KeyframeAnimationController(beginTime: self.beginTimes[3 * row + col],
-                                                    duration: self.durations[3 * row + col],
+                        KeyframeAnimationController(beginTime: beginTimes[3 * row + col],
+                                                    duration: durations[3 * row + col],
                                                     timingFunctions: timingFunctions,
-                                                    keyTimes: self.keyTimes,
+                                                    keyTimes: keyTimes,
                                                     referenceTime: referenceTime) {
                             Circle()
-                                .opacity(self.values[$0])
+                                .opacity(values[$0])
                         }
                     }
                 }
             }
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

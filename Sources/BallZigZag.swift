@@ -14,13 +14,13 @@ public struct BallZigZag: View {
     private let keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: -1, y: -1), .init(x: 1, y: -1), .zero],
                                                   [.zero, .init(x: 1, y: 1), .init(x: -1, y: 1), .zero]]
-    
+
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let objectDimension: CGFloat = dimension / 3
@@ -30,21 +30,19 @@ public struct BallZigZag: View {
                 UnitPoint(x: $0.x * (dimension - objectDimension) / 2, y: $0.y * (dimension - objectDimension) / 2)
             }
         }
-        
-        return
-            ZStack {
-                ForEach(0..<2, id: \.self) { index in
-                    KeyframeAnimationController(beginTime: 0,
-                                                duration: self.duration,
-                                                timingFunctions: timingFunctions,
-                                                keyTimes: self.keyTimes) {
-                                                    Circle()
-                                                        .frame(width: objectDimension, height: objectDimension)
-                                                        .offset(x: values[index][$0].x, y: values[index][$0].y)
-                    }
+
+        return ZStack {
+            ForEach(0..<2, id: \.self) { index in
+                KeyframeAnimationController(beginTime: 0,
+                                            duration: duration,
+                                            timingFunctions: timingFunctions,
+                                            keyTimes: keyTimes) {
+                    Circle()
+                        .frame(width: objectDimension, height: objectDimension)
+                        .offset(x: values[index][$0].x, y: values[index][$0].y)
                 }
             }
-            .frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

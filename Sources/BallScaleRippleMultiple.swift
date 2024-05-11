@@ -18,7 +18,7 @@ public struct BallScaleRippleMultiple: View {
     private let opacityValues = [1, 0.7, 0]
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
@@ -27,23 +27,20 @@ public struct BallScaleRippleMultiple: View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
 
-        return
-        ZStack {
+        return ZStack {
             ForEach(0..<3, id: \.self) { index in
-                KeyframeAnimationController(beginTime: self.beginTimes[index],
-                                            duration: self.duration,
+                KeyframeAnimationController(beginTime: beginTimes[index],
+                                            duration: duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes,
+                                            keyTimes: keyTimes,
                                             closedLoop: false,
                                             referenceTime: referenceTime) {
                     Ring()
-                        .scaleEffect(self.scaleValues[$0])
-                        .opacity(self.opacityValues[$0])
+                        .scaleEffect(scaleValues[$0])
+                        .opacity(opacityValues[$0])
                 }
-            }
-
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+            }.frame(width: dimension, height: dimension)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

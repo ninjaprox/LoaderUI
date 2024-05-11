@@ -37,8 +37,7 @@ public struct BallPulse: View {
                     Circle().scaleEffect(self.values[$0])
                 }
             }
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

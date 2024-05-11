@@ -9,11 +9,12 @@
 import SwiftUI
 
 fileprivate struct SmallRing: Shape {
+    
     func path(in rect: CGRect) -> Path {
         let dimension = min(rect.size.width, rect.size.height)
         let lineWidth = dimension / 32 * 3
         let path = Path(ellipseIn: rect)
-        
+
         return path.strokedPath(StrokeStyle(lineWidth: lineWidth))
     }
 }
@@ -25,13 +26,13 @@ public struct BallTrianglePath: View {
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: 0.5, y: 1), .init(x: -0.5, y: 1), .zero],
                                                   [.zero, .init(x: -1, y: 0), .init(x: -0.5, y: -1), .zero],
                                                   [.zero, .init(x: 0.5, y: -1), .init(x: 1, y: 0), .zero]]
-    
+
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let objectDimension = dimension / 3
@@ -44,22 +45,20 @@ public struct BallTrianglePath: View {
                 UnitPoint(x: $0.x * (dimension - objectDimension), y: $0.y * (dimension - objectDimension))
             }
         }
-        
-        return
-            ZStack {
-                ForEach(0..<3, id: \.self) { index in
-                    KeyframeAnimationController(beginTime: 0,
-                                                duration: self.duration,
-                                                timingFunctions: timingFunctions,
-                                                keyTimes: self.keyTimes) {
-                                                    SmallRing()
-                                                        .frame(width: objectDimension, height: objectDimension)
-                                                        .position(x: positions[index].x, y: positions[index].y)
-                                                        .offset(x: values[index][$0].x, y: values[index][$0].y)
-                    }
+
+        return ZStack {
+            ForEach(0..<3, id: \.self) { index in
+                KeyframeAnimationController(beginTime: 0,
+                                            duration: duration,
+                                            timingFunctions: timingFunctions,
+                                            keyTimes: keyTimes) {
+                    SmallRing()
+                        .frame(width: objectDimension, height: objectDimension)
+                        .position(x: positions[index].x, y: positions[index].y)
+                        .offset(x: values[index][$0].x, y: values[index][$0].y)
                 }
             }
-            .frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

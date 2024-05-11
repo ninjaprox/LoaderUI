@@ -47,9 +47,9 @@ public struct SquareSpin: View {
                                            duration: duration,
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes) {
-                                            Rectangle().modifier(FlipEffect(values: self.values, keyframe: $0))
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+            Rectangle().modifier(FlipEffect(values: self.values, keyframe: $0))
+                .frame(width: dimension, height: dimension)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

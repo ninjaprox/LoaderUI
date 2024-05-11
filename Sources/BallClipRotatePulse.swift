@@ -14,7 +14,7 @@ struct VerticalRing: Shape {
         let radius = dimension / 2
         let lineWidth = dimension / 32
         var path = Path()
-        
+
         path.addArc(center: .zero,
                     radius: radius,
                     startAngle: Angle(radians: .pi / 4),
@@ -26,8 +26,8 @@ struct VerticalRing: Shape {
                     startAngle: Angle(radians: 5 * .pi / 4),
                     endAngle: Angle(radians: 7 * .pi / 4),
                     clockwise: false)
-        
-        return path.offsetBy(dx: radius, dy: radius)
+
+        return path.offsetBy(dx: rect.size.width / 2, dy: rect.size.height / 2)
             .strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
     }
 }
@@ -36,18 +36,16 @@ public struct BallClipRotatePulse: View {
     public var body: some View {
         GeometryReader(content: self.render)
     }
-    
+
     public init() { }
-    
+
     func render(geometry: GeometryProxy) -> some View {
-        let dimension = min(geometry.size.width, geometry.size.height)
-        
-        return ZStack {
+        ZStack {
             renderMyRing()
             renderBall()
-        }.frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
-    
+
     func renderMyRing() -> some View {
         let duration = 1.0
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
@@ -55,7 +53,7 @@ public struct BallClipRotatePulse: View {
         let scaleValues: [CGFloat] = [1, 0.6, 1]
         let rotationValues = [0.0, .pi, 2 * .pi]
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        
+
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
@@ -66,14 +64,14 @@ public struct BallClipRotatePulse: View {
                 .rotationEffect(Angle(radians: rotationValues[$0]))
         }
     }
-    
+
     func renderBall() -> some View {
         let duration = 1.0
         let timingFunction = TimingFunction.timingCurve(c0x: 0.09, c0y: 0.57, c1x: 0.49, c1y: 0.9)
         let keyTimes = [0, 0.3, 1]
         let values: [CGFloat] = [1, 0.3, 1]
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        
+
         return KeyframeAnimationController(beginTime: 0,
                                            duration: duration,
                                            timingFunctions: timingFunctions,
