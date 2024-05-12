@@ -44,10 +44,10 @@ public struct SemiCircleSpin: View {
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes,
                                            closedLoop: false) {
-                                            SemiCircle()
-                                                .rotation(Angle(radians: self.value[$0]))
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+            SemiCircle()
+                .rotation(Angle(radians: value[$0]))
+                .frame(width: dimension, height: dimension)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

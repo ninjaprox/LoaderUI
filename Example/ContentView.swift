@@ -10,7 +10,7 @@ import LoaderUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             HStack(spacing: 20) {
                 BallPulse()
                 BallGridPulse()
@@ -47,8 +47,7 @@ struct ContentView: View {
                 SemiCircleSpin()
                 CircleStrokeSpin()
             }
-        }
-        .padding(20)
+        }.padding(20)
     }
 }
 

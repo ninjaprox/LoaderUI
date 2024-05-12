@@ -16,32 +16,31 @@ public struct BallBeat: View {
     private let keyTimes = [0, 0.5, 1]
     private let scaleValues: [CGFloat] = [1, 0.75, 1]
     private let opacityValues = [1, 0.2, 1]
-    
+
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
-    
+
     public init() { }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let spacing = dimension / 32
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        
+
         return HStack(spacing: spacing) {
             ForEach(0..<3, id: \.self) {
-                KeyframeAnimationController(beginTime: self.beginTimes[$0],
-                                            duration: self.duration,
+                KeyframeAnimationController(beginTime: beginTimes[$0],
+                                            duration: duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes,
+                                            keyTimes: keyTimes,
                                             referenceTime: referenceTime) {
                     Circle()
-                        .scaleEffect(self.scaleValues[$0])
-                        .opacity(self.opacityValues[$0])
+                        .scaleEffect(scaleValues[$0])
+                        .opacity(opacityValues[$0])
                 }
             }
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

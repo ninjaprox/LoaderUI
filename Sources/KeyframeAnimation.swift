@@ -105,7 +105,7 @@ struct KeyframeAnimationController<T: View>: View {
         content(keyframe)
             .animation(animation, value: keyframe)
             .onAppear {
-                self.nextKeyframe()
+                nextKeyframe()
             }
     }
 
@@ -128,13 +128,13 @@ struct KeyframeAnimationController<T: View>: View {
 
     private func nextKeyframe() {
         let nextKeyframeWorkItem = DispatchWorkItem {
-            guard let (keyframe, animation) = self.keyframeIterator.next() else {
+            guard let (keyframe, animation) = keyframeIterator.next() else {
                 return
             }
 
             self.animation = animation
             self.keyframe = keyframe
-            self.nextKeyframe()
+            nextKeyframe()
         }
 
         DispatchQueue.main.asyncAfter(deadline: keyframeIterator.nextKeyframeDeadline,

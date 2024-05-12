@@ -14,7 +14,7 @@ fileprivate struct FlipEffect: AnimatableModifier {
     var value:  Value
 
     init(values: [Value], keyframe: Int) {
-        self.value = values[keyframe]
+        value = values[keyframe]
     }
 
     var animatableData: Value {
@@ -34,7 +34,7 @@ public struct SquareSpin: View {
     private let values = [(0.0, 0.0, 0.0, 0.0), (Double.pi, 1.0, 0.0, 0.0), (Double.pi, 0.0, 0.0, 1.0), (Double.pi, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 0.0)] // The last one should rotate to left on y axis
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
@@ -47,9 +47,9 @@ public struct SquareSpin: View {
                                            duration: duration,
                                            timingFunctions: timingFunctions,
                                            keyTimes: keyTimes) {
-                                            Rectangle().modifier(FlipEffect(values: self.values, keyframe: $0))
-        }
-        .frame(width: dimension, height: dimension, alignment: .center)
+            Rectangle().modifier(FlipEffect(values: values, keyframe: $0))
+                .frame(width: dimension, height: dimension)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

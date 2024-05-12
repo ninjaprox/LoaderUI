@@ -44,18 +44,19 @@ public struct CircleStrokeSpin: View {
     public init() { }
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     func render(geometry: GeometryProxy) -> some View {
-        CircleStroke(data: value)
+        return CircleStroke(data: value)
             .animation(timingFunction.animation(duration: 1.2), value: value.second.first)
             .animation(timingFunction.animation(duration: 0.7), value: value.second.second)
             .rotationEffect(Angle(radians: value.first))
             .animation(.linear(duration: 1.7), value: value.first)
             .onAppear(perform: {
                 start()
-            }).frame(width: geometry.size.width, height: geometry.size.height)
+            })
+            .frame(width: geometry.size.width, height: geometry.size.height)
     }
 
     private func start() {
