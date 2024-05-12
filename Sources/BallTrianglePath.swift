@@ -9,7 +9,7 @@
 import SwiftUI
 
 fileprivate struct SmallRing: Shape {
-    
+
     func path(in rect: CGRect) -> Path {
         let dimension = min(rect.size.width, rect.size.height)
         let lineWidth = dimension / 32 * 3
@@ -37,14 +37,16 @@ public struct BallTrianglePath: View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let objectDimension = dimension / 3
         let timingFunctions = Array(repeating: timingFunction, count: keyTimes.count - 1)
-        let positions = [CGPoint(x: dimension / 2, y: objectDimension / 2),
-                         CGPoint(x: dimension - objectDimension / 2, y: dimension - objectDimension / 2),
-                         CGPoint(x: objectDimension / 2, y: dimension - objectDimension / 2)]
+        let positions = [CGPoint(x: dimension / 2, y: objectDimension / 2), // top
+                         CGPoint(x: dimension - objectDimension / 2, y: dimension - objectDimension / 2), // right
+                         CGPoint(x: objectDimension / 2, y: dimension - objectDimension / 2)] // left
         let values = directionValues.map {
             $0.map {
                 UnitPoint(x: $0.x * (dimension - objectDimension), y: $0.y * (dimension - objectDimension))
             }
         }
+
+
 
         return ZStack {
             ForEach(0..<3, id: \.self) { index in
@@ -57,7 +59,7 @@ public struct BallTrianglePath: View {
                         .position(x: positions[index].x, y: positions[index].y)
                         .offset(x: values[index][$0].x, y: values[index][$0].y)
                 }
-            }
+            }.frame(width: dimension, height: dimension)
         }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }

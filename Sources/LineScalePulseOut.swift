@@ -35,7 +35,7 @@ public struct LineScalePulseOut: View {
                                             keyTimes: keyTimes,
                                             referenceTime: referenceTime) {
                     RoundedRectangle(cornerRadius: spacing / 2)
-                        .scaleEffect(x: 1, y: self.values[$0])
+                        .scaleEffect(x: 1, y: values[$0])
                 }
             }.frame(height: dimension)
         }.frame(width: geometry.size.width, height: geometry.size.height)

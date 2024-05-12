@@ -16,13 +16,13 @@ public struct CubeTransition: View {
     private let rotationValues = [0.0, -.pi / 2, -.pi, -1.5 * .pi, -2 * .pi]
     private let translationDirectionValues: [[UnitPoint]] = [[.zero, .init(x: 1, y: 0), .init(x: 1, y: 1), .init(x: 0, y: 1), .zero],
                                                              [.zero, .init(x: -1, y: 0), .init(x: -1, y: -1), .init(x: 0, y: -1), .zero]]
-    
+
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
-    
+
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
         let objectDimension = dimension / 3
@@ -34,23 +34,22 @@ public struct CubeTransition: View {
                 UnitPoint(x: $0.x * (dimension - objectDimension), y: $0.y * (dimension - objectDimension))
             }
         }
-        
-        return
-            ZStack {
-                ForEach(0..<2, id: \.self) { index in
-                    KeyframeAnimationController(beginTime: 0,
-                                                duration: self.duration,
-                                                timingFunctions: timingFunctions,
-                                                keyTimes: self.keyTimes) {
-                                                    Rectangle()
-                                                        .scaleEffect(self.scaleValues[$0])
-                                                        .rotationEffect(Angle(radians: self.rotationValues[$0]))
-                                                        .frame(width: objectDimension, height: objectDimension)
-                                                        .position(positions[index])
-                                                        .offset(x: translationValues[index][$0].x, y: translationValues[index][$0].y)
-                    }
+
+        return ZStack {
+            ForEach(0..<2, id: \.self) { index in
+                KeyframeAnimationController(beginTime: 0,
+                                            duration: duration,
+                                            timingFunctions: timingFunctions,
+                                            keyTimes: keyTimes) {
+                    Rectangle()
+                        .scaleEffect(scaleValues[$0])
+                        .rotationEffect(Angle(radians: rotationValues[$0]))
+                        .frame(width: objectDimension, height: objectDimension)
+                        .position(positions[index])
+                        .offset(x: translationValues[index][$0].x, y: translationValues[index][$0].y)
                 }
-            }.frame(width: geometry.size.width, height: geometry.size.height)
+            }.frame(width: dimension, height: dimension)
+        }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 

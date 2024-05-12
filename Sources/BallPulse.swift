@@ -17,7 +17,7 @@ public struct BallPulse: View {
     private let values: [CGFloat] = [1, 0.3, 1]
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
@@ -29,12 +29,12 @@ public struct BallPulse: View {
 
         return HStack(spacing: spacing) {
             ForEach(0..<3, id: \.self) {
-                KeyframeAnimationController(beginTime: self.beginTimes[$0],
-                                            duration: self.duration,
+                KeyframeAnimationController(beginTime: beginTimes[$0],
+                                            duration: duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes,
+                                            keyTimes: keyTimes,
                                             referenceTime: referenceTime) {
-                    Circle().scaleEffect(self.values[$0])
+                    Circle().scaleEffect(values[$0])
                 }
             }
         }.frame(width: geometry.size.width, height: geometry.size.height)

@@ -17,7 +17,7 @@ public struct LineScaleParty: View {
     private let values: [CGFloat] = [1, 0.5, 1]
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
@@ -29,13 +29,12 @@ public struct LineScaleParty: View {
 
         return HStack(spacing: spacing) {
             ForEach(0..<4, id: \.self) { index in
-                KeyframeAnimationController(beginTime: self.beginTimes[index],
-                                            duration: self.durations[index],
+                KeyframeAnimationController(beginTime: beginTimes[index],
+                                            duration: durations[index],
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes,
+                                            keyTimes: keyTimes,
                                             referenceTime: referenceTime) {
-                    RoundedRectangle(cornerRadius: spacing / 2)
-                        .scaleEffect(self.values[$0])
+                    RoundedRectangle(cornerRadius: spacing / 2).scaleEffect(values[$0])
                 }
             }.frame(height: dimension)
         }.frame(width: geometry.size.width, height: geometry.size.height)

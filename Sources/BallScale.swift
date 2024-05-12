@@ -16,7 +16,7 @@ public struct BallScale: View {
     private let opacityValues = [1.0, 0.0]
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
@@ -30,8 +30,8 @@ public struct BallScale: View {
                                            keyTimes: keyTimes,
                                            closedLoop: false) {
             Circle()
-                .scaleEffect(self.scaleValues[$0])
-                .opacity(self.opacityValues[$0])
+                .scaleEffect(scaleValues[$0])
+                .opacity(opacityValues[$0])
         }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }

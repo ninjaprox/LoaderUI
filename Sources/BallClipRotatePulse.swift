@@ -34,7 +34,7 @@ struct VerticalRing: Shape {
 
 public struct BallClipRotatePulse: View {
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }

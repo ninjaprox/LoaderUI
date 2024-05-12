@@ -18,9 +18,9 @@ fileprivate struct BallClip: Shape {
 
         path.addArc(center: CGPoint(x: rect.size.width / 2, y: rect.size.height / 2),
                     radius: radius,
-                    startAngle: Angle(radians: 5 * .pi / 4),
-                    endAngle: Angle(radians: 7 * .pi / 4),
-                    clockwise: true)
+                    startAngle: Angle(radians: -.pi / 4),
+                    endAngle: Angle(radians: 5 * .pi / 4),
+                    clockwise: false)
 
         return path.strokedPath(StrokeStyle(lineWidth: lineWidth, lineCap: .round))
     }
@@ -34,7 +34,7 @@ public struct BallClipRotate: View {
     private let rotationValues = [0.0, .pi, 2 * .pi]
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
@@ -48,8 +48,8 @@ public struct BallClipRotate: View {
                                            keyTimes: keyTimes,
                                            closedLoop: false) {
             BallClip()
-                .scaleEffect(self.scaleValues[$0])
-                .rotationEffect(Angle(radians: self.rotationValues[$0]))
+                .scaleEffect(scaleValues[$0])
+                .rotationEffect(Angle(radians: rotationValues[$0]))
         }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }

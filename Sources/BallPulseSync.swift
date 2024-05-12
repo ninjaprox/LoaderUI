@@ -17,7 +17,7 @@ public struct BallPulseSync: View {
     private let directionValues: [CGFloat] = [0, 1, -1, 0]
 
     public var body: some View {
-        GeometryReader(content: self.render)
+        GeometryReader(content: render)
     }
 
     public init() { }
@@ -33,14 +33,16 @@ public struct BallPulseSync: View {
 
         return HStack(spacing: spacing) {
             ForEach(0..<3, id: \.self) {
-                KeyframeAnimationController(beginTime: self.beginTimes[$0],
-                                            duration: self.duration,
+                KeyframeAnimationController(beginTime: beginTimes[$0],
+                                            duration: duration,
                                             timingFunctions: timingFunctions,
-                                            keyTimes: self.keyTimes,
+                                            keyTimes: keyTimes,
                                             referenceTime: referenceTime) {
-                    return Circle().offset(x: 0, y: values[$0])
+                    Circle()
+                        .frame(width: objectDimension, height: objectDimension)
+                        .offset(x: 0, y: values[$0])
                 }
-            }.frame(width: objectDimension, height: objectDimension)
+            }
         }.frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
