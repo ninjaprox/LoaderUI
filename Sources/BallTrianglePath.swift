@@ -8,7 +8,21 @@
 
 import SwiftUI
 
-fileprivate struct SmallRing: Shape {
+public enum BallType {
+    case filled, outlined
+    
+    @ViewBuilder
+    var view: some View {
+        switch self {
+        case .filled:
+            Circle()
+        case .outlined:
+            SmallRing()
+        }
+    }
+}
+
+internal struct SmallRing: Shape {
 
     func path(in rect: CGRect) -> Path {
         let dimension = min(rect.size.width, rect.size.height)
@@ -26,12 +40,17 @@ public struct BallTrianglePath: View {
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: 0.5, y: 1), .init(x: -0.5, y: 1), .zero],
                                                   [.zero, .init(x: -1, y: 0), .init(x: -0.5, y: -1), .zero],
                                                   [.zero, .init(x: 0.5, y: -1), .init(x: 1, y: 0), .zero]]
+    private let color: Color
+    private let type: BallType
 
     public var body: some View {
         GeometryReader(content: render)
     }
 
-    public init() { }
+    public init(color: Color = .black, type: BallType = .outlined) {
+        self.color = color
+        self.type = type
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -54,7 +73,8 @@ public struct BallTrianglePath: View {
                                             duration: duration,
                                             timingFunctions: timingFunctions,
                                             keyTimes: keyTimes) {
-                    SmallRing()
+                    type.view
+                        .foregroundColor(color)
                         .frame(width: objectDimension, height: objectDimension)
                         .position(x: positions[index].x, y: positions[index].y)
                         .offset(x: values[index][$0].x, y: values[index][$0].y)
