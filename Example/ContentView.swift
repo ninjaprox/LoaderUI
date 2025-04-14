@@ -24,15 +24,15 @@ struct ContentView: View {
                 CubeTransition()
             }
             HStack(spacing: 20) {
-                BallZigZag()
-                BallZigZagDeflect()
-                BallTrianglePath()
+                BallZigZag(color: .blue, type: .filled)
+                BallZigZagDeflect(color: .blue, type: .filled)
+                BallTrianglePath(color: .blue, type: .filled)
                 BallScale()
             }
             HStack(spacing: 20) {
                 LineScale()
                 LineScaleParty()
-                BallPulseSync()
+                BallPulseSync(color: .blue, type: .filled)
                 BallBeat()
             }
             HStack(spacing: 20) {

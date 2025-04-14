@@ -15,12 +15,17 @@ public struct BallPulseSync: View {
     private let timingFunction = TimingFunction.easeInOut
     private let keyTimes = [0, 0.33, 0.66, 1]
     private let directionValues: [CGFloat] = [0, 1, -1, 0]
-
+    private let color: Color
+    private let type: BallType
+    
     public var body: some View {
         GeometryReader(content: render)
     }
 
-    public init() { }
+    public init(color: Color = .black, type: BallType = .outlined) {
+        self.color = color
+        self.type = type
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -38,7 +43,8 @@ public struct BallPulseSync: View {
                                             timingFunctions: timingFunctions,
                                             keyTimes: keyTimes,
                                             referenceTime: referenceTime) {
-                    Circle()
+                    type.view
+                        .foregroundColor(color)
                         .frame(width: objectDimension, height: objectDimension)
                         .offset(x: 0, y: values[$0])
                 }

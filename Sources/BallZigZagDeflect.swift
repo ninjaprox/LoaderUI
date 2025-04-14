@@ -14,12 +14,17 @@ public struct BallZigZagDeflect: View {
     private let keyTimes = [0, 0.16, 0.33, 0.5, 0.66, 0.83, 1]
     private let directionValues: [[UnitPoint]] = [[.zero, .init(x: -1, y: -1), .init(x: 1, y: -1), .zero, .init(x: 1, y: -1), .init(x: -1, y: -1), .zero],
                                                   [.zero, .init(x: 1, y: 1), .init(x: -1, y: 1), .zero, .init(x: -1, y: 1), .init(x: 1, y: 1), .zero]]
-
+    private let color: Color
+    private let type: BallType
+    
     public var body: some View {
         GeometryReader(content: render)
     }
 
-    public init() { }
+    public init(color: Color = .black, type: BallType = .outlined) {
+        self.color = color
+        self.type = type
+    }
 
     func render(geometry: GeometryProxy) -> some View {
         let dimension = min(geometry.size.width, geometry.size.height)
@@ -37,7 +42,8 @@ public struct BallZigZagDeflect: View {
                                             duration: duration,
                                             timingFunctions: timingFunctions,
                                             keyTimes: keyTimes) {
-                    Circle()
+                    type.view
+                        .foregroundColor(color)
                         .frame(width: objectDimension, height: objectDimension)
                         .offset(x: values[index][$0].x, y: values[index][$0].y)
                 }
